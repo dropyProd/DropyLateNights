@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1083064458381",
+    "project_id": "dropy-e1002",
+    "storage_bucket": "dropy-e1002.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083064458381:android:2895d6bfcb1ce8d69656c4",
+        "android_client_info": {
+          "package_name": "com.example.dropy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1083064458381-3n6qi3juuog0sr1kjtdumuf7rv5tbssq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dropy",
+            "certificate_hash": "7e008409aff0de3de66f22daa56fab94a3ae8da7"
+          }
+        },
+        {
+          "client_id": "1083064458381-vtp0tkmcjgpfai7a95e1b1q2e3obr1tg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLezpJ9XceXID1nGVXw3HcOuQp4Jlk69I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1083064458381-vtp0tkmcjgpfai7a95e1b1q2e3obr1tg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
