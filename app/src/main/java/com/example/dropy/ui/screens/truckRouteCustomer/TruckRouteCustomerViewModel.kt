@@ -30,7 +30,7 @@ import javax.inject.Inject
 data class TruckRouteCustomerUiState(
     val myAddress: LatLng? = null,
     val path: MutableList<LatLng> = mutableListOf(),
-    val isCustomerRoute: Boolean = false,
+    val isCustomerRoute: Boolean? = false,
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
     val errorList: List<String> = emptyList(),
