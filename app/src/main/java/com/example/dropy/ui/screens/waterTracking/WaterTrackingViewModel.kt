@@ -41,9 +41,9 @@ class WaterTrackingViewModel @Inject constructor(
     var appViewModel: AppViewModel? = null
 
 
-    fun navigateScanQrWater(scanQRWaterViewModel: ScanQRWaterViewModel, text: String) {
+    fun navigateScanQrWater(scanQRWaterViewModel: ScanQRWaterViewModel, text: String, taskId: String) {
         scanQRWaterViewModel.changeState(true)
-        scanQRWaterViewModel.generateQr(text)
+        scanQRWaterViewModel.generateQr(text, taskId)
         appViewModel?.navigate(AppDestinations.SCAN_QR_WATER)
     }
 

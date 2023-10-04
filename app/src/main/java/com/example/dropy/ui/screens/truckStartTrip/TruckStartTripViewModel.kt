@@ -58,13 +58,15 @@ class TruckStartTripViewModel @Inject constructor(
                 getIndividualOrdersResItem.value = it
         }
         val text = mutableStateOf("")
+        val taskId = mutableStateOf("")
         getIndividualOrdersResItem.value?.tasks?.forEach {
             if (it.truck.id.equals(appViewModel!!.appUiState.value.activeProfile?.id)) {
                 text.value = it.four_digit_code.toString()
+                taskId.value = it.id.toString()
             }
         }
         scanQRWaterViewModel.changeState(true)
-        scanQRWaterViewModel.generateQr(text.value)
+        scanQRWaterViewModel.generateQr(text.value, taskId = taskId.value)
         appViewModel?.navigate(AppDestinations.SCAN_QR_WATER)
     }
 

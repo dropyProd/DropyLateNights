@@ -27,7 +27,8 @@ fun WaterTracking(
         content = {
             WaterTrackingContent(
                 appViewModel = waterTrackingViewModel.appViewModel,
-                navigate = { waterTrackingViewModel.navigateScanQrWater(scanQrWaterViewModel, it) },
+                navigate = { code, taskid ->
+                    waterTrackingViewModel.navigateScanQrWater(scanQrWaterViewModel, code, taskid) },
                 waterTrackingUiState = waterTrackingUiState,
                 waterMyOrderUiState = waterMyOrderUiState,
                 appUiState = appUiState.value

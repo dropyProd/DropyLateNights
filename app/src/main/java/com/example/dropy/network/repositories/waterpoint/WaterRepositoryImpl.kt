@@ -9,6 +9,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.example.dropy.network.models.CreateWaterPointRes
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersRes
+import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.models.addWaterDriver.AddWaterDriverReq
 import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.addWaterTruckRes.AddWaterTruckRes
@@ -58,9 +59,12 @@ class WaterRepositoryImpl(
         }
     }
 
-    override suspend fun updateTruckLocation(token: String,updateTruckLocationReq: UpdateTruckLocationReq): Flow<Resource<String?>> {
+    override suspend fun updateTruckLocation(
+        token: String,
+        updateTruckLocationReq: UpdateTruckLocationReq
+    ): Flow<Resource<String?>> {
         return flow {
-            waterService.updateTruckLocation(token,updateTruckLocationReq)
+            waterService.updateTruckLocation(token, updateTruckLocationReq)
         }
     }
 
@@ -76,6 +80,20 @@ class WaterRepositoryImpl(
     ): Flow<Resource<String?>> {
         return flow {
             waterService.generateDeliveryCode(token = token, taskId = taskId)
+        }
+    }
+
+    override suspend fun verifyDeliveryCode(
+        token: String,
+        taskId: String,
+        verifyDeliveryCodeReq: VerifyDeliveryCodeReq
+    ): Flow<Resource<String?>> {
+        return flow {
+            waterService.verifyDeliveryCode(
+                token = token,
+                taskId = taskId,
+                verifyDeliveryCodeReq = verifyDeliveryCodeReq
+            )
         }
     }
 

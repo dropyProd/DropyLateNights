@@ -41,7 +41,7 @@ fun TruckRouteWaterPoint(
             TruckRouteWaterPointContent(
                 scanQRClicked = {
                     scanQRWaterViewModel.changeState(false)
-                    scanQRWaterViewModel.generateQr(nearestWaterPointUiState.collectionPointOrderRes?.id.toString())
+                    scanQRWaterViewModel.generateQr(nearestWaterPointUiState.collectionPointOrderRes?.id.toString(), "gt")
                     truckRouteWaterPointViewModel.navigateTruckStartTrip(
                         truckStartTripViewModel,
                         nearestWaterPointUiState,

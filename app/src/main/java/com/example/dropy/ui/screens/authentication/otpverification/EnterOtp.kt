@@ -66,7 +66,7 @@ fun EnterOtp(
                         uiState = uiState,
                         onOtpValueChanged = { authenticationViewModel.onOtpValueChanged(it) },
                         onVerifyButtonClicked = {
-                            authenticationViewModel.checkIfCodeMatches(
+                            authenticationViewModel.verifyDeliveryCode(
                                 scanQRWaterUiState, scanQRWaterViewModel = scanQRWaterViewModel,
                                 truckStartTripViewModel = truckStartTripViewModel,
                                 nearestWaterPointUiState = nearestWaterPointUiState,

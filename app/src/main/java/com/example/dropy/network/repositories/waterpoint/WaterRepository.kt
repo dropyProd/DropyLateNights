@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.example.dropy.network.models.CreateWaterPointRes
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersRes
+import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.models.addWaterDriver.AddWaterDriverReq
 import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.addWaterTruckRes.AddWaterTruckRes
@@ -38,6 +39,11 @@ interface WaterRepository {
     suspend fun generateDeliveryCode(
         token: String,
         taskId: String
+    ): Flow<Resource<String?>>
+    suspend fun verifyDeliveryCode(
+        token: String,
+        taskId: String,
+        verifyDeliveryCodeReq: VerifyDeliveryCodeReq
     ): Flow<Resource<String?>>
 
     suspend fun registerDevice(

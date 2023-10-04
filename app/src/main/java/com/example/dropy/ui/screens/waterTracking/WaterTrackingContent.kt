@@ -38,7 +38,7 @@ import com.example.dropy.ui.screens.waterMyOrder.WaterMyOrderUiState
 @Composable
 fun WaterTrackingContent(
     appViewModel: AppViewModel? = null,
-    navigate: (String) -> Unit,
+    navigate: (code:String, taskId: String) -> Unit,
     waterTrackingUiState: WaterTrackingUiState,
     waterMyOrderUiState: WaterMyOrderUiState,
     appUiState: AppUiState
@@ -316,7 +316,7 @@ fun WaterTrackingContent(
 @Composable
 fun truckPerson(
     modifier: Modifier = Modifier,
-    navigate: (String) -> Unit,
+    navigate: (code:String, taskId: String) -> Unit,
     waterMyOrderUiState: WaterMyOrderUiState
 ) {
     Row(
@@ -331,7 +331,7 @@ fun truckPerson(
                         if (waterMyOrderUiState.selectedTruck != null) {
                             if (it.truck.id.equals( waterMyOrderUiState.selectedTruck.id)) {
                                 if (!it.id.equals("")){
-                                    navigate(it.id)
+                                    navigate(it.four_digit_code.toString(),it.id)
                                 }
                             }
                         }
@@ -342,7 +342,7 @@ fun truckPerson(
                         if (waterMyOrderUiState.selectedTruckO != null) {
                             if (it.truck.id.equals( waterMyOrderUiState.selectedTruckO.id)) {
                                 if (!it.id.equals("")){
-                                    navigate(it.id)
+                                    navigate(it.four_digit_code.toString(),it.id)
                                 }
                             }
                         }
@@ -412,7 +412,7 @@ fun truckPerson(
 @Composable
 fun demo() {
     WaterTrackingContent(
-        navigate = {},
+        navigate = {_,_ ->},
         waterTrackingUiState = WaterTrackingUiState(),
         waterMyOrderUiState = WaterMyOrderUiState(),
         appUiState = AppUiState()

@@ -1,6 +1,7 @@
 package com.example.dropy.network.services.water
 
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersRes
+import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.models.addWaterDriver.AddWaterDriverReq
 import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
@@ -61,6 +62,13 @@ interface WaterService {
     suspend fun generateDeliveryCode(
         @Header("Authorization") token: String,
         @Path("taskId") taskId: String
+    ): AddWaterDriverRes
+
+    @POST("water/verify-delivery-code/{taskId}/")
+    suspend fun verifyDeliveryCode(
+        @Header("Authorization") token: String,
+        @Path("taskId") taskId: String,
+        @Body verifyDeliveryCodeReq: VerifyDeliveryCodeReq
     ): AddWaterDriverRes
 
     @POST("dropyusers/devices/")

@@ -11,12 +11,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropy.di.DropyApp
 import com.example.dropy.network.models.ForgotPasswordReq
+import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.repositories.authentication.AuthenticationRepository
 import com.example.dropy.network.use_case.authentication.CheckIfUserExistUseCase
 import com.example.dropy.network.use_case.authentication.ForgotPasswordUseCase
 import com.example.dropy.network.use_case.authentication.RegisteruserUseCase
 import com.example.dropy.network.use_case.getLoginInfo.GetLoginInfoUseCase
 import com.example.dropy.network.use_case.saveLoginInfo.SaveLoginInfoUseCase
+import com.example.dropy.network.use_case.verifyDeliveryCode.VerifyDeliveryCodeUseCase
 import com.example.dropy.ui.app.AppDestinations
 
 import com.example.dropy.ui.app.AppViewModel
@@ -89,7 +91,8 @@ class AuthenticationViewModel @Inject constructor(
     private val saveLoginInfoUseCase: SaveLoginInfoUseCase,
     private val getLoginInfoUseCase: GetLoginInfoUseCase,
     private val forgotPasswordUseCase: ForgotPasswordUseCase,
-    private val app: DropyApp
+    private val app: DropyApp,
+    private val verifyDeliveryCodeUseCase: VerifyDeliveryCodeUseCase
 ) : ViewModel() {
 
     private val uiState = MutableStateFlow(AuthenticationUiState())
@@ -104,7 +107,7 @@ class AuthenticationViewModel @Inject constructor(
     private var authVerificationId: String? = null
     private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
 
-    fun setLoggedInState(state: Boolean){
+    fun setLoggedInState(state: Boolean) {
         uiState.update { it.copy(isLoggedIn = state) }
     }
 
@@ -137,6 +140,90 @@ class AuthenticationViewModel @Inject constructor(
                 )
             }
             appViewModel?.navigate(AuthenticationDestinations.ENTER_OTP)
+        }
+    }
+
+    fun verifyDeliveryCode(
+        scanQRWaterUiState: ScanQRWaterUiState,
+        scanQRWaterViewModel: ScanQRWaterViewModel,
+        truckStartTripViewModel: TruckStartTripViewModel,
+        nearestWaterPointUiState: NearestWaterPointUiState,
+        truckIncomingWorkUiState: TruckIncomingWorkUiState
+    ) {
+        viewModelScope.launch {
+           if (!uiState.value.currentOtpValue.equals("")){
+               uiState.update {
+                   it.copy(
+                       currentOtpValue = scanQRWaterUiState.code
+                   )
+               }
+               if (uiState.value.currentOtpValue.equals(scanQRWaterUiState.code)) {
+                   val item = VerifyDeliveryCodeReq(delivery_code = scanQRWaterUiState.code)
+
+                   verifyDeliveryCodeUseCase(
+                       token = "Token " + app.token.value,
+                       taskId = scanQRWaterUiState.taskId,
+                       verifyDeliveryCodeReq = item
+                   ).flowOn(Dispatchers.IO)
+                       .catch { e ->
+                           // handle exception
+                           uiState.update { it.copy(isLoading = false) }
+                           scanQRWaterViewModel.navigateOrderComplete(
+                               truckStartTripViewModel = truckStartTripViewModel,
+                               nearestWaterPointUiState = nearestWaterPointUiState,
+                               truckIncomingWorkUiState = truckIncomingWorkUiState
+                           )
+                       }
+                       .collect { result ->
+                           // list of users from the network
+                           Log.d("uopopi", "getAllShops: $result")
+                           when (result) {
+                               is Resource.Success -> {
+
+                                   Log.d("KKTAG", "onAddShop: $result")
+                                   if (result.data != null) {
+                                       //  if (result.data?.resultCode?.equals(0) == true) {
+                                       //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                       //                                moveAddProductCategory()
+                                       // }
+
+                                       scanQRWaterViewModel.navigateOrderComplete(
+                                           truckStartTripViewModel = truckStartTripViewModel,
+                                           nearestWaterPointUiState = nearestWaterPointUiState,
+                                           truckIncomingWorkUiState = truckIncomingWorkUiState
+                                       )
+                                       uiState.update {
+                                           it.copy(
+                                               isLoading = false
+                                           )
+                                       }
+//                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
+
+                                   }
+                                   //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
+
+
+                               }
+                               is Resource.Loading -> {
+                                   uiState.update { it.copy(isLoading = true) }
+                               }
+                               is Resource.Error -> {
+                                   //                            result.message?.let { message ->
+                                   uiState.update {
+                                       it.copy(
+                                           isLoading = false
+                                       )
+                                   }
+                                   //                            }
+
+                               }
+                           }
+
+                       }
+               }
+           }else{
+               Toast.makeText(context, "Code doesn't match", Toast.LENGTH_SHORT).show()
+           }
         }
     }
 
@@ -279,15 +366,21 @@ class AuthenticationViewModel @Inject constructor(
         PhoneAuthProvider.verifyPhoneNumber(optionsBuilder.build())
     }
 
-    fun checkIfCodeMatches(scanQRWaterUiState: ScanQRWaterUiState, scanQRWaterViewModel: ScanQRWaterViewModel, truckStartTripViewModel: TruckStartTripViewModel, nearestWaterPointUiState: NearestWaterPointUiState, truckIncomingWorkUiState: TruckIncomingWorkUiState){
-        if (uiState.value.currentOtpValue.equals(scanQRWaterUiState.code)){
+    fun checkIfCodeMatches(
+        scanQRWaterUiState: ScanQRWaterUiState,
+        scanQRWaterViewModel: ScanQRWaterViewModel,
+        truckStartTripViewModel: TruckStartTripViewModel,
+        nearestWaterPointUiState: NearestWaterPointUiState,
+        truckIncomingWorkUiState: TruckIncomingWorkUiState
+    ) {
+        if (uiState.value.currentOtpValue.equals(scanQRWaterUiState.code)) {
 //            Toast.makeText(context, "Order verified", Toast.LENGTH_SHORT).show()
             scanQRWaterViewModel.navigateOrderComplete(
                 truckStartTripViewModel = truckStartTripViewModel,
                 nearestWaterPointUiState = nearestWaterPointUiState,
                 truckIncomingWorkUiState = truckIncomingWorkUiState
             )
-        }else{
+        } else {
             Toast.makeText(context, "Code doesn't match", Toast.LENGTH_SHORT).show()
         }
     }
@@ -565,7 +658,7 @@ class AuthenticationViewModel @Inject constructor(
         val state = mutableStateOf(false)
         if (!phoneNumbeer.equals("") && !passwordd.equals(""))
             state.value = true
-       else if (!authenticationUiState.value.currentPhoneNumberValue.equals("") && !authenticationUiState.value.currentPasswordValue.equals(
+        else if (!authenticationUiState.value.currentPhoneNumberValue.equals("") && !authenticationUiState.value.currentPasswordValue.equals(
                 ""
             )
         )
@@ -579,7 +672,7 @@ class AuthenticationViewModel @Inject constructor(
         passwordd: String = ""
     ) {
         viewModelScope.launch {
-            if (checkLoginValues(phoneNumbeer = phoneNumbeer, passwordd = passwordd)){
+            if (checkLoginValues(phoneNumbeer = phoneNumbeer, passwordd = passwordd)) {
                 val moved = mutableStateOf(true)
                 val phoneNumber = authenticationUiState.value.currentPhoneNumberValue
 
@@ -608,7 +701,10 @@ class AuthenticationViewModel @Inject constructor(
                                         //   appViewModel!!.setFirebaseUid(firebaseUid)
                                         result.data.key?.let { app.setToken(it) }
                                         appViewModel?.getUserDetails()
-                                        saveLoginInfo(phoneNumbeer = phoneNumbeer, passwordd = passwordd)
+                                        saveLoginInfo(
+                                            phoneNumbeer = phoneNumbeer,
+                                            passwordd = passwordd
+                                        )
 //                                appViewModel?.navigate(AppDestinations.APP_HOME)
                                         loginAsDialogViewModel.changeDialogState(true)
 
@@ -703,7 +799,7 @@ class AuthenticationViewModel @Inject constructor(
         }
     }
 
-    public fun getLocale(context: Context){
+    public fun getLocale(context: Context) {
         app.getCurrentLocation(context)
     }
 

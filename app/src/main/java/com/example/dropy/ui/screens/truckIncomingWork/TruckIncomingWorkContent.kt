@@ -124,7 +124,7 @@ fun TruckIncomingWorkContent(
                     itemsIndexed(uiState.orders) { index, item ->
                         item.tasks.forEach {
                             if (it.truck.id.equals(appUiState.activeProfile?.id)) {
-                                if (it.four_digit_code.equals(null))
+                                if (it.delivery_status.equals("P"))
                                     workItem(
                                         buttonClicked = buttonClicked,
                                         getIndividualOrdersResItem = item,

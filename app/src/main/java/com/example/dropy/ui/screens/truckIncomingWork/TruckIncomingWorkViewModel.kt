@@ -57,8 +57,8 @@ class TruckIncomingWorkViewModel @Inject constructor(
 
     fun navigateWaterOrderSingle(context: Context) {
 //        generateDeliveryCode(context)
-        generateFirebaseToken(context)
-//        appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
+//        generateFirebaseToken(context)
+        appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
     }
 
     fun generateFirebaseToken(context: Context) {
