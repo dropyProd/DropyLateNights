@@ -38,6 +38,8 @@ data class TankerBoreholeUiState(
     val myAddress: LatLng? = null,
     val createIndividualWaterOrderRes: CreateIndividualWaterOrderRes? = null,
     val volume: String = "",
+    val selectedTimeSlot: String = "",
+    val selectedDate: String = "",
     val cheque: Uri? = null,
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
@@ -62,6 +64,22 @@ class TankerBoreholeViewModel @Inject constructor(
         viewModelScope.launch {
             uiState.update {
                 it.copy(volume = text)
+            }
+        }
+    }
+
+    fun onDateSelectedChange(text: String) {
+        viewModelScope.launch {
+            uiState.update {
+                it.copy(selectedDate = text)
+            }
+        }
+    }
+
+    fun onTimeSlotSelectedSelectedChange(text: String) {
+        viewModelScope.launch {
+            uiState.update {
+                it.copy(selectedTimeSlot = text)
             }
         }
     }
@@ -170,10 +188,15 @@ class TankerBoreholeViewModel @Inject constructor(
         }
     }
 
-    fun getMyLocale(context: Context){
+    fun getMyLocale(context: Context) {
         app.getCurrentLocation(context)
         uiState.update {
-            it.copy(myAddress = LatLng(app.currentLocation.value!!.latitude,app.currentLocation.value!!.longitude))
+            it.copy(
+                myAddress = LatLng(
+                    app.currentLocation.value!!.latitude,
+                    app.currentLocation.value!!.longitude
+                )
+            )
         }
     }
 
@@ -186,19 +209,38 @@ class TankerBoreholeViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
 
-            val item = IndividualWaterOrderReq(
-                delivery_latitude = tankerBoreholeUiState.value.selectedAddress?.latitude.toString(),
-                delivery_longitude = tankerBoreholeUiState.value.selectedAddress?.longitude.toString(),
-                delivery_type = if (deliveryTypeUiState.deliveryType.equals("SCHEDULED")) "S" else if (deliveryTypeUiState.deliveryType.equals(
-                        "EXPRESS"
-                    )
-                ) "E" else "T",
-                quantity = tankerBoreholeUiState.value.volume.toInt(),
-                water_type = if (waterUiState.selectedType.equals("CLEAN WATER")) "C" else if (waterUiState.selectedType.equals(
-                        "TREATED WATER"
-                    )
-                ) "F" else "P"
-            )
+            val item = if (deliveryTypeUiState.deliveryType.equals("SCHEDULED"))
+                IndividualWaterOrderReq(
+                    delivery_latitude = tankerBoreholeUiState.value.selectedAddress?.latitude.toString(),
+                    delivery_longitude = tankerBoreholeUiState.value.selectedAddress?.longitude.toString(),
+                    delivery_type = if (deliveryTypeUiState.deliveryType.equals("SCHEDULED")) "S" else if (deliveryTypeUiState.deliveryType.equals(
+                            "EXPRESS"
+                        )
+                    ) "E" else "T",
+                    quantity = tankerBoreholeUiState.value.volume.toInt(),
+                    water_type = if (waterUiState.selectedType.equals("CLEAN WATER")) "C" else if (waterUiState.selectedType.equals(
+                            "TREATED WATER"
+                        )
+                    ) "F" else "P",
+                    delivery_place_name = tankerBoreholeUiState.value.selectedAddress?.placeName.toString()
+//                    scheduled_time = tankerBoreholeUiState.value.selectedDate + tankerBoreholeUiState.value.selectedTimeSlot
+                )
+            else
+                IndividualWaterOrderReq(
+                    delivery_latitude = tankerBoreholeUiState.value.selectedAddress?.latitude.toString(),
+                    delivery_longitude = tankerBoreholeUiState.value.selectedAddress?.longitude.toString(),
+                    delivery_type = if (deliveryTypeUiState.deliveryType.equals("SCHEDULED")) "S" else if (deliveryTypeUiState.deliveryType.equals(
+                            "EXPRESS"
+                        )
+                    ) "E" else "T",
+                    quantity = tankerBoreholeUiState.value.volume.toInt(),
+                    water_type = if (waterUiState.selectedType.equals("CLEAN WATER")) "C" else if (waterUiState.selectedType.equals(
+                            "TREATED WATER"
+                        )
+                    ) "F" else "P",
+                    delivery_place_name = tankerBoreholeUiState.value.selectedAddress?.placeName.toString()
+                   /* scheduled_time = ""*/
+                )
 
 
             Log.d("kop", "createIndividualWaterOrder: $item")

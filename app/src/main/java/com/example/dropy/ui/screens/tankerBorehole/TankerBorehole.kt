@@ -92,19 +92,24 @@ fun TankerBorehole(
                 modifier = modifier.background(Color.Transparent),
             ) {
 
-                WaterSelectDateContent {
-                    coroutineScope.launch {
-                        modalSheetState.hide()
+                WaterSelectDateContent(
+                    submitClicked = {
+                        coroutineScope.launch {
+                            modalSheetState.hide()
 //                        deliveryTypeViewModel.navigateWaterOrderDetails()
-                        tankerBoreholeViewModel.createIndividualWaterOrder(
-                            context,
-                            waterUiState = waterHomeUiState,
-                            deliveryTypeUiState = deliveryTypeUiState,
-                            nearestTrucksViewmodel = nearestTrucksViewmodel,
-                            waterOrderDetailsViewModel = waterOrderDetailsViewModel
-                        )
-                    }
-                }
+                            tankerBoreholeViewModel.createIndividualWaterOrder(
+                                context,
+                                waterUiState = waterHomeUiState,
+                                deliveryTypeUiState = deliveryTypeUiState,
+                                nearestTrucksViewmodel = nearestTrucksViewmodel,
+                                waterOrderDetailsViewModel = waterOrderDetailsViewModel
+                            )
+                        }
+                    },
+                    selectedDate = tankerBoreholeViewModel::onDateSelectedChange,
+                    selectedTimeSlot = tankerBoreholeViewModel::onTimeSlotSelectedSelectedChange,
+                    tankerBoreholeUiState = tankerBoreholeUiState
+                )
                 /*Button(
                     onClick = {
                         isSheetFullScreen = !isSheetFullScreen

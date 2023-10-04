@@ -9,6 +9,7 @@ import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.screens.nearestWaterPoint.NearestWaterPointUiState
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 import com.example.dropy.ui.screens.waterOrderDetails.WaterOrderDetailsViewModel
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +37,20 @@ class NearestTrucksViewmodel @Inject constructor(
     var appViewModel: AppViewModel? = null
 
 
-    fun navigateOrderDetails() {
+    fun navigateOrderDetails(
+        waterOrderDetailsViewModel: WaterOrderDetailsViewModel,
+        tankerBoreholeUiState: TankerBoreholeUiState
+    ) {
+        waterOrderDetailsViewModel.getPath(
+            LatLng(
+                uiState.value.selectedTruck?.current_latitude.toString().toDouble(),
+                uiState.value.selectedTruck?.current_longitude.toString().toDouble()
+            ),
+            LatLng(
+                tankerBoreholeUiState.selectedAddress?.latitude.toString().toDouble(),
+                tankerBoreholeUiState.selectedAddress?.longitude.toString().toDouble()
+            )
+        )
         appViewModel?.navigate(AppDestinations.WATER_ORDER_DETAILS)
     }
 
@@ -53,7 +67,10 @@ class NearestTrucksViewmodel @Inject constructor(
         }
         waterOrderDetailsViewModel.setTrucks(tankerBoreholeUiState)
         if (navigate)
-            navigateOrderDetails()
+            navigateOrderDetails(
+                waterOrderDetailsViewModel = waterOrderDetailsViewModel,
+                tankerBoreholeUiState = tankerBoreholeUiState
+            )
     }
 
 }

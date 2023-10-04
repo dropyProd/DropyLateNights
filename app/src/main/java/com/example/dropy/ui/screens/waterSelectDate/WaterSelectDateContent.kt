@@ -1,27 +1,57 @@
 package com.example.dropy.ui.screens.waterSelectDate
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import android.os.Build
+import android.view.LayoutInflater
+import android.widget.CalendarView
+import android.widget.CalendarView.OnDateChangeListener
+import android.widget.Toast
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.dropy.R
+import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
+import java.time.format.DateTimeFormatter
+import java.util.*
+
+fun formatTimee(text: String): String {
+    val formatDate = mutableStateOf("")
+    try {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val formatter =
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+
+            val newDate = formatter.parse(text)
+            val formatterNew = DateTimeFormatter.ofPattern("dd, MMM, yyyy")
+            formatDate.value = formatterNew.format(newDate)
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+    } catch (e: Exception) {
+
+    }
+    return formatDate.value
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WaterSelectDateContent(submitClicked: () -> Unit) {
+fun WaterSelectDateContent(
+    submitClicked: () -> Unit,
+    selectedDate: (String) -> Unit,
+    selectedTimeSlot: (String) -> Unit,
+    tankerBoreholeUiState: TankerBoreholeUiState
+) {
 
     Column(
         modifier = Modifier
@@ -36,6 +66,24 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
 //        DatePicker(state = state, modifier = Modifier.padding(16.dp), colors = DatePickerDefaults.colors(containerColor = Color.Transparent))
 //
 //        Log.d("hg", "WaterSelectDateContent: "+state.selectedDateMillis)
+
+        AndroidView(modifier = Modifier.padding(top = 20.dp),
+            factory = { context ->
+                val view = LayoutInflater.from(context).inflate(R.layout.datepicker, null, false)
+                val calendar = view.findViewById<CalendarView>(R.id.calendarVieww)
+
+                calendar.setOnDateChangeListener(OnDateChangeListener { calendarView, i, i1, i2 ->
+                    val msg = "Selected date Day: " + i2 + " Month : " + (i1 + 1) + " Year " + i
+//                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    selectedDate("${i2}/${(i1 + 1)}/${i}")
+                })
+                // do whatever you want...
+                view // return the view
+            },
+            update = { view ->
+                // Update the view
+            }
+        )
 
         Text(
             text = "choose time slot",
@@ -53,10 +101,11 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
             modifier = Modifier
                 .padding(top = 6.dp, start = 41.dp, end = 42.dp)
                 .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
         ) {
             Row(
                 modifier = Modifier
-                    .padding(top = 28.dp)
+                    .padding(top = 13.dp)
                     .width(60.dp)
                     .height(21.dp)
                     .background(color = Color(0xFFFFFFFF), RoundedCornerShape(17.dp))
@@ -64,7 +113,10 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
                         width = 1.dp,
                         color = Color(0xFFDEDEDE),
                         shape = RoundedCornerShape(17.dp)
-                    ),
+                    )
+                    .clickable {
+                        selectedTimeSlot("9:00 am")
+                    },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -80,7 +132,7 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
             }
             Row(
                 modifier = Modifier
-                    .padding(top = 28.dp)
+                    .padding(top = 13.dp)
                     .width(60.dp)
                     .height(21.dp)
                     .background(color = Color(0xFFFFFFFF), RoundedCornerShape(17.dp))
@@ -88,7 +140,10 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
                         width = 1.dp,
                         color = Color(0xFFDEDEDE),
                         shape = RoundedCornerShape(17.dp)
-                    ),
+                    )
+                    .clickable {
+                        selectedTimeSlot("12:00 pm")
+                    },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -105,7 +160,7 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
 
             Row(
                 modifier = Modifier
-                    .padding(top = 28.dp)
+                    .padding(top = 13.dp)
                     .width(60.dp)
                     .height(21.dp)
                     .background(color = Color(0xFF02CBE3), RoundedCornerShape(17.dp))
@@ -113,7 +168,10 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
                         width = 1.dp,
                         color = Color(0xFFDEDEDE),
                         shape = RoundedCornerShape(17.dp)
-                    ),
+                    )
+                    .clickable {
+                        selectedTimeSlot("3:00 pm")
+                    },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -129,7 +187,7 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
             }
             Row(
                 modifier = Modifier
-                    .padding(top = 28.dp)
+                    .padding(top = 13.dp)
                     .width(60.dp)
                     .height(21.dp)
                     .background(color = Color(0xFFFFFFFF), RoundedCornerShape(17.dp))
@@ -137,7 +195,10 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
                         width = 1.dp,
                         color = Color(0xFFDEDEDE),
                         shape = RoundedCornerShape(17.dp)
-                    ),
+                    )
+                    .clickable {
+                        selectedTimeSlot("5:00 pm")
+                    },
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -166,7 +227,7 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
         )
 
         Text(
-            text = "16TH, JUNE, 2023",
+            text = formatTimee(tankerBoreholeUiState.selectedDate),
             color = Color.Black,
             fontSize = 14.sp,
 //            fontWeight = FontWeight.SemiBold,
@@ -205,5 +266,10 @@ fun WaterSelectDateContent(submitClicked: () -> Unit) {
 @Preview
 @Composable
 fun demo() {
-    WaterSelectDateContent(submitClicked = {})
+    WaterSelectDateContent(
+        submitClicked = {},
+        selectedDate = {},
+        selectedTimeSlot = {},
+        tankerBoreholeUiState = TankerBoreholeUiState()
+    )
 }

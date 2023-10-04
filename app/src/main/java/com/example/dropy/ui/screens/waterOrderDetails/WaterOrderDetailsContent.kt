@@ -367,7 +367,7 @@ fun WaterOrderDetailsContent(
                             modifier = Modifier.padding(top = 25.dp, start = 31.dp)
                         )
                         Text(
-                            text = "79 KILOMETERS",
+                            text = "${waterOrderDetailsUiState.distance} KILOMETERS",
                             fontSize = 12.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                             fontFamily = FontFamily(

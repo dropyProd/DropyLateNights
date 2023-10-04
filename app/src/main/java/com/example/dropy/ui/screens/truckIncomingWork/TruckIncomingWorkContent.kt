@@ -248,7 +248,7 @@ fun workItem(
                             LightBlue
                         }
                     }*/,
-                        text = "NAIROBI WEST".replaceFirstChar {
+                        text = "${getIndividualOrdersResItem.delivery_place_name}".replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(
                                 Locale.ROOT
                             ) else it.toString()
