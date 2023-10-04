@@ -91,7 +91,7 @@ fun TruckRouteCustomerContent(
                 Column() {
                     Row() {
                         Text(
-                            text = "15KM",
+                            text = "${truckRouteCustomerUiState?.distance}KM",
                             fontSize = 21.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                             fontFamily = FontFamily(
@@ -135,7 +135,7 @@ fun TruckRouteCustomerContent(
                     BackgroundedText(
                         background = Color.Black,
                         textColor = Color.White,
-                        text = "25 min",
+                        text = truckRouteCustomerUiState?.duration.toString(),
                         vertical = 3,
                         horizontal = 4,
                         modifier = Modifier.padding(start = 8.dp, top = 23.dp)

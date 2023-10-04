@@ -28,6 +28,8 @@ import javax.inject.Inject
 
 
 data class TruckRouteCustomerUiState(
+    val duration: String = "",
+    val distance: String = "",
     val myAddress: LatLng? = null,
     val path: MutableList<LatLng> = mutableListOf(),
     val isCustomerRoute: Boolean? = false,
@@ -192,10 +194,14 @@ class TruckRouteCustomerViewModel @Inject constructor(
 
             //Loop through legs and steps to get encoded polylines of each step
             if (res.routes != null && res.routes.size > 0) {
+                val duration = mutableStateOf(0L)
+                val distance = mutableStateOf(0L)
                 val route = res.routes[0]
                 if (route.legs != null) {
                     for (i in route.legs.indices) {
                         val leg = route.legs[i]
+                        duration.value += leg.duration.inSeconds
+                        distance.value += leg.distance.inMeters
                         if (leg.steps != null) {
                             for (j in leg.steps.indices) {
                                 val step = leg.steps[j]
@@ -224,6 +230,8 @@ class TruckRouteCustomerViewModel @Inject constructor(
                             }
                         }
                     }
+                    setDistance(distance.value)
+                    setTime(duration.value)
                 }
             }
             /*        } catch (ex: Exception) {
@@ -234,5 +242,20 @@ class TruckRouteCustomerViewModel @Inject constructor(
                 it.copy(path = path)
             }
         }
+    }
+    private fun setTime(value: Long) {
+        Log.d("kmnb", "setTime: time $value")
+        val hours = value.toInt() / 3600;
+        val minutes = ((value.toInt()) % 3600) / 60;
+        val seconds = value.toInt() % 60;
+
+//      val  timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        uiState.update { it.copy(duration = if (hours > 0) "${hours}hr ${minutes}min" else "${minutes}min") }
+    }
+
+    private fun setDistance(value: Long) {
+        Log.d("kmnb", "setDistance: distance $value")
+        uiState.update { it.copy(distance = (value.toInt() / 1000).toString()) }
+
     }
 }

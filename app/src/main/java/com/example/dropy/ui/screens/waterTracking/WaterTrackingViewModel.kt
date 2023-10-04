@@ -128,7 +128,7 @@ class WaterTrackingViewModel @Inject constructor(
         val seconds = value.toInt() % 60;
 
 //      val  timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-        uiState.update { it.copy(duration = if (minutes > 0) "${hours}HR ${minutes}MIN" else "${hours}HR") }
+        uiState.update { it.copy(duration = if (hours > 0) "${hours}HR ${minutes}MIN" else "${minutes}MIN") }
     }
 
     private fun setDistance(value: Long) {

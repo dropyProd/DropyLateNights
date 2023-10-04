@@ -79,7 +79,7 @@ fun TruckRouteWaterPointContent(
                 Column() {
                     Row() {
                         Text(
-                            text = "15KM",
+                            text = "${truckRouteWaterPointUiState?.distance}KM",
                             fontSize = 21.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                             fontFamily = FontFamily(
@@ -126,7 +126,7 @@ fun TruckRouteWaterPointContent(
                     BackgroundedText(
                         background = Color.Black,
                         textColor = Color.White,
-                        text = "25 min",
+                        text = truckRouteWaterPointUiState?.duration.toString(),
                         vertical = 3,
                         horizontal = 4,
                         modifier = Modifier.padding(start = 8.dp, top = 23.dp)
