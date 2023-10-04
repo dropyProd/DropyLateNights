@@ -142,7 +142,7 @@ fun TruckRouteCustomerContent(
                     )
 
                     Text(
-                        text = "3:45PM",
+                        text = truckRouteCustomerUiState?.currentTime.toString().uppercase(),
                         fontSize = 19.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                         fontFamily = FontFamily(

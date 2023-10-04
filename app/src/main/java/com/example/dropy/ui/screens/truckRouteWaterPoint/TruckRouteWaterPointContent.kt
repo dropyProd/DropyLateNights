@@ -133,7 +133,7 @@ fun TruckRouteWaterPointContent(
                     )
 
                     Text(
-                        text = "3:45PM",
+                        text = truckRouteWaterPointUiState?.currentTime.toString().uppercase(),
                         fontSize = 19.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                         fontFamily = FontFamily(

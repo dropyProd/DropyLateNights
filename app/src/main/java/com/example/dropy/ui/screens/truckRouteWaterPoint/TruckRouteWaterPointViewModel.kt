@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.truckRouteWaterPoint
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
@@ -22,10 +23,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
 data class TruckRouteWaterPointUiState(
+    val currentTime: String = "",
     val duration: String = "",
     val distance: String = "",
     val myAddress: LatLng? = null,
@@ -55,26 +59,26 @@ class TruckRouteWaterPointViewModel @Inject constructor(
         truckIncomingWorkUiState: TruckIncomingWorkUiState
     ) {
         viewModelScope.launch {
-           /* truckStartTripViewModel.getPathWaterpoint(
-                truckLatLng = LatLng(
-                    app.currentLocation.value!!.latitude.toString().toDouble(),
-                    app.currentLocation.value!!.longitude.toString().toDouble()
-                ),
-                customerLatLng = LatLng(
-                    nearestWaterPointUiState.selectedWaterPoint?.latitude?.toString()!!.toDouble(),
-                    nearestWaterPointUiState.selectedWaterPoint?.longitude?.toString()!!.toDouble()
-                )
-            )
-            truckStartTripViewModel.getPathCustomer(
-                truckLatLng = LatLng(
-                    nearestWaterPointUiState.selectedWaterPoint?.latitude?.toString()!!.toDouble(),
-                    nearestWaterPointUiState.selectedWaterPoint?.longitude?.toString()!!.toDouble()
-                ),
-                customerLatLng = LatLng(
-                    truckIncomingWorkUiState.selectedOrder?.delivery_latitude.toString().toDouble(),
-                    truckIncomingWorkUiState.selectedOrder?.delivery_longitude.toString().toDouble()
-                )
-            )*/
+            /* truckStartTripViewModel.getPathWaterpoint(
+                 truckLatLng = LatLng(
+                     app.currentLocation.value!!.latitude.toString().toDouble(),
+                     app.currentLocation.value!!.longitude.toString().toDouble()
+                 ),
+                 customerLatLng = LatLng(
+                     nearestWaterPointUiState.selectedWaterPoint?.latitude?.toString()!!.toDouble(),
+                     nearestWaterPointUiState.selectedWaterPoint?.longitude?.toString()!!.toDouble()
+                 )
+             )
+             truckStartTripViewModel.getPathCustomer(
+                 truckLatLng = LatLng(
+                     nearestWaterPointUiState.selectedWaterPoint?.latitude?.toString()!!.toDouble(),
+                     nearestWaterPointUiState.selectedWaterPoint?.longitude?.toString()!!.toDouble()
+                 ),
+                 customerLatLng = LatLng(
+                     truckIncomingWorkUiState.selectedOrder?.delivery_latitude.toString().toDouble(),
+                     truckIncomingWorkUiState.selectedOrder?.delivery_longitude.toString().toDouble()
+                 )
+             )*/
             appViewModel?.navigate(AppDestinations.SCAN_QR_WATER)
         }
 
@@ -226,6 +230,7 @@ class TruckRouteWaterPointViewModel @Inject constructor(
                     }
                     setDistance(distance.value)
                     setTime(duration.value)
+
                 }
             }
             /*        } catch (ex: Exception) {
@@ -239,10 +244,37 @@ class TruckRouteWaterPointViewModel @Inject constructor(
     }
 
     private fun setTime(value: Long) {
+
+        /*   val formatterTime = DateTimeFormatter.ofPattern("HH:mm")
+           val newTime = formatterTime.parse(timee.value)*/
+        /*      val formatterNewTime = DateTimeFormatter.ofPattern("hh:mm a")
+               val formatTime = formatterNewTime.format(newTime)*/
+
+        val sdf = SimpleDateFormat("hh:mm a")
+//        val currentDate = sdf.format(Date())
+
+
         Log.d("kmnb", "setTime: time $value")
         val hours = value.toInt() / 3600;
         val minutes = ((value.toInt()) % 3600) / 60;
         val seconds = value.toInt() % 60;
+
+        if (hours > 0) {
+            val currentTimeNow = Calendar.getInstance()
+            System.out.println("Current time now : " + currentTimeNow.time)
+            currentTimeNow.add(Calendar.HOUR, hours)
+            currentTimeNow.add(Calendar.MINUTE, minutes)
+            val MinsAddedFromNow = currentTimeNow.time
+            val currentTime = sdf.format(MinsAddedFromNow)
+            uiState.update { it.copy(currentTime = currentTime) }
+        } else {
+            val currentTimeNow = Calendar.getInstance()
+            System.out.println("Current time now : " + currentTimeNow.time)
+            currentTimeNow.add(Calendar.MINUTE, minutes)
+            val MinsAddedFromNow = currentTimeNow.time
+            val currentTime = sdf.format(MinsAddedFromNow)
+            uiState.update { it.copy(currentTime = currentTime) }
+        }
 
 //      val  timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         uiState.update { it.copy(duration = if (hours > 0) "${hours}hr ${minutes}min" else "${minutes}min") }

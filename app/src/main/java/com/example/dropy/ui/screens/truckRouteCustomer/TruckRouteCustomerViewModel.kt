@@ -24,10 +24,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 
 data class TruckRouteCustomerUiState(
+    val currentTime: String = "",
     val duration: String = "",
     val distance: String = "",
     val myAddress: LatLng? = null,
@@ -244,10 +247,30 @@ class TruckRouteCustomerViewModel @Inject constructor(
         }
     }
     private fun setTime(value: Long) {
+
+        val sdf = SimpleDateFormat("hh:mm a")
+
         Log.d("kmnb", "setTime: time $value")
         val hours = value.toInt() / 3600;
         val minutes = ((value.toInt()) % 3600) / 60;
         val seconds = value.toInt() % 60;
+
+        if (hours > 0) {
+            val currentTimeNow = Calendar.getInstance()
+            System.out.println("Current time now : " + currentTimeNow.time)
+            currentTimeNow.add(Calendar.HOUR, hours)
+            currentTimeNow.add(Calendar.MINUTE, minutes)
+            val MinsAddedFromNow = currentTimeNow.time
+            val currentTime = sdf.format(MinsAddedFromNow)
+            uiState.update { it.copy(currentTime = currentTime) }
+        } else {
+            val currentTimeNow = Calendar.getInstance()
+            System.out.println("Current time now : " + currentTimeNow.time)
+            currentTimeNow.add(Calendar.MINUTE, minutes)
+            val MinsAddedFromNow = currentTimeNow.time
+            val currentTime = sdf.format(MinsAddedFromNow)
+            uiState.update { it.copy(currentTime = currentTime) }
+        }
 
 //      val  timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         uiState.update { it.copy(duration = if (hours > 0) "${hours}hr ${minutes}min" else "${minutes}min") }
