@@ -286,6 +286,7 @@ fun App(
     incomingJobViewModel: IncomingJobViewModel,
     clearImages: () -> Unit,
     customerDashboardViewModel: CustomerDashboardViewModel,
+    scanQRWaterViewModel: ScanQRWaterViewModel,
     context: Context
 ) {
     val navController = rememberNavController()
@@ -463,7 +464,7 @@ fun App(
     if (waterTrackingViewModel.appViewModel == null) {
         waterTrackingViewModel.appViewModel = appViewModel
     }
-    val scanQRWaterViewModel: ScanQRWaterViewModel = hiltViewModel()
+
     if (scanQRWaterViewModel.appViewModel == null) {
         scanQRWaterViewModel.appViewModel = appViewModel
     }
@@ -867,7 +868,8 @@ fun App(
                 authenticationViewModel = authenticationViewModel,
                 truckStartTripViewModel = truckStartTripViewModel,
                 nearestWaterPointViewModel = nearestWaterPointViewModel,
-                truckIncomingWorkViewModel = truckIncomingWorkViewModel
+                truckIncomingWorkViewModel = truckIncomingWorkViewModel,
+                scanQr = { scanQr(navController) }
             )
         }
         composable(AppDestinations.TRUCK_FIND_JOB) {

@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropy.di.DropyApp
+import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.use_case.verifyDeliveryCode.VerifyDeliveryCodeUseCase
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
@@ -66,6 +68,97 @@ class ScanQRWaterViewModel @Inject constructor(
         }
     }
 
+    val truckStartTripViewModel: MutableState<TruckStartTripViewModel?> = mutableStateOf(null)
+    val nearestWaterPointUiState: MutableState<NearestWaterPointUiState?> = mutableStateOf(null)
+    val truckIncomingWorkUiState: MutableState<TruckIncomingWorkUiState?> = mutableStateOf(null)
+
+    fun setTruckStartTripViewModel(truckStartTripViewModell: TruckStartTripViewModel){
+        truckStartTripViewModel.value = truckStartTripViewModell
+    }
+
+    fun setNearestWaterPointUiState(nearestWaterPointUiStatee: NearestWaterPointUiState){
+        nearestWaterPointUiState.value = nearestWaterPointUiStatee
+    }
+
+    fun setTruckIncomingWorkUiState(truckIncomingWorkUiStatee: TruckIncomingWorkUiState){
+        truckIncomingWorkUiState.value = truckIncomingWorkUiStatee
+    }
+
+
+
+    fun generatedQrText(
+        text: String
+    ){
+        viewModelScope.launch {
+            if (!scanQRWaterUiState.value.taskId.equals("")){
+
+                val item = VerifyDeliveryCodeReq(
+                    delivery_code = text
+                )
+
+                verifyDeliveryCodeUseCase(
+                    token = "Token " + app.token.value,
+                    taskId = scanQRWaterUiState.value.taskId,
+                    verifyDeliveryCodeReq = item
+                ).flowOn(Dispatchers.IO)
+                    .catch { e ->
+                        // handle exception
+                        uiState.update { it.copy(pageLoading = false) }
+                        navigateOrderComplete(
+                            truckStartTripViewModel = truckStartTripViewModel.value!!,
+                            nearestWaterPointUiState = nearestWaterPointUiState.value!!,
+                            truckIncomingWorkUiState = truckIncomingWorkUiState.value!!
+                        )
+                    }
+                    .collect { result ->
+                        // list of users from the network
+                        Log.d("uopopi", "getAllShops: $result")
+                        when (result) {
+                            is Resource.Success -> {
+
+                                Log.d("KKTAG", "onAddShop: $result")
+                                if (result.data != null) {
+                                    //  if (result.data?.resultCode?.equals(0) == true) {
+                                    //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                    //                                moveAddProductCategory()
+                                    // }
+
+                                    navigateOrderComplete(
+                                        truckStartTripViewModel = truckStartTripViewModel.value!!,
+                                        nearestWaterPointUiState = nearestWaterPointUiState.value!!,
+                                        truckIncomingWorkUiState = truckIncomingWorkUiState.value!!
+                                    )
+                                    uiState.update {
+                                        it.copy(
+                                            pageLoading = false
+                                        )
+                                    }
+//                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
+
+                                }
+                                //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
+
+
+                            }
+                            is Resource.Loading -> {
+                                uiState.update { it.copy(pageLoading = true) }
+                            }
+                            is Resource.Error -> {
+                                //                            result.message?.let { message ->
+                                uiState.update {
+                                    it.copy(
+                                        pageLoading = false
+                                    )
+                                }
+                                //                            }
+
+                            }
+                        }
+
+                    }
+            }
+        }
+    }
 
 
     fun navigateOrderComplete(

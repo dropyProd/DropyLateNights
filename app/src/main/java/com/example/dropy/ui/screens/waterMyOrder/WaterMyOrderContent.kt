@@ -51,12 +51,18 @@ fun WaterMyOrderContent(
                         val backgroundColor = if (index % 2 == 0)
                             Color.Transparent
                         else Color(0xFFF5F5F5)
-                        waterOrderItem(
-                            navigateO = navigateO,
-                            color = backgroundColor,
-                            assignedTruckO = item,
-                            getIndividualOrdersResItem = waterMyOrderUiState.getIndividualOrdersResItem
-                        )
+
+                        waterMyOrderUiState.getIndividualOrdersResItem.tasks.forEach {it ->
+                            if (it.truck.id.equals( item.id)) {
+                                waterOrderItem(
+                                    navigateO = navigateO,
+                                    color = backgroundColor,
+                                    assignedTruckO = item,
+                                    getIndividualOrdersResItem = waterMyOrderUiState.getIndividualOrdersResItem,
+                                    deliveryStatus = it.delivery_status
+                                )
+                            }
+                        }
                     }
                 }
                 if (waterMyOrderUiState.createIndividualWaterOrderRes != null) {
@@ -64,12 +70,20 @@ fun WaterMyOrderContent(
                         val backgroundColor = if (index % 2 == 0)
                             Color.Transparent
                         else Color(0xFFF5F5F5)
-                        waterOrderItem(
-                            navigate = navigate,
-                            color = backgroundColor,
-                            assignedTruck = item,
-                            createIndividualWaterOrderRes = waterMyOrderUiState.createIndividualWaterOrderRes
-                        )
+
+
+                        waterMyOrderUiState.createIndividualWaterOrderRes.tasks.forEach {it ->
+                                if (it.truck.id.equals( item.id)) {
+                                    waterOrderItem(
+                                        navigate = navigate,
+                                        color = backgroundColor,
+                                        assignedTruck = item,
+                                        createIndividualWaterOrderRes = waterMyOrderUiState.createIndividualWaterOrderRes,
+                                        deliveryStatus = it.delivery_status
+                                    )
+                                }
+                        }
+
                     }
                 }
             })
@@ -85,7 +99,8 @@ fun waterOrderItem(
     createIndividualWaterOrderRes: CreateIndividualWaterOrderRes? = null,
     color: Color,
     assignedTruck: AssignedTruck? = null,
-    assignedTruckO: com.example.dropy.network.models.GetIndividualOrders.AssignedTruck? = null
+    assignedTruckO: com.example.dropy.network.models.GetIndividualOrders.AssignedTruck? = null,
+    deliveryStatus: String
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -152,8 +167,8 @@ fun waterOrderItem(
                     .wrapContentWidth()
                     .height(18.dp)
                     .background(
-                        color = if (getIndividualOrdersResItem?.delivery_status.equals(
-                                "S"
+                        color = if (deliveryStatus.equals(
+                                "D"
                             )
                         ) Color.Black else Color(0xFF979797),
                         shape = RoundedCornerShape(9.dp)
@@ -166,18 +181,18 @@ fun waterOrderItem(
             ) {
                 Text(
                     text = if (getIndividualOrdersResItem != null) {
-                        if (getIndividualOrdersResItem?.delivery_status.equals(
+                        if (deliveryStatus.equals(
                                 "P"
                             )
-                        ) "NOT PROCESSED" else if (getIndividualOrdersResItem?.delivery_status.equals(
+                        ) "NOT PROCESSED" else if (deliveryStatus.equals(
                                 "S"
                             )
                         ) "PROCESSED" else "DELIVERED"
                     } else {
-                        if (createIndividualWaterOrderRes?.delivery_status.equals(
+                        if (deliveryStatus.equals(
                                 "P"
                             )
-                        ) "NOT PROCESSED" else if (createIndividualWaterOrderRes?.delivery_status.equals(
+                        ) "NOT PROCESSED" else if (deliveryStatus.equals(
                                 "S"
                             )
                         ) "PROCESSED" else "DELIVERED"
@@ -205,7 +220,10 @@ fun waterOrderItem(
                     .wrapContentWidth()
                     .height(18.dp)
                     .background(
-                        color = Color(0xFFC2F8FF),
+                        color = if (deliveryStatus.equals(
+                                "P"
+                            )
+                        ) Color.Black else Color(0xFFC2F8FF),
                         shape = RoundedCornerShape(9.dp)
                     )
                 /*.border(
@@ -216,18 +234,18 @@ fun waterOrderItem(
             ) {
                 Text(
                     text = if (getIndividualOrdersResItem != null) {
-                        if (getIndividualOrdersResItem?.delivery_status.equals(
+                        if (deliveryStatus.equals(
                                 "P"
                             )
-                        ) "NOT STARTED" else if (getIndividualOrdersResItem?.delivery_status.equals(
+                        ) "NOT STARTED" else if (deliveryStatus.equals(
                                 "S"
                             )
                         ) "ON THE WAY" else "DELIVERED"
                     } else {
-                        if (createIndividualWaterOrderRes?.delivery_status.equals(
+                        if (deliveryStatus.equals(
                                 "P"
                             )
-                        ) "NOT STARTED" else if (createIndividualWaterOrderRes?.delivery_status.equals(
+                        ) "NOT STARTED" else if (deliveryStatus.equals(
                                 "S"
                             )
                         ) "ON THE WAY" else "DELIVERED"
@@ -239,7 +257,10 @@ fun waterOrderItem(
                     ),
                     letterSpacing = (-0.43).sp,
                     lineHeight = 17.sp,
-                    color = Color.Black,
+                    color = if (deliveryStatus.equals(
+                            "P"
+                        )
+                    ) Color.White else Color.Black,
                     modifier = Modifier.padding(
                         start = 9.dp,
                         end = 5.dp,

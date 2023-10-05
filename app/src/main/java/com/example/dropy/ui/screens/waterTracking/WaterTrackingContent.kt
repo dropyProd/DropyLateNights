@@ -224,13 +224,38 @@ fun WaterTrackingContent(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column() {
+
+                        val text = remember{
+                            mutableStateOf("")
+                        }
+                        if (waterMyOrderUiState.createIndividualWaterOrderRes != null) {
+                            waterMyOrderUiState.createIndividualWaterOrderRes.tasks.forEach {
+                                if (waterMyOrderUiState.selectedTruck != null) {
+                                    if (it.truck.id.equals( waterMyOrderUiState.selectedTruck.id)) {
+                                        text.value = it.delivery_status
+                                    }
+                                }
+                            }
+                        }
+                        if (waterMyOrderUiState.getIndividualOrdersResItem != null) {
+                            waterMyOrderUiState.getIndividualOrdersResItem.tasks.forEach {
+                                if (waterMyOrderUiState.selectedTruckO != null) {
+                                    if (it.truck.id.equals( waterMyOrderUiState.selectedTruckO.id)) {
+                                        text.value = it.delivery_status
+                                    }
+                                }
+                            }
+                        }
                         Row(
                             modifier = Modifier
                                 .padding(top = 14.dp, start = 28.dp)
                                 .width(68.dp)
                                 .height(18.dp)
                                 .background(
-                                    color = Color(0xFF02CBE3),
+                                    color =if (text.value.equals(
+                                            "P"
+                                        )
+                                    ) Color(0xFF02CBE3) else Color.Black,
                                     shape = RoundedCornerShape(12.dp)
                                 )
                             /*.border(
@@ -240,23 +265,13 @@ fun WaterTrackingContent(
                             )*/
                         ) {
                             Text(
-                                text = if (waterMyOrderUiState.getIndividualOrdersResItem != null) {
-                                    if (waterMyOrderUiState.getIndividualOrdersResItem.delivery_status.equals(
+                                text = if (text.value.equals(
                                             "P"
                                         )
-                                    ) "NOT STARTED" else if (waterMyOrderUiState.getIndividualOrdersResItem.delivery_status.equals(
+                                    ) "NOT STARTED" else if (text.value.equals(
                                             "S"
                                         )
-                                    ) "ON THE WAY" else "DELIVERED"
-                                } else {
-                                    if (waterMyOrderUiState.createIndividualWaterOrderRes?.delivery_status.equals(
-                                            "P"
-                                        )
-                                    ) "NOT STARTED" else if (waterMyOrderUiState.createIndividualWaterOrderRes?.delivery_status.equals(
-                                            "S"
-                                        )
-                                    ) "ON THE WAY" else "DELIVERED"
-                                },
+                                    ) "ON THE WAY" else "DELIVERED",
                                 fontSize = 8.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                                 fontFamily = FontFamily(

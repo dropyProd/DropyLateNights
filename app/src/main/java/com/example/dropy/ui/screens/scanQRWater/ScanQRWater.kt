@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.scanQRWater
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.dropy.ui.components.commons.AppScaffold
@@ -21,7 +22,8 @@ fun ScanQRWater(
     authenticationViewModel: AuthenticationViewModel,
     truckStartTripViewModel: TruckStartTripViewModel,
     nearestWaterPointViewModel: NearestWaterPointViewModel,
-    truckIncomingWorkViewModel: TruckIncomingWorkViewModel
+    truckIncomingWorkViewModel: TruckIncomingWorkViewModel,
+    scanQr: () -> Unit
 ) {
 
     val scanQRWaterUiState by scanQRWaterViewModel.scanQRWaterUiState.collectAsState()
@@ -30,6 +32,12 @@ fun ScanQRWater(
 
     val appUiState = scanQRWaterViewModel.appViewModel!!.appUiState.collectAsState()
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
+
+    LaunchedEffect(key1 = true, block = {
+        scanQRWaterViewModel.setTruckStartTripViewModel(truckStartTripViewModel)
+        scanQRWaterViewModel.setNearestWaterPointUiState(nearestWaterPointUiState)
+        scanQRWaterViewModel.setTruckStartTripViewModel(truckStartTripViewModel)
+    })
 
     AppScaffold(
         content = {
@@ -50,7 +58,7 @@ fun ScanQRWater(
             }, scanQRWaterUiState = scanQRWaterUiState, useCode ={
                 authenticationViewModel.setLoggedInState(true)
                 scanQRWaterViewModel.navigateOtp()
-            } )
+            }, appUiState = appUiState.value, scanQr = scanQr  )
         },
         pageLoading = scanQRWaterUiState.pageLoading,
         actionLoading = scanQRWaterUiState.actionLoading,

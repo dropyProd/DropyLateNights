@@ -20,13 +20,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.app.AppUiState
+import com.example.dropy.ui.components.commons.appdrawer.ProfileTypes
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 
 @Composable
 fun ScanQRWaterContent(
     navigate: () -> Unit,
     useCode: () -> Unit,
-    scanQRWaterUiState: ScanQRWaterUiState
+    scanQr: () -> Unit,
+    scanQRWaterUiState: ScanQRWaterUiState,
+    appUiState: AppUiState
 ) {
     Column(
         modifier = Modifier
@@ -73,13 +77,37 @@ fun ScanQRWaterContent(
                 .aspectRatio(1f)
                 .clickable { navigate() }
         ) {
-            Image(
-                bitmap = scanQRWaterUiState.bitmap!!.asImageBitmap(),
-                contentDescription = "QR code",
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = ContentScale.Fit
-            )
+            if (appUiState.activeProfile?.type.equals(ProfileTypes.CUSTOMER)) {
+                Image(
+                    bitmap = scanQRWaterUiState.bitmap!!.asImageBitmap(),
+                    contentDescription = "QR code",
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Fit
+                )
+            }
+            if (appUiState.activeProfile?.type.equals(ProfileTypes.WATER_TRUCK)) {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 15.dp)
+                        .width(156.dp)
+                        .height(49.dp)
+                        .background(color = Color.Black, RoundedCornerShape(42.dp))
+                        .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
+                        .clickable { scanQr() },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    androidx.compose.material.Text(
+                        text = "SCAN QR",
+                        color = Color.White,
+                        fontSize = 10.sp,
+//                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                        letterSpacing = (-0.48).sp,
+                    )
+                }
+            }
         }
 
         Column(
@@ -129,28 +157,42 @@ fun ScanQRWaterContent(
 
 
 
-            Row(
-                modifier = Modifier
-                    .padding(top = 15.dp)
-                    .width(156.dp)
-                    .height(49.dp)
-                    .background(color = Color.Black, RoundedCornerShape(42.dp))
-                    .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
-                    .clickable { useCode() },
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
+            if (appUiState.activeProfile?.type.equals(ProfileTypes.WATER_TRUCK)) {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 15.dp)
+                        .width(156.dp)
+                        .height(49.dp)
+                        .background(color = Color.Black, RoundedCornerShape(42.dp))
+                        .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
+                        .clickable { if (!scanQRWaterUiState.taskId.equals("")) useCode() },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
 
 
-                androidx.compose.material.Text(
-                    text = "USE CODE",
-                    color = Color.White,
-                    fontSize = 10.sp,
+                    androidx.compose.material.Text(
+                        text = "USE CODE",
+                        color = Color.White,
+                        fontSize = 10.sp,
 //                        fontWeight = FontWeight.SemiBold,
-                    fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-                    letterSpacing = (-0.48).sp,
-                )
+                        fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                        letterSpacing = (-0.48).sp,
+                    )
+                }
             }
+
+            if (appUiState.activeProfile?.type.equals(ProfileTypes.CUSTOMER)) {
+                Text(
+                text ="Use code: "+ scanQRWaterUiState.code,
+                fontSize = 18.sp,
+                fontFamily = FontFamily(Font(R.font.axiformamedium)),
+                color = Color.Black,
+                lineHeight = 17.sp,
+                letterSpacing = (-0.46).sp,
+                modifier = Modifier.padding(top = 17.dp)
+            )
+        }
 
 
             Text(
@@ -185,5 +227,11 @@ fun ScanQRWaterContent(
 @Preview
 @Composable
 fun demo() {
-    ScanQRWaterContent(navigate = {}, scanQRWaterUiState = ScanQRWaterUiState(), useCode = {})
+    ScanQRWaterContent(
+        navigate = {},
+        scanQRWaterUiState = ScanQRWaterUiState(),
+        useCode = {},
+        appUiState = AppUiState(),
+        scanQr = {}
+    )
 }

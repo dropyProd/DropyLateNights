@@ -54,6 +54,7 @@ import com.example.dropy.ui.screens.addWaterVendor.AddWaterVendorViewModel
 import com.example.dropy.ui.screens.rider.IncomingJobViewModel
 import com.example.dropy.ui.screens.rider.becomerider.AddRiderViewModel
 import com.example.dropy.ui.screens.rider.becomerider.BecomeRiderViewModel
+import com.example.dropy.ui.screens.scanQRWater.ScanQRWaterViewModel
 import com.example.dropy.ui.screens.shops.backside.addproduct.AddProductViewModel
 import com.example.dropy.ui.screens.shops.backside.addshop.AddShopViewModel
 import com.example.dropy.ui.screens.shops.frontside.checkout.CheckoutViewModel
@@ -100,6 +101,7 @@ class MainActivity : ComponentActivity() {
     private var cancellationSignal: CancellationSignal? = null
 
     val addProductViewModel: AddProductViewModel by viewModels()
+    val scanQRWaterViewModel: ScanQRWaterViewModel by viewModels()
     val addShopViewModel: AddShopViewModel by viewModels()
     val tankerBoreholeViewModel: TankerBoreholeViewModel by viewModels()
     val addWaterpointViewmodel: AddWaterpointViewmodel by viewModels()
@@ -569,7 +571,8 @@ class MainActivity : ComponentActivity() {
                     clearImages = {
                         clearvalues()
                     },
-                    customerDashboardViewModel = customerDashboardViewModel
+                    customerDashboardViewModel = customerDashboardViewModel,
+                    scanQRWaterViewModel = scanQRWaterViewModel
                 )
             }
         }
@@ -612,7 +615,8 @@ class MainActivity : ComponentActivity() {
                         //  quizAnswerViewModel.onAnswerChange(text = result.contents)
 
                         //navController.value?.navigate(AppDestinations.REVIEWRIDER)
-                        incomingJobViewModel.verifyQr(result.contents, appViewModel, this)
+//                        incomingJobViewModel.verifyQr(result.contents, appViewModel, this)
+                        scanQRWaterViewModel.generatedQrText(text = result.contents)
                         Toast.makeText(this, result.contents, Toast.LENGTH_SHORT).show()
 
                     }
