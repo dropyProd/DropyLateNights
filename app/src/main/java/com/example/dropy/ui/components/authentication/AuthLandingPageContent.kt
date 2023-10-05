@@ -87,7 +87,7 @@ fun AuthLandingPageContent(
 
                 text = " SUPERAPP ",
                 fontWeight = FontWeight.ExtraBold,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = FontFamily(Font(R.font.axiformaextrabold)),
                 letterSpacing = (-.77).sp

@@ -85,16 +85,16 @@ fun TankerBoreholeContent(
                 .fillMaxSize()
                 .background(Color.Transparent)
         ) {
-            ClippedHeader(title = if (waterUiState.selectedType.equals("CLEAN WATER")) "CLEAN WATER" else if (waterUiState.selectedType.equals(
+ /*           ClippedHeader(title = if (waterUiState.selectedType.equals("CLEAN WATER")) "CLEAN WATER" else if (waterUiState.selectedType.equals(
                     "TREATED WATER"
                 )
-            ) " TREATED WATER" else "P", modifier = Modifier.offset(x = (-18).dp))
+            ) " TREATED WATER" else "P", modifier = Modifier.offset(x = (-18).dp))*/
 
             Row(
                 modifier = Modifier
                     .padding(top = 25.dp)
                     .widthIn(min = 150.dp, max = 400.dp )
-                    .clip(RoundedCornerShape(bottomEnd = 48.dp))
+                    .clip(RoundedCornerShape(bottomEnd = 20.dp))
                     .background(Color.White)
                     .clickable { onLocationChanged() }
                     .padding(top = 17.dp, bottom = 15.dp, start = 24.dp,end = 45.dp),

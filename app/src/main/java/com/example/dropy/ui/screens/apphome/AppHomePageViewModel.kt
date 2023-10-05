@@ -392,7 +392,7 @@ class AppHomePageViewModel @Inject constructor(
     }
 
     fun navigateShop() {
-        appViewModel!!.navigate(ShopsFrontDestination.SINGLE_SHOP)
+//        appViewModel!!.navigate(ShopsFrontDestination.SINGLE_SHOP)
 
     }
 
@@ -557,7 +557,7 @@ class AppHomePageViewModel @Inject constructor(
     }
 
     fun onGoToShops() {
-        appViewModel?.navigate(ShopsFrontDestination.SHOPS_HOME)
+//        appViewModel?.navigate(ShopsFrontDestination.SHOPS_HOME)
     }
 
     fun onGoToWater() {
@@ -567,18 +567,18 @@ class AppHomePageViewModel @Inject constructor(
     fun onGoToRides() {
         // appViewModel?.navigate(AppDestinations.RIDES)
         // appViewModel?.navigate(RiderDestination.RIDERINCOMINGORDERS)
-        appViewModel?.navigate(AppDestinations.PARCELS)
+//        appViewModel?.navigate(AppDestinations.PARCELS)
 
     }
 
     fun onGoToParcels() {
-        appViewModel?.navigate(ParcelDestination.PARCEL_HOME)
+      //  appViewModel?.navigate(ParcelDestination.PARCEL_HOME)
         // appViewModel?.navigate(AppDestinations.PARCELS)
     }
 
     fun onGoToSearch() {
         //appViewModel?.navigate(ParcelDestination.PARCEL_HOME)
-        appViewModel?.navigate(AppDestinations.SEARCH_SCREEN)
+        //appViewModel?.navigate(AppDestinations.SEARCH_SCREEN)
     }
 
     fun onSearchItem(

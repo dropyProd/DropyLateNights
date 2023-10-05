@@ -152,7 +152,7 @@ fun truckOrderItem(
             )
 
             Text(
-                text = "ANTONY",
+                text = getIndividualOrdersRes.customer.first_name + " " + getIndividualOrdersRes.customer.last_name,
                 fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily(
@@ -263,19 +263,19 @@ fun truckOrderItem(
             horizontalAlignment = Alignment.End
         ) {
 
-        /*    val date = remember{
-                mutableStateOf("")
-            }
-            getIndividualOrdersRes.timestamp.forEachIndexed { index, time ->
-                if (index in 0..9){
-                    date.value += time
+            /*    val date = remember{
+                    mutableStateOf("")
                 }
-            }
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val newDate = formatter.parse(date.value)
-            val formatterNew = DateTimeFormatter.ofPattern("dd/MMM/yy")
-            val formatDate = formatterNew.format(newDate)
-*/
+                getIndividualOrdersRes.timestamp.forEachIndexed { index, time ->
+                    if (index in 0..9){
+                        date.value += time
+                    }
+                }
+                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                val newDate = formatter.parse(date.value)
+                val formatterNew = DateTimeFormatter.ofPattern("dd/MMM/yy")
+                val formatDate = formatterNew.format(newDate)
+    */
 
             Text(
                 text = "formatDate",
@@ -290,7 +290,7 @@ fun truckOrderItem(
                 modifier = Modifier.padding(end = 7.dp)
             )
             Text(
-                text = truckOrdersUiState.truckDetails?.capacity.toString()+"LT",
+                text = truckOrdersUiState.truckDetails?.capacity.toString() + "LT",
                 fontSize = 17.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily(

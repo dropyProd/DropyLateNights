@@ -46,7 +46,8 @@ class WaterRepositoryImpl(
     private val client: HttpClient,
     private val waterService: WaterService
 ) : WaterRepository {
-    private val BASE_URL = "http://20.164.41.50:8000/"
+//    private val BASE_URL = "http://20.164.41.50:8000/"
+    private val BASE_URL = "https://api.dropy.ke/"
     override suspend fun approvalRequests(token: String): Flow<Resource<ApprovalRequestsRes?>> {
         return flow {
             waterService.approvalRequests(token)

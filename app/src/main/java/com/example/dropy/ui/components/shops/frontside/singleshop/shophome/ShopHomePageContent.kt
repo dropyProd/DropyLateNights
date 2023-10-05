@@ -14,8 +14,8 @@ import com.example.dropy.ui.screens.shops.frontside.singleshop.ShopHomePageUiSta
 
 
 //public const val BaseUrL: String = "http://4.168.233.233:8000"
-public const val BaseUrL: String = "http://20.164.41.50:8000"
-//public const val BaseUrL: String = "https://api.dropy.ke"
+//public const val BaseUrL: String = "http://20.164.41.50:8000"
+public const val BaseUrL: String = "https://api.dropy.ke"
 //public const val BaseUrL: String = "https://www.youtube.com"
 
 @Composable
