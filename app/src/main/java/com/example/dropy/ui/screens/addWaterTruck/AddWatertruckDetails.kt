@@ -65,7 +65,10 @@ fun AddWatertruckDetails(
         userProfiles = appUiState.value.userProfiles,
         onSelectProfile = { addWaterTruckViewmodel.appViewModel?.onSelectProfile(it) },
         activeProfile = appUiState.value.activeProfile,
-        cartsize = cartUiState.value.orderList.size
+        cartsize = cartUiState.value.orderList.size,
+        showCart = false,
+        showImageRight = false,
+        showimg = false
     )
 }
 

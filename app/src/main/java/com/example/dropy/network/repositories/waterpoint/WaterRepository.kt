@@ -13,6 +13,7 @@ import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversRes
 import com.example.dropy.network.models.getWaterPointOrders.GetWaterPointOrdersRes
 import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
@@ -21,6 +22,7 @@ import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrde
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
+import com.example.dropy.network.models.topUpRes.TopUpRes
 import com.example.dropy.network.models.updateTruckLocationReq.UpdateTruckLocationReq
 import com.example.dropy.ui.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +35,7 @@ data class LoginDetails(
 interface WaterRepository {
 
     suspend fun approvalRequests(token: String): Flow<Resource<ApprovalRequestsRes?>>
-    suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<String?>>
+    suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<TopUpRes?>>
     suspend fun updateTruckLocation(token: String,updateTruckLocationReq: UpdateTruckLocationReq): Flow<Resource<String?>>
     suspend fun withdrawWallet(topUpReq: TopUpReq): Flow<Resource<String?>>
     suspend fun generateDeliveryCode(
@@ -175,6 +177,10 @@ interface WaterRepository {
         token: String,
         addWaterDriverReq: AddWaterDriverReq
     ): Flow<Resource<AddWaterDriverRes?>>
+
+     fun getTruckDrivers(
+        token: String
+    ): Flow<Resource<GetTruckDriversRes?>>
 
 
     fun createCorporateWaterOrders(

@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.ActivityCompat
 import com.example.dropy.network.models.*
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersResItem
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversResItem
 import com.example.dropy.network.models.getWaterPoints.GetWaterPointsResItem
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsResItem
@@ -32,6 +33,7 @@ class DropyApp : Application() {
     public val shopId = mutableStateOf("")
     public val incomingShopId = mutableStateOf("")
     public val incomingCustomerId = mutableStateOf("")
+    public val myUserDetailsRes: MutableState<UserDetailRes?> = mutableStateOf(null)
     public val cartId: MutableState<Int?> = mutableStateOf(null)
     public val selectedOrder: MutableState<PaymentReq?> = mutableStateOf(null)
     public val selectedIncomingOrder: MutableState<ShopOrdersResponseItem?> = mutableStateOf(null)
@@ -44,6 +46,7 @@ class DropyApp : Application() {
     val individualOrders : MutableList<GetIndividualOrdersResItem> = mutableListOf()
     val waterpoints : MutableList<GetWaterPointsResItem> = mutableListOf()
     val myWaterpoints : MutableList<GetWaterPointsResItem> = mutableListOf()
+    val waterTruckDrivers : MutableList<GetTruckDriversResItem> = mutableListOf()
     val waterTrucks : MutableList<GetTrucksResItem> = mutableListOf()
     val myWaterTrucks : MutableList<GetTrucksResItem> = mutableListOf()
     val myWaterVendors : MutableList<GetWaterVendorsResItem> = mutableListOf()
@@ -205,6 +208,9 @@ class DropyApp : Application() {
     fun setId(idd: String) {
         id.value = idd
     }
+    fun setUserDetailRes(userDetailRes: UserDetailRes) {
+        myUserDetailsRes.value = userDetailRes
+    }
     fun setMyDeviceId(idd: String) {
         myDeviceId.value = idd
     }
@@ -219,6 +225,12 @@ class DropyApp : Application() {
         list.forEach {
             if (!myWaterpoints.contains(it))
                 myWaterpoints.add(it)
+        }
+    }
+    fun setTruckDrivers(list: List<GetTruckDriversResItem>){
+        list.forEach {
+            if (!waterTruckDrivers.contains(it))
+                waterTruckDrivers.add(it)
         }
     }
     fun setWatertrucks(list: List<GetTrucksResItem>){

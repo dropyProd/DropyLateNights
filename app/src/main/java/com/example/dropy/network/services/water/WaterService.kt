@@ -8,6 +8,7 @@ import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversRes
 import com.example.dropy.network.models.getWaterPointOrders.GetWaterPointOrdersRes
 import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
@@ -57,6 +58,11 @@ interface WaterService {
         @Header("Authorization") token: String,
         @Body addWaterDriverReq: AddWaterDriverReq
     ): AddWaterDriverRes
+
+    @GET("water/truck-drivers/")
+    suspend fun getTruckDrivers(
+        @Header("Authorization") token: String,
+    ): GetTruckDriversRes
 
     @POST("water/generate-delivery-code/{taskId}/")
     suspend fun generateDeliveryCode(

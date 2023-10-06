@@ -61,8 +61,12 @@ fun OrderPaymentPage(
                 onAddPaymentMethod = { checkoutViewModel.onAddPaymentMethod(it) },
                 onPayClicked = {
                     scope.launch {
-                        if (navController != null) {
+                       /* if (navController != null) {
                             mpesaPaymentDialogViewModel.navigateAllocatingTruck(navController)
+                        }*/
+
+                        if (navController != null) {
+                            mpesaPaymentDialogViewModel.processPay(context, navController)
                         }
                         /*mpesaPaymentDialogViewModel.onPayClicked(
                             appViewModel = appViewModel,

@@ -18,6 +18,7 @@ import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversRes
 import com.example.dropy.network.models.getWaterPointOrders.GetWaterPointOrdersRes
 import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
@@ -26,6 +27,7 @@ import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrde
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
+import com.example.dropy.network.models.topUpRes.TopUpRes
 import com.example.dropy.network.models.updateTruckLocationReq.UpdateTruckLocationReq
 import com.example.dropy.network.services.water.WaterService
 import com.example.dropy.ui.utils.Resource
@@ -54,7 +56,7 @@ class WaterRepositoryImpl(
         }
     }
 
-    override suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<String?>> {
+    override suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<TopUpRes?>> {
         return flow {
             waterService.topUpWallet(topUpReq)
         }
@@ -780,6 +782,20 @@ class WaterRepositoryImpl(
         return flow {
             try {
                 val result = waterService.createDivers(token, addWaterDriverReq)
+                emit(Resource.Success(result/*.toDomain()*/))
+
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Oops, something went wrong!"))
+            }
+        }
+    }
+
+    override fun getTruckDrivers(token: String): Flow<Resource<GetTruckDriversRes?>> {
+        return flow {
+            try {
+                val result = waterService.getTruckDrivers(token)
                 emit(Resource.Success(result/*.toDomain()*/))
 
             } catch (e: IOException) {

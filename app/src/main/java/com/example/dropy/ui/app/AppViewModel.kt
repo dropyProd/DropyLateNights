@@ -20,6 +20,7 @@ import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsResItem
 import com.example.dropy.network.services.AuthenticationApiService
 import com.example.dropy.network.use_case.authentication.RegisteruserUseCase
 import com.example.dropy.network.use_case.getIndividualOrders.GetIndividualOrdersUseCase
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversUseCase
 import com.example.dropy.network.use_case.getWaterTrucks.GetWaterTrucksUseCase
 import com.example.dropy.network.use_case.getWaterVendors.GetWaterVendorsUseCase
 import com.example.dropy.network.use_case.getWaterpoint.GetWaterPointsUseCase
@@ -174,7 +175,8 @@ class AppViewModel @Inject constructor(
     private val getWaterPointsUseCase: GetWaterPointsUseCase,
     private val getWaterVendorsUseCase: GetWaterVendorsUseCase,
     private val getIndividualOrdersUseCase: GetIndividualOrdersUseCase,
-    private val getWaterTrucksUseCase: GetWaterTrucksUseCase
+    private val getWaterTrucksUseCase: GetWaterTrucksUseCase,
+    private val getTruckDriversUseCase: GetTruckDriversUseCase
 ) : ViewModel(), LifecycleObserver {
 
     private val uiState = MutableStateFlow(AppUiState())
@@ -499,6 +501,7 @@ class AppViewModel @Inject constructor(
                                 }
                                 app.setMyProfile(result.data)
                                 app.setId(result.data.pk.toString())
+                                app.setUserDetailRes(result.data)
                                 getMenuItems()
                                 getWaterpoints()
                                 uiState.update { it.copy(appLoading = false) }
@@ -1114,15 +1117,16 @@ class AppViewModel @Inject constructor(
 
                                 app.setMyWatertrucks(list)
 
-                               if (update){
-                                   uiState.update {
-                                       it.copy(
-                                           userProfiles = profiles,
+                                if (update) {
+                                    uiState.update {
+                                        it.copy(
+                                            userProfiles = profiles,
 //                                        activeProfile = item
-                                       )
-                                   }
-                                   getMenuItems()
-                               }
+                                        )
+                                    }
+                                    getMenuItems()
+                                    getTruckDrivers()
+                                }
 
                                 uiState.update { it.copy(appLoading = false) }
 
@@ -1210,6 +1214,60 @@ class AppViewModel @Inject constructor(
                 }
                 getMenuItems()
             }*/
+        }
+    }
+
+    fun getTruckDrivers() {
+        viewModelScope.launch {
+            getTruckDriversUseCase(
+                token = app.token.value
+            ).flowOn(Dispatchers.IO)
+                .catch { e ->
+                    // handle exception
+                    uiState.update { it.copy(appLoading = false) }
+
+                }
+                .collect { result ->
+                    // list of users from the network
+                    Log.d("uopopi", "getAllShops: $result")
+                    when (result) {
+                        is Resource.Success -> {
+
+                            Log.d("KKTAG", "onAddShop: $result")
+                            if (result.data != null) {
+                                //  if (result.data?.resultCode?.equals(0) == true) {
+                                //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                //                                moveAddProductCategory()
+                                // }
+                                app.setTruckDrivers(result.data)
+                                uiState.update {
+                                    it.copy(
+                                        appLoading = false
+                                    )
+                                }
+//                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
+
+                            }
+                            //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
+
+
+                        }
+                        is Resource.Loading -> {
+                            uiState.update { it.copy(appLoading = true) }
+                        }
+                        is Resource.Error -> {
+                            //                            result.message?.let { message ->
+                            uiState.update {
+                                it.copy(
+                                    appLoading = false
+                                )
+                            }
+                            //                            }
+
+                        }
+                    }
+
+                }
         }
     }
 

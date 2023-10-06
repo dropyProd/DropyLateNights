@@ -1,5 +1,7 @@
 package com.example.dropy.ui.screens.waterServiceProviders
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.dropy.di.DropyApp
 import com.example.dropy.ui.app.AppDestinations
@@ -23,16 +25,17 @@ data class WaterServiceProvidersUiState(
 @HiltViewModel
 class WaterServiceProvidersViewModel @Inject constructor(
     private val app: DropyApp
-): ViewModel(){
+) : ViewModel() {
     val uiState = MutableStateFlow(WaterServiceProvidersUiState())
 
-    val waterServiceProvidersUiState: StateFlow<WaterServiceProvidersUiState> = uiState.asStateFlow()
+    val waterServiceProvidersUiState: StateFlow<WaterServiceProvidersUiState> =
+        uiState.asStateFlow()
 
     var appViewModel: AppViewModel? = null
 
 
-    fun navigateWaterPoint(){
-        if (app.myWaterpoints.size > 0){
+    fun navigateWaterPoint() {
+        if (app.myWaterpoints.size > 0) {
             val item = ActiveProfileDataClass(
                 type = ProfileTypes.WATER_POINT,
                 name = app.myWaterpoints[0].name,
@@ -41,25 +44,29 @@ class WaterServiceProvidersViewModel @Inject constructor(
 
             appViewModel?.onSelectProfile(item)
 //            appViewModel?.navigate(AppDestinations.WATERPOINT_DASH)
-        }else
-            appViewModel?.navigate(AppDestinations.CREATE_WATERPOINT )
+        } else
+            appViewModel?.navigate(AppDestinations.CREATE_WATERPOINT)
     }
 
-    fun navigateWaterTruck(){
-        if (app.myWaterTrucks.size > 0){
-            val item = ActiveProfileDataClass(
+    fun navigateWaterTruck() {
+        val item : MutableState<ActiveProfileDataClass?> = mutableStateOf(null)
+        app.waterTruckDrivers.forEach {
+            if (it.driver.id.equals(appViewModel!!.appUiState.value.activeProfile!!.id))
+                item.value = ActiveProfileDataClass(
                 type = ProfileTypes.WATER_TRUCK,
-                name = app.myWaterTrucks[0].license_plate,
-                id = app.myWaterTrucks[0].id
+                name = it.truck.license_plate,
+                id = it.truck.id
             )
-
-            appViewModel?.onSelectProfile(item)
+        }
+        if (item.value != null) {
+            appViewModel?.onSelectProfile(item.value!!)
 //            appViewModel?.navigate(AppDestinations.WATERPOINT_DASH)
-        }else
-            appViewModel?.navigate(AppDestinations.ADD_WATER_DRIVER )
+        } else
+            appViewModel?.navigate(AppDestinations.ADD_WATER_DRIVER)
     }
-    fun navigateWaterVendor(){
-        if (app.myWaterVendors.size > 0){
+
+    fun navigateWaterVendor() {
+        if (app.myWaterVendors.size > 0) {
             val item = ActiveProfileDataClass(
                 type = ProfileTypes.WATER_VENDOR,
                 name = app.myWaterVendors[0].name,
@@ -68,7 +75,7 @@ class WaterServiceProvidersViewModel @Inject constructor(
 
             appViewModel?.onSelectProfile(item)
 //            appViewModel?.navigate(AppDestinations.WATERPOINT_DASH)
-        }else
+        } else
             appViewModel?.navigate(AppDestinations.CREATE_WATERVENDOR)
     }
 }

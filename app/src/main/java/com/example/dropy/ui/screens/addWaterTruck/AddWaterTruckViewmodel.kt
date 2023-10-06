@@ -461,12 +461,14 @@ class AddWaterTruckViewmodel @Inject constructor(
 //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
 //                                moveAddProductCategory()
                                 // }
+                                appViewModel!!.getWaterTrucks()
                                 _addWaterTruckImagesUiState.update { it.copy(pageLoading = false) }
                                 Toast.makeText(
                                     context,
                                     "${result.data.license_plate} created success",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                appViewModel!!.navigate(AppDestinations.WATER_VENDOR_DASHBOARD)
                                /* addWaterDriver(
                                     context = context,
                                     truck = result.data.id,

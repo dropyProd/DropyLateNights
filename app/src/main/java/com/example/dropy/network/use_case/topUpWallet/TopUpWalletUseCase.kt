@@ -10,6 +10,7 @@ import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.shops.ShopsResponse
 import com.example.dropy.network.models.topUp.TopUpReq
+import com.example.dropy.network.models.topUpRes.TopUpRes
 import com.example.dropy.network.repositories.shop.front.ShopFrontendRepository
 import com.example.dropy.network.repositories.waterpoint.WaterRepository
 import com.example.dropy.ui.utils.Resource
@@ -21,7 +22,7 @@ class TopUpWalletUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         topUpReq: TopUpReq
-    ): Flow<Resource<String?>> {
+    ): Flow<Resource<TopUpRes?>> {
         return waterRepository.topUpWallet(
             topUpReq = topUpReq
         )

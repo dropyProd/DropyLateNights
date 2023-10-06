@@ -16,10 +16,12 @@ import com.example.dropy.network.models.ProcessOrderReq
 import com.example.dropy.network.models.checkoutPojo.ChargesPojo
 import com.example.dropy.network.models.checkoutPojo.DeliveryLocation
 import com.example.dropy.network.models.deliverymethods.DeliveryMethodResponseItem
+import com.example.dropy.network.models.topUp.TopUpReq
 import com.example.dropy.network.repositories.shop.front.ShopFrontendRepository
 import com.example.dropy.network.services.cart.CartService
 import com.example.dropy.network.use_case.TransactionStatusUseCase
 import com.example.dropy.network.use_case.cart.ProcessOrderUseCase
+import com.example.dropy.network.use_case.topUpWallet.TopUpWalletUseCase
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.app.navigation.shopsnavigation.ShopsBacksideNavigation
@@ -53,9 +55,9 @@ class MpesaPaymentDialogViewModel @Inject constructor(
     private val cartService: CartService,
     private val app: DropyApp,
     private val transactionStatusUseCase: TransactionStatusUseCase,
-    private val processOrderUseCase: ProcessOrderUseCase
-) :
-    ViewModel() {
+    private val processOrderUseCase: ProcessOrderUseCase,
+    private val topUpWalletUseCase: TopUpWalletUseCase
+) : ViewModel() {
 
     private val uiState = MutableStateFlow(MpesaPaymentDialogUiState())
     val mpesaPaymentDialogUiState: StateFlow<MpesaPaymentDialogUiState> = uiState.asStateFlow()
@@ -73,6 +75,69 @@ class MpesaPaymentDialogViewModel @Inject constructor(
             it.copy(
                 phoneNumber = phoneNumber
             )
+        }
+    }
+
+    fun processPay(context: Context, navController: NavController) {
+        viewModelScope.launch {
+            val item = app.myUserDetailsRes.value!!.phone_number?.let {
+                TopUpReq(
+                    phone_number = it,
+                    amount = uiState.value.amount.toString().toInt()
+                )
+            }
+            topUpWalletUseCase(
+                topUpReq = item!!
+            ).flowOn(Dispatchers.IO)
+                .catch { e ->
+                    // handle exception
+                    uiState.update { it.copy(pageLoading = false) }
+
+                }
+                .collect { result ->
+                    // list of users from the network
+                    Log.d("uopopi", "getAllShops: $result")
+                    when (result) {
+                        is Resource.Success -> {
+
+                            Log.d("KKTAG", "onAddShop: $result")
+                            if (result.data != null) {
+                                //  if (result.data?.resultCode?.equals(0) == true) {
+                                //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                //                                moveAddProductCategory()
+                                // }
+
+                                Toast.makeText(context, result.data.message, Toast.LENGTH_SHORT).show()
+
+                                uiState.update {
+                                    it.copy(
+                                        pageLoading = false
+                                    )
+                                }
+                                navigateAllocatingTruck(navController)
+//                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
+
+                            }
+                            //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
+
+
+                        }
+                        is Resource.Loading -> {
+                            uiState.update { it.copy(pageLoading = true) }
+                        }
+                        is Resource.Error -> {
+                            //                            result.message?.let { message ->
+                            uiState.update {
+                                it.copy(
+                                    pageLoading = false
+                                )
+                            }
+                            //                            }
+
+                        }
+                    }
+
+                }
         }
     }
 
@@ -221,9 +286,9 @@ class MpesaPaymentDialogViewModel @Inject constructor(
                             it.copy(pageLoading = false)
                         }
 
-                        for (i in 0..10){
+                        for (i in 0..10) {
                             Log.d("kolop", "onPayClicked: $i")
-                            if (i == 9){
+                            if (i == 9) {
                                 response.body()?.transactionId?.let {
                                     checkTransactionStatus(
                                         it,
@@ -440,7 +505,7 @@ class MpesaPaymentDialogViewModel @Inject constructor(
 
     }
 
-    fun navigateAllocatingTruck(navController: NavController){
+    fun navigateAllocatingTruck(navController: NavController) {
         viewModelScope.launch {
             navController.navigate(AppDestinations.ALLOCATING_TRUCKS)
         }
