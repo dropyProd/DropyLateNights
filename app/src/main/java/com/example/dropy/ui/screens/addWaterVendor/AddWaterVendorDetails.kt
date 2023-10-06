@@ -84,7 +84,8 @@ fun AddWaterVendorDetails(
         userProfiles = appUiState.value.userProfiles,
         onSelectProfile = { addWaterVendorViewModel.appViewModel?.onSelectProfile(it) },
         activeProfile = appUiState.value.activeProfile,
-        cartsize = cartUiState.value.orderList.size
+        cartsize = cartUiState.value.orderList.size,
+        showCart = false
     )
 }
 

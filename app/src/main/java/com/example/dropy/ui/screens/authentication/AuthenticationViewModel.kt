@@ -151,79 +151,79 @@ class AuthenticationViewModel @Inject constructor(
         truckIncomingWorkUiState: TruckIncomingWorkUiState
     ) {
         viewModelScope.launch {
-           if (!uiState.value.currentOtpValue.equals("")){
-               uiState.update {
-                   it.copy(
-                       currentOtpValue = scanQRWaterUiState.code
-                   )
-               }
-               if (uiState.value.currentOtpValue.equals(scanQRWaterUiState.code)) {
-                   val item = VerifyDeliveryCodeReq(delivery_code = scanQRWaterUiState.code)
+            if (!uiState.value.currentOtpValue.equals("")) {
+                uiState.update {
+                    it.copy(
+                        currentOtpValue = scanQRWaterUiState.code
+                    )
+                }
+                if (uiState.value.currentOtpValue.equals(scanQRWaterUiState.code)) {
+                    val item = VerifyDeliveryCodeReq(delivery_code = scanQRWaterUiState.code)
 
-                   verifyDeliveryCodeUseCase(
-                       token = "Token " + app.token.value,
-                       taskId = scanQRWaterUiState.taskId,
-                       verifyDeliveryCodeReq = item
-                   ).flowOn(Dispatchers.IO)
-                       .catch { e ->
-                           // handle exception
-                           uiState.update { it.copy(isLoading = false) }
-                           scanQRWaterViewModel.navigateOrderComplete(
-                               truckStartTripViewModel = truckStartTripViewModel,
-                               nearestWaterPointUiState = nearestWaterPointUiState,
-                               truckIncomingWorkUiState = truckIncomingWorkUiState
-                           )
-                       }
-                       .collect { result ->
-                           // list of users from the network
-                           Log.d("uopopi", "getAllShops: $result")
-                           when (result) {
-                               is Resource.Success -> {
+                    verifyDeliveryCodeUseCase(
+                        token = "Token " + app.token.value,
+                        taskId = scanQRWaterUiState.taskId,
+                        verifyDeliveryCodeReq = item
+                    ).flowOn(Dispatchers.IO)
+                        .catch { e ->
+                            // handle exception
+                            uiState.update { it.copy(isLoading = false) }
+                            scanQRWaterViewModel.navigateOrderComplete(
+                                truckStartTripViewModel = truckStartTripViewModel,
+                                nearestWaterPointUiState = nearestWaterPointUiState,
+                                truckIncomingWorkUiState = truckIncomingWorkUiState
+                            )
+                        }
+                        .collect { result ->
+                            // list of users from the network
+                            Log.d("uopopi", "getAllShops: $result")
+                            when (result) {
+                                is Resource.Success -> {
 
-                                   Log.d("KKTAG", "onAddShop: $result")
-                                   if (result.data != null) {
-                                       //  if (result.data?.resultCode?.equals(0) == true) {
-                                       //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
-                                       //                                moveAddProductCategory()
-                                       // }
+                                    Log.d("KKTAG", "onAddShop: $result")
+                                    if (result.data != null) {
+                                        //  if (result.data?.resultCode?.equals(0) == true) {
+                                        //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                        //                                moveAddProductCategory()
+                                        // }
 
-                                       scanQRWaterViewModel.navigateOrderComplete(
-                                           truckStartTripViewModel = truckStartTripViewModel,
-                                           nearestWaterPointUiState = nearestWaterPointUiState,
-                                           truckIncomingWorkUiState = truckIncomingWorkUiState
-                                       )
-                                       uiState.update {
-                                           it.copy(
-                                               isLoading = false
-                                           )
-                                       }
+                                        scanQRWaterViewModel.navigateOrderComplete(
+                                            truckStartTripViewModel = truckStartTripViewModel,
+                                            nearestWaterPointUiState = nearestWaterPointUiState,
+                                            truckIncomingWorkUiState = truckIncomingWorkUiState
+                                        )
+                                        uiState.update {
+                                            it.copy(
+                                                isLoading = false
+                                            )
+                                        }
 //                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
 
-                                   }
-                                   //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
+                                    }
+                                    //                            _addShopImagesUiState.update { it.copy(pageLoading = false) }
 
 
-                               }
-                               is Resource.Loading -> {
-                                   uiState.update { it.copy(isLoading = true) }
-                               }
-                               is Resource.Error -> {
-                                   //                            result.message?.let { message ->
-                                   uiState.update {
-                                       it.copy(
-                                           isLoading = false
-                                       )
-                                   }
-                                   //                            }
+                                }
+                                is Resource.Loading -> {
+                                    uiState.update { it.copy(isLoading = true) }
+                                }
+                                is Resource.Error -> {
+                                    //                            result.message?.let { message ->
+                                    uiState.update {
+                                        it.copy(
+                                            isLoading = false
+                                        )
+                                    }
+                                    //                            }
 
-                               }
-                           }
+                                }
+                            }
 
-                       }
-               }
-           }else{
-               Toast.makeText(context, "Code doesn't match", Toast.LENGTH_SHORT).show()
-           }
+                        }
+                }
+            } else {
+                Toast.makeText(context, "Code doesn't match", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -694,9 +694,9 @@ class AuthenticationViewModel @Inject constructor(
                             // Log.d("uopopi", "getAllShops: ${result.data}")
                             when (result) {
                                 is Resource.Success -> {
+                                    Log.d("YYYTAG", "createNewUser: ${result.data}")
 
                                     if (result.data != null) {
-                                        Log.d("YYYTAG", "createNewUser: ${result.data}")
                                         //   if (result.data.access != "" ) {
                                         //   appViewModel!!.setFirebaseUid(firebaseUid)
                                         result.data.key?.let { app.setToken(it) }
@@ -719,14 +719,14 @@ class AuthenticationViewModel @Inject constructor(
                                     uiState.update { it.copy(isLoading = true) }
                                 }
                                 is Resource.Error -> {
-                                    result.message?.let { message ->
-                                        uiState.update {
-                                            it.copy(
-                                                isLoading = false,
-                                                // errorList = listOf(message)
-                                            )
-                                        }
+                                    appViewModel!!.navigate(AppDestinations.ON_BOARDING)
+                                    uiState.update {
+                                        it.copy(
+                                            isLoading = false,
+                                            // errorList = listOf(message)
+                                        )
                                     }
+
 
                                 }
                             }

@@ -38,7 +38,11 @@ import com.example.dropy.ui.screens.locale.BackgroundedImage
 import com.example.dropy.ui.theme.DropyYellow
 
 @Composable
-fun TopUpContent() {
+fun TopUpContent(
+    topUpUiState: TopUpUiState,
+    onAmountChange: (String) -> Unit,
+    topUp: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -111,7 +115,7 @@ fun TopUpContent() {
                     )
                     SimpleText(
                         textSize = 26,
-                        text = "1200/-",
+                        text = "0/-",
                         textColor = Color.Black,
                         isUppercase = true,
                         isBold = false,
@@ -177,7 +181,7 @@ fun TopUpContent() {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             TextField(
-                                value = "5,200",
+                                value = topUpUiState.amount,
                                 onValueChange = {},
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 colors = TextFieldDefaults.textFieldColors(
@@ -269,5 +273,5 @@ fun TopUpContent() {
 @Preview
 @Composable
 fun demo() {
-    TopUpContent()
+    TopUpContent(topUpUiState = TopUpUiState(), topUp = {}, onAmountChange = {})
 }

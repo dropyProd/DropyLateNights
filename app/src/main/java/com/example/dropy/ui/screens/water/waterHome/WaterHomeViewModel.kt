@@ -1,10 +1,12 @@
 package com.example.dropy.ui.screens.water.waterHome
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.example.dropy.di.DropyApp
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.screens.apphome.AppHomePageUiState
+import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,5 +50,7 @@ class WaterHomeViewModel @Inject constructor(
         )
             navigateBoreHoleWater()
     }
+
+
 
 }

@@ -44,7 +44,7 @@ val navItems = listOf<BottomNavItem>(
     BottomNavItem(
         icon = Icons.Filled.Inbox,
         pathName = "orders",
-       // route = /*ParcelDestination.PARCEL_HOME*/AppDestinations.PARCELS
+        // route = /*ParcelDestination.PARCEL_HOME*/AppDestinations.PARCELS
         route = ShopsFrontDestination.CUSTOMER_ORDER_HISTORY
     ),
     BottomNavItem(
@@ -71,7 +71,7 @@ fun AppBottomNav(
 
 
     BottomNavigation(
-       // #DEDEDE
+        // #DEDEDE
         backgroundColor = (Color(0xFFDEDEDE)),
         elevation = 0.dp,
         modifier = Modifier
@@ -98,7 +98,7 @@ fun AppBottomNav(
                         .fillMaxHeight()
                         .background(
                             color = if (item.pathName == "home") {
-                               // Color(253, 211, 19)
+                                // Color(253, 211, 19)
                                 Color.Black
                             } else {
                                 Color.Transparent
@@ -110,9 +110,10 @@ fun AppBottomNav(
                         icon = item.icon,
                         pathName = item.pathName,
                         onClick = {
+                            if (item.pathName.equals("pay") && item.pathName.equals("shops")) {
 
-                            navigateTo(item.route)
-
+                            } else
+                                navigateTo(item.route)
 
                         }
                     )
@@ -139,7 +140,7 @@ fun BottomNavIcon(
                 .size(if (!pathName.uppercase().equals("HOME")) 40.dp else 55.dp)
         ) {
             if (!pathName.uppercase().equals("HOME"))
-            Icon(imageVector = icon, contentDescription = "")
+                Icon(imageVector = icon, contentDescription = "")
             else
                 Icon(imageVector = icon, contentDescription = "", tint = Color.White)
         }

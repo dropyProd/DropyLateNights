@@ -295,7 +295,7 @@ fun DashboardStats(
                     .weight(1f)
             ) {
                 DashboardStatContainer(
-                    title = "TRIPS MADE",
+                    title = "ORDERS MADE",
                     stat = 0,
                     onClick = { onOrderHistoryClicked() },
                     image = R.drawable.shop1
@@ -411,7 +411,7 @@ fun DashboardStatContainer(
                 text = stat.toString(),
                 padding = 4,
                 textColor = Color.White,
-                textSize = 14,
+                textSize = 9,
                 fontWeight = FontWeight.Black,
                 font = Font(R.font.axiformablack)
             )

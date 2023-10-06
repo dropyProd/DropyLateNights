@@ -33,6 +33,7 @@ import com.example.dropy.ui.components.commons.TotallyRoundedButton
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 import com.example.dropy.ui.screens.shops.backside.addshop.AddShopUiState
 import java.util.*
+
 @Composable
 fun AddWaterVendorDetailsContent(
     uiState: AddWaterVendorUiState,
@@ -62,12 +63,12 @@ fun AddWaterVendorDetailsContent(
     changeShopType: (String) -> Unit
 ) {
 
-     /*   AppBackSideTopBar(
-            onBackButtonClicked = {},
-            onDashboardButtonClicked = {
+    /*   AppBackSideTopBar(
+           onBackButtonClicked = {},
+           onDashboardButtonClicked = {
 
-            },
-        )*/
+           },
+       )*/
 
 
     LaunchedEffect(key1 = true, block = {
@@ -205,7 +206,7 @@ fun AddWaterVendorDetailsContent(
                 }*/
             }
 
-          /*  Row(
+            /*  Row(
                 modifier = Modifier
                     .padding(bottom = 24.dp, top = 16.dp)
                     .fillMaxWidth()
@@ -358,7 +359,7 @@ fun AddWaterVendorDetailsContent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-              /*  Column(
+                /*  Column(
                     modifier = Modifier
                         .height(IntrinsicSize.Min)
                         .padding(bottom = 24.dp)
@@ -394,7 +395,6 @@ fun AddWaterVendorDetailsContent(
                         modifier = Modifier
                             .padding(bottom = 8.dp)
                     )
-
                     {
                         Spacer(modifier = Modifier.padding(top = 20.dp))
                         Switch(
@@ -418,406 +418,8 @@ fun AddWaterVendorDetailsContent(
                     }
                 }
             }
-
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 24.dp)
-                    .fillMaxWidth()
-            ) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                        .weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    SimpleText(
-                        textSize = 10,
-                        text = "Saturday",
-                        isExtraBold = true,
-                        font = Font(R.font.axiformaextrabold)
-                    )
-
-                    val backgroundColorClose by animateColorAsState(
-                        if (uiState.saturdayState) Color.LightGray else Color.Black
-                    )
-                    val backgroundColorOpen by animateColorAsState(
-                        if (uiState.saturdayState) Color.Black else Color.LightGray
-                    )
-
-                    Row(
-                        modifier = Modifier.wrapContentWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(2.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SimpleText(
-                            textSize = 8,
-                            text = "CLOSED",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorClose
-                        )
-                        Switch(
-                            checked = uiState.saturdayState,
-                            onCheckedChange = changeSaturdayState,
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                uncheckedThumbColor = Color.White,
-                                checkedTrackColor = Color.Black,
-                                uncheckedTrackColor = Color.Transparent
-                            )
-                        )
-                        SimpleText(
-                            textSize = 8,
-                            text = "OPEN",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorOpen
-                        )
-                    }
-
-                }
-
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    SimpleText(
-                        textSize = 10,
-                        text = "Sunday",
-                        isExtraBold = true
-                    )
-
-                    val backgroundColorClose by animateColorAsState(
-                        if (uiState.sundayState) Color.LightGray else Color.Black
-                    )
-                    val backgroundColorOpen by animateColorAsState(
-                        if (uiState.sundayState) Color.Black else Color.LightGray
-                    )
-
-                    Row(
-                        modifier = Modifier.wrapContentWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(2.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SimpleText(
-                            textSize = 8,
-                            text = "CLOSED",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorClose
-                        )
-                        Switch(
-                            checked = uiState.sundayState,
-                            onCheckedChange = changeSundayState,
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                uncheckedThumbColor = Color.White,
-                                checkedTrackColor = Color.Black,
-                                uncheckedTrackColor = Color.Transparent
-                            )
-                        )
-                        SimpleText(
-                            textSize = 8,
-                            text = "OPEN",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorOpen
-                        )
-                    }
-                }
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    SimpleText(
-                        textSize = 10,
-                        text = "Holidays",
-                        isExtraBold = true
-                    )
-
-                    val backgroundColorClose by animateColorAsState(
-                        if (uiState.holidayState) Color.LightGray else Color.Black
-                    )
-                    val backgroundColorOpen by animateColorAsState(
-                        if (uiState.holidayState) Color.Black else Color.LightGray
-                    )
-
-                    Row(
-                        modifier = Modifier.wrapContentWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(2.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SimpleText(
-                            textSize = 8,
-                            text = "CLOSED",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorClose
-                        )
-                        Switch(
-                            checked = uiState.holidayState,
-                            onCheckedChange = changeHolidayState,
-                            colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                uncheckedThumbColor = Color.White,
-                                checkedTrackColor = Color.Black,
-                                uncheckedTrackColor = Color.Transparent
-                            )
-                        )
-                        SimpleText(
-                            textSize = 8,
-                            text = "OPEN",
-                            isExtraBold = false,
-                            font = Font(R.font.axiformablack),
-                            textColor = backgroundColorOpen
-                        )
-                    }
-                }
-            }
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 24.dp, top = 16.dp)
-                    .fillMaxWidth()
-            ) {
-
-                val context = LocalContext.current
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .padding(end = 8.dp)
-                        .weight(1f),
-                ) {
-                    SimpleText(
-                        textSize = 10,
-                        text = "Weekdays Opening Time",
-                        isExtraBold = true,
-                        font = Font(R.font.axiformaextrabold)
-                    )
-
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                            .fillMaxWidth()
-                            .background(color = Color.Transparent)
-                            .border(
-                                width = 2.dp,
-                                color = Color.Black,
-                                shape = RoundedCornerShape(7.dp)
-                            )
-                            .height(48.dp)
-                            .clickable {
-                                // on below line we are getting
-                                // the instance of our calendar.
-                                val c = Calendar.getInstance()
-
-                                // on below line we are getting our hour, minute.
-                                val hour = c.get(Calendar.HOUR_OF_DAY)
-                                val minute = c.get(Calendar.MINUTE)
-
-                                // on below line we are initializing
-                                // our Time Picker Dialog
-                                val timePickerDialog = TimePickerDialog(
-                                    context,
-                                    { view, hourOfDay, minute ->
-                                        // on below line we are setting selected
-                                        // time in our text view.
-                                        val timeseet = "$hourOfDay:$minute"
-
-                                        // TODO Auto-generated method stub
-                                        // TODO Auto-generated method stub
-                                        var hours = hourOfDay
-                                        val minutes = minute
-                                        var timeSet = ""
-
-                                        Log.d(
-                                            "huiop",
-                                            "AddShopDetailsContent: $hours     $hourOfDay"
-                                        )
-                                        if (hourOfDay > 12) {
-                                            hours -= 12
-                                            timeSet = "PM"
-                                        } else if (hours === 0) {
-                                            hours += 12
-                                            timeSet = "AM"
-                                        } else if (hours === 12) {
-                                            timeSet = "PM"
-                                        } else {
-                                            timeSet = "AM"
-                                        }
-
-                                        var min: String? = ""
-                                        if (minutes < 10) min = "0$minutes" else min =
-                                            java.lang.String.valueOf(minutes)
-
-                                        // Append in a StringBuilder
-
-                                        // Append in a StringBuilder
-                                        changeWeekdayOpeningTime(
-                                            /*        StringBuilder()
-                                                        .append(hours)
-                                                        .append(':')
-                                                        .append(min)
-                                                        .append(" ")
-                                                        .append(timeSet)
-                                                        .toString()*/timeseet
-                                        )
-
-                                        /*        Toast
-                                                    .makeText(context, aTime.value, Toast.LENGTH_SHORT)
-                                                    .show()*/
-                                    },
-                                    hour,
-                                    minute,
-                                    false
-                                )
-                                // at last we are calling show to
-                                // display our time picker dialog.
-                                timePickerDialog.show()
-                            },
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SimpleText(
-                            textSize = 11,
-                            text = uiState.weekday_opening_time,
-                            isExtraBold = true,
-                            textColor = Color.Black
-                        )
-                    }
-
-                    // widget.Button
-//                    AndroidView(
-//                        factory = { ctx ->
-//                            android.widget.TimePicker(ctx).apply {
-//                                layoutParams = LinearLayout.LayoutParams(140, 140)
-//                                setOnClickListener {
-//                                    //  state.value++
-//                                }
-//                            }
-//                        }, /*modifier = Modifier.padding(8.dp)*/
-//                    )
-                }
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .weight(1f),
-                ) {
-                    SimpleText(
-                        textSize = 10,
-                        text = "Closing Time",
-                        isExtraBold = true
-                    )
-
-
-                    Row(
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                            .fillMaxWidth()
-                            .background(color = Color.Transparent)
-                            .border(
-                                width = 2.dp,
-                                color = Color.Black,
-                                shape = RoundedCornerShape(7.dp)
-                            )
-                            .height(48.dp)
-                            .clickable {
-                                // on below line we are getting
-                                // the instance of our calendar.
-                                val c = Calendar.getInstance()
-
-                                // on below line we are getting our hour, minute.
-                                val hour = c.get(Calendar.HOUR_OF_DAY)
-                                val minute = c.get(Calendar.MINUTE)
-
-                                // on below line we are initializing
-                                // our Time Picker Dialog
-                                val timePickerDialog = TimePickerDialog(
-                                    context,
-                                    { view, hourOfDay, minute ->
-                                        // on below line we are setting selected
-                                        // time in our text view.
-                                        val timeseet = "$hourOfDay:$minute"
-
-                                        // TODO Auto-generated method stub
-                                        // TODO Auto-generated method stub
-                                        var hours = hourOfDay
-                                        val minutes = minute
-                                        var timeSet = ""
-
-                                        Log.d(
-                                            "huiop",
-                                            "AddShopDetailsContent: $hours     $hourOfDay"
-                                        )
-                                        if (hourOfDay > 12) {
-                                            hours -= 12
-                                            timeSet = "PM"
-                                        } else if (hours === 0) {
-                                            hours += 12
-                                            timeSet = "AM"
-                                        } else if (hours === 12) {
-                                            timeSet = "PM"
-                                        } else {
-                                            timeSet = "AM"
-                                        }
-
-                                        var min: String? = ""
-                                        if (minutes < 10) min = "0$minutes" else min =
-                                            java.lang.String.valueOf(minutes)
-
-                                        // Append in a StringBuilder
-                                        changeWeekdayClosingTime(
-                                            /*        StringBuilder()
-                                                        .append(hours)
-                                                        .append(':')
-                                                        .append(min)
-                                                        .append(" ")
-                                                        .append(timeSet)
-                                                        .toString()*/timeseet
-                                        )
-
-                                        // Append in a StringBuilder
-
-                                    },
-                                    hour,
-                                    minute,
-                                    false
-                                )
-                                // at last we are calling show to
-                                // display our time picker dialog.
-                                timePickerDialog.show()
-                            },
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        SimpleText(
-                            textSize = 11,
-                            text = uiState.weekday_closing_time,
-                            isExtraBold = true,
-                            textColor = Color.Black
-                        )
-                    }
-
-                    /* // widget.Button
-                     AndroidView(
-                         factory = { ctx ->
-                             android.widget.TimePicker(ctx).apply {
-                                 layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-                                 setOnClickListener {
-                                     //  state.value++
-                                 }
-                             }
-                         }, *//*modifier = Modifier.padding(8.dp)*//*
-                    )*/
-                }
-            }
             AnimatedVisibility(
-                visible = uiState.holidayState,
+                visible = if (uiState.operationHrState.equals(false)) true else false,
                 enter = fadeIn(animationSpec = tween(1000)) +
                         expandVertically(
                             animationSpec = tween(
@@ -833,115 +435,1034 @@ fun AddWaterVendorDetailsContent(
                             )
                         )
             ) {
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 24.dp, top = 16.dp)
-                        .fillMaxWidth()
-                ) {
-
-                    val context = LocalContext.current
-                    Column(
-                        verticalArrangement = Arrangement.Center,
+                Column() {
+                    Row(
                         modifier = Modifier
-                            .padding(end = 8.dp)
-                            .weight(1f),
+                            .padding(bottom = 24.dp)
+                            .fillMaxWidth()
                     ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Holidays Opening Time",
-                            isExtraBold = true,
-                            font = Font(R.font.axiformaextrabold)
-                        )
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .weight(1f),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            SimpleText(
+                                textSize = 10,
+                                text = "Saturday",
+                                isExtraBold = true,
+                                font = Font(R.font.axiformaextrabold)
+                            )
 
+                            val backgroundColorClose by animateColorAsState(
+                                if (uiState.saturdayState) Color.LightGray else Color.Black
+                            )
+                            val backgroundColorOpen by animateColorAsState(
+                                if (uiState.saturdayState) Color.Black else Color.LightGray
+                            )
+
+                            Row(
+                                modifier = Modifier.wrapContentWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "CLOSED",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorClose
+                                )
+                                Switch(
+                                    checked = uiState.saturdayState,
+                                    onCheckedChange = changeSaturdayState,
+                                    colors = SwitchDefaults.colors(
+                                        checkedThumbColor = Color.White,
+                                        uncheckedThumbColor = Color.White,
+                                        checkedTrackColor = Color.Black,
+                                        uncheckedTrackColor = Color.Transparent
+                                    )
+                                )
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "OPEN",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorOpen
+                                )
+                            }
+
+                        }
+
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .weight(1f),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            SimpleText(
+                                textSize = 10,
+                                text = "Sunday",
+                                isExtraBold = true
+                            )
+
+                            val backgroundColorClose by animateColorAsState(
+                                if (uiState.sundayState) Color.LightGray else Color.Black
+                            )
+                            val backgroundColorOpen by animateColorAsState(
+                                if (uiState.sundayState) Color.Black else Color.LightGray
+                            )
+
+                            Row(
+                                modifier = Modifier.wrapContentWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "CLOSED",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorClose
+                                )
+                                Switch(
+                                    checked = uiState.sundayState,
+                                    onCheckedChange = changeSundayState,
+                                    colors = SwitchDefaults.colors(
+                                        checkedThumbColor = Color.White,
+                                        uncheckedThumbColor = Color.White,
+                                        checkedTrackColor = Color.Black,
+                                        uncheckedTrackColor = Color.Transparent
+                                    )
+                                )
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "OPEN",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorOpen
+                                )
+                            }
+                        }
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .weight(1f),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            SimpleText(
+                                textSize = 10,
+                                text = "Holidays",
+                                isExtraBold = true
+                            )
+
+                            val backgroundColorClose by animateColorAsState(
+                                if (uiState.holidayState) Color.LightGray else Color.Black
+                            )
+                            val backgroundColorOpen by animateColorAsState(
+                                if (uiState.holidayState) Color.Black else Color.LightGray
+                            )
+
+                            Row(
+                                modifier = Modifier.wrapContentWidth(),
+                                horizontalArrangement = Arrangement.spacedBy(2.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "CLOSED",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorClose
+                                )
+                                Switch(
+                                    checked = uiState.holidayState,
+                                    onCheckedChange = changeHolidayState,
+                                    colors = SwitchDefaults.colors(
+                                        checkedThumbColor = Color.White,
+                                        uncheckedThumbColor = Color.White,
+                                        checkedTrackColor = Color.Black,
+                                        uncheckedTrackColor = Color.Transparent
+                                    )
+                                )
+                                SimpleText(
+                                    textSize = 8,
+                                    text = "OPEN",
+                                    isExtraBold = false,
+                                    font = Font(R.font.axiformablack),
+                                    textColor = backgroundColorOpen
+                                )
+                            }
+                        }
+                    }
+                    Row(
+                        modifier = Modifier
+                            .padding(bottom = 24.dp, top = 16.dp)
+                            .fillMaxWidth()
+                    ) {
+
+                        val context = LocalContext.current
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .padding(end = 8.dp)
+                                .weight(1f),
+                        ) {
+                            SimpleText(
+                                textSize = 10,
+                                text = "Weekdays Opening Time",
+                                isExtraBold = true,
+                                font = Font(R.font.axiformaextrabold)
+                            )
+
+
+                            Row(
+                                modifier = Modifier
+                                    .padding(top = 8.dp)
+                                    .fillMaxWidth()
+                                    .background(color = Color.Transparent)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Black,
+                                        shape = RoundedCornerShape(7.dp)
+                                    )
+                                    .height(48.dp)
+                                    .clickable {
+                                        // on below line we are getting
+                                        // the instance of our calendar.
+                                        val c = Calendar.getInstance()
+
+                                        // on below line we are getting our hour, minute.
+                                        val hour = c.get(Calendar.HOUR_OF_DAY)
+                                        val minute = c.get(Calendar.MINUTE)
+
+                                        // on below line we are initializing
+                                        // our Time Picker Dialog
+                                        val timePickerDialog = TimePickerDialog(
+                                            context,
+                                            { view, hourOfDay, minute ->
+                                                // on below line we are setting selected
+                                                // time in our text view.
+                                                val timeseet = "$hourOfDay:$minute"
+
+                                                // TODO Auto-generated method stub
+                                                // TODO Auto-generated method stub
+                                                var hours = hourOfDay
+                                                val minutes = minute
+                                                var timeSet = ""
+
+                                                Log.d(
+                                                    "huiop",
+                                                    "AddShopDetailsContent: $hours     $hourOfDay"
+                                                )
+                                                if (hourOfDay > 12) {
+                                                    hours -= 12
+                                                    timeSet = "PM"
+                                                } else if (hours === 0) {
+                                                    hours += 12
+                                                    timeSet = "AM"
+                                                } else if (hours === 12) {
+                                                    timeSet = "PM"
+                                                } else {
+                                                    timeSet = "AM"
+                                                }
+
+                                                var min: String? = ""
+                                                if (minutes < 10) min = "0$minutes" else min =
+                                                    java.lang.String.valueOf(minutes)
+
+                                                // Append in a StringBuilder
+
+                                                // Append in a StringBuilder
+                                                changeWeekdayOpeningTime(
+                                                    /*        StringBuilder()
+                                                                .append(hours)
+                                                                .append(':')
+                                                                .append(min)
+                                                                .append(" ")
+                                                                .append(timeSet)
+                                                                .toString()*/timeseet
+                                                )
+
+                                                /*        Toast
+                                                            .makeText(context, aTime.value, Toast.LENGTH_SHORT)
+                                                            .show()*/
+                                            },
+                                            hour,
+                                            minute,
+                                            false
+                                        )
+                                        // at last we are calling show to
+                                        // display our time picker dialog.
+                                        timePickerDialog.show()
+                                    },
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SimpleText(
+                                    textSize = 11,
+                                    text = uiState.weekday_opening_time,
+                                    isExtraBold = true,
+                                    textColor = Color.Black
+                                )
+                            }
+
+                            // widget.Button
+//                    AndroidView(
+//                        factory = { ctx ->
+//                            android.widget.TimePicker(ctx).apply {
+//                                layoutParams = LinearLayout.LayoutParams(140, 140)
+//                                setOnClickListener {
+//                                    //  state.value++
+//                                }
+//                            }
+//                        }, /*modifier = Modifier.padding(8.dp)*/
+//                    )
+                        }
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .weight(1f),
+                        ) {
+                            SimpleText(
+                                textSize = 10,
+                                text = "Closing Time",
+                                isExtraBold = true
+                            )
+
+
+                            Row(
+                                modifier = Modifier
+                                    .padding(top = 8.dp)
+                                    .fillMaxWidth()
+                                    .background(color = Color.Transparent)
+                                    .border(
+                                        width = 2.dp,
+                                        color = Color.Black,
+                                        shape = RoundedCornerShape(7.dp)
+                                    )
+                                    .height(48.dp)
+                                    .clickable {
+                                        // on below line we are getting
+                                        // the instance of our calendar.
+                                        val c = Calendar.getInstance()
+
+                                        // on below line we are getting our hour, minute.
+                                        val hour = c.get(Calendar.HOUR_OF_DAY)
+                                        val minute = c.get(Calendar.MINUTE)
+
+                                        // on below line we are initializing
+                                        // our Time Picker Dialog
+                                        val timePickerDialog = TimePickerDialog(
+                                            context,
+                                            { view, hourOfDay, minute ->
+                                                // on below line we are setting selected
+                                                // time in our text view.
+                                                val timeseet = "$hourOfDay:$minute"
+
+                                                // TODO Auto-generated method stub
+                                                // TODO Auto-generated method stub
+                                                var hours = hourOfDay
+                                                val minutes = minute
+                                                var timeSet = ""
+
+                                                Log.d(
+                                                    "huiop",
+                                                    "AddShopDetailsContent: $hours     $hourOfDay"
+                                                )
+                                                if (hourOfDay > 12) {
+                                                    hours -= 12
+                                                    timeSet = "PM"
+                                                } else if (hours === 0) {
+                                                    hours += 12
+                                                    timeSet = "AM"
+                                                } else if (hours === 12) {
+                                                    timeSet = "PM"
+                                                } else {
+                                                    timeSet = "AM"
+                                                }
+
+                                                var min: String? = ""
+                                                if (minutes < 10) min = "0$minutes" else min =
+                                                    java.lang.String.valueOf(minutes)
+
+                                                // Append in a StringBuilder
+                                                changeWeekdayClosingTime(
+                                                    /*        StringBuilder()
+                                                                .append(hours)
+                                                                .append(':')
+                                                                .append(min)
+                                                                .append(" ")
+                                                                .append(timeSet)
+                                                                .toString()*/timeseet
+                                                )
+
+                                                // Append in a StringBuilder
+
+                                            },
+                                            hour,
+                                            minute,
+                                            false
+                                        )
+                                        // at last we are calling show to
+                                        // display our time picker dialog.
+                                        timePickerDialog.show()
+                                    },
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                SimpleText(
+                                    textSize = 11,
+                                    text = uiState.weekday_closing_time,
+                                    isExtraBold = true,
+                                    textColor = Color.Black
+                                )
+                            }
+
+                            /* // widget.Button
+                             AndroidView(
+                                 factory = { ctx ->
+                                     android.widget.TimePicker(ctx).apply {
+                                         layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                                         setOnClickListener {
+                                             //  state.value++
+                                         }
+                                     }
+                                 }, *//*modifier = Modifier.padding(8.dp)*//*
+                    )*/
+                        }
+                    }
+                    AnimatedVisibility(
+                        visible = uiState.holidayState,
+                        enter = fadeIn(animationSpec = tween(1000)) +
+                                expandVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                ),
+                        exit = fadeOut(animationSpec = tween(1000)) +
+                                shrinkVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .padding(bottom = 24.dp, top = 16.dp)
+                                .fillMaxWidth()
+                        ) {
+
+                            val context = LocalContext.current
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .padding(end = 8.dp)
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Holidays Opening Time",
+                                    isExtraBold = true,
+                                    font = Font(R.font.axiformaextrabold)
+                                )
+
+
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
+
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
+
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
+
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeHolidayOpeningTime(
+                                                        /*         StringBuilder()
+                                                                     .append(hours)
+                                                                     .append(':')
+                                                                     .append(min)
+                                                                     .append(" ")
+                                                                     .append(timeSet)
+                                                                     .toString()*/timeseet
+                                                    )
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
+                                            )
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
+                                        },
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.holiday_opening_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
+                                    )
+                                }
+
+                                // widget.Button
+//                    AndroidView(
+//                        factory = { ctx ->
+//                            android.widget.TimePicker(ctx).apply {
+//                                layoutParams = LinearLayout.LayoutParams(140, 140)
+//                                setOnClickListener {
+//                                    //  state.value++
+//                                }
+//                            }
+//                        }, /*modifier = Modifier.padding(8.dp)*/
+//                    )
+                            }
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Closing Time",
+                                    isExtraBold = true
+                                )
+
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
+
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
+
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
+
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeHolidayClosingTime(
+                                                        /*    StringBuilder()
+                                                                .append(hours)
+                                                                .append(':')
+                                                                .append(min)
+                                                                .append(" ")
+                                                                .append(timeSet)
+                                                                .toString()*/timeseet
+                                                    )
+
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
+                                            )
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
+                                        },
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.holiday_closing_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
+                                    )
+                                }
+
+                                /* // widget.Button
+                                 AndroidView(
+                                     factory = { ctx ->
+                                         android.widget.TimePicker(ctx).apply {
+                                             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                                             setOnClickListener {
+                                                 //  state.value++
+                                             }
+                                         }
+                                     }, *//*modifier = Modifier.padding(8.dp)*//*
+                    )*/
+                            }
+                        }
+                    }
+
+                    AnimatedVisibility(
+                        visible = uiState.saturdayState,
+                        enter = fadeIn(animationSpec = tween(1000)) +
+                                expandVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                ),
+                        exit = fadeOut(animationSpec = tween(1000)) +
+                                shrinkVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                )
+                    ) {
 
                         Row(
                             modifier = Modifier
-                                .padding(top = 8.dp)
+                                .padding(bottom = 24.dp, top = 16.dp)
                                 .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
+                        ) {
+
+                            val context = LocalContext.current
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .padding(end = 8.dp)
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Saturday Opening Time",
+                                    isExtraBold = true,
+                                    font = Font(R.font.axiformaextrabold)
                                 )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
 
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
 
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
 
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
 
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
+
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeSaturdayOpeningTime(
+                                                        /*     StringBuilder()
+                                                                 .append(hours)
+                                                                 .append(':')
+                                                                 .append(min)
+                                                                 .append(" ")
+                                                                 .append(timeSet)
+                                                                 .toString()*/timeseet
+                                                    )
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
                                             )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
+                                        },
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.saturday_opening_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
+                                    )
+                                }
 
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
+                                // widget.Button
+//                    AndroidView(
+//                        factory = { ctx ->
+//                            android.widget.TimePicker(ctx).apply {
+//                                layoutParams = LinearLayout.LayoutParams(140, 140)
+//                                setOnClickListener {
+//                                    //  state.value++
+//                                }
+//                            }
+//                        }, /*modifier = Modifier.padding(8.dp)*/
+//                    )
+                            }
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Closing Time",
+                                    isExtraBold = true
+                                )
 
-                                            // Append in a StringBuilder
-                                            changeHolidayOpeningTime(
-                                                /*         StringBuilder()
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
+
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
+
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
+
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeSaturdayClosingTime(
+                                                        /*       StringBuilder()
+                                                                   .append(hours)
+                                                                   .append(':')
+                                                                   .append(min)
+                                                                   .append(" ")
+                                                                   .append(timeSet)
+                                                                   .toString()*/timeseet
+                                                    )
+
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
+                                            )
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
+                                        },
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.saturday_closing_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
+                                    )
+                                }
+
+                                /* // widget.Button
+                                 AndroidView(
+                                     factory = { ctx ->
+                                         android.widget.TimePicker(ctx).apply {
+                                             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                                             setOnClickListener {
+                                                 //  state.value++
+                                             }
+                                         }
+                                     }, *//*modifier = Modifier.padding(8.dp)*//*
+                    )*/
+                            }
+                        }
+                    }
+
+                    AnimatedVisibility(
+                        visible = uiState.sundayState,
+                        enter = fadeIn(animationSpec = tween(1000)) +
+                                expandVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                ),
+                        exit = fadeOut(animationSpec = tween(1000)) +
+                                shrinkVertically(
+                                    animationSpec = tween(
+                                        1500/*,
+                                    easing = BounceInterpolator()*/
+                                    )
+                                )
+                    ) {
+
+                        Row(
+                            modifier = Modifier
+                                .padding(bottom = 24.dp, top = 16.dp)
+                                .fillMaxWidth()
+                        ) {
+
+                            val context = LocalContext.current
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .padding(end = 8.dp)
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Sunday Opening Time",
+                                    isExtraBold = true,
+                                    font = Font(R.font.axiformaextrabold)
+                                )
+
+
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
+
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
+
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
+
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeSundayOpeningTime(
+                                                        /* StringBuilder()
                                                              .append(hours)
                                                              .append(':')
                                                              .append(min)
                                                              .append(" ")
                                                              .append(timeSet)
                                                              .toString()*/timeseet
+                                                    )
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
                                             )
-                                            // Append in a StringBuilder
-
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
                                         },
-                                        hour,
-                                        minute,
-                                        false
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.sunday_opening_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
                                     )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.holiday_opening_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
+                                }
 
-                        // widget.Button
+                                // widget.Button
 //                    AndroidView(
 //                        factory = { ctx ->
 //                            android.widget.TimePicker(ctx).apply {
@@ -952,625 +1473,123 @@ fun AddWaterVendorDetailsContent(
 //                            }
 //                        }, /*modifier = Modifier.padding(8.dp)*/
 //                    )
-                    }
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .weight(1f),
-                    ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Closing Time",
-                            isExtraBold = true
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
+                            }
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                modifier = Modifier
+                                    .weight(1f),
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Closing Time",
+                                    isExtraBold = true
                                 )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
 
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
+                                Row(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp)
+                                        .fillMaxWidth()
+                                        .background(color = Color.Transparent)
+                                        .border(
+                                            width = 2.dp,
+                                            color = Color.Black,
+                                            shape = RoundedCornerShape(7.dp)
+                                        )
+                                        .height(48.dp)
+                                        .clickable {
+                                            // on below line we are getting
+                                            // the instance of our calendar.
+                                            val c = Calendar.getInstance()
 
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
+                                            // on below line we are getting our hour, minute.
+                                            val hour = c.get(Calendar.HOUR_OF_DAY)
+                                            val minute = c.get(Calendar.MINUTE)
 
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
+                                            // on below line we are initializing
+                                            // our Time Picker Dialog
+                                            val timePickerDialog = TimePickerDialog(
+                                                context,
+                                                { view, hourOfDay, minute ->
+                                                    // on below line we are setting selected
+                                                    // time in our text view.
+                                                    val timeseet = "$hourOfDay:$minute"
 
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    // TODO Auto-generated method stub
+                                                    // TODO Auto-generated method stub
+                                                    var hours = hourOfDay
+                                                    val minutes = minute
+                                                    var timeSet = ""
+
+                                                    Log.d(
+                                                        "huiop",
+                                                        "AddShopDetailsContent: $hours     $hourOfDay"
+                                                    )
+                                                    if (hourOfDay > 12) {
+                                                        hours -= 12
+                                                        timeSet = "PM"
+                                                    } else if (hours === 0) {
+                                                        hours += 12
+                                                        timeSet = "AM"
+                                                    } else if (hours === 12) {
+                                                        timeSet = "PM"
+                                                    } else {
+                                                        timeSet = "AM"
+                                                    }
+
+                                                    var min: String? = ""
+                                                    if (minutes < 10) min = "0$minutes" else min =
+                                                        java.lang.String.valueOf(minutes)
+
+                                                    // Append in a StringBuilder
+                                                    changeSundayClosingTime(
+                                                        /*  StringBuilder()
+                                                              .append(hours)
+                                                              .append(':')
+                                                              .append(min)
+                                                              .append(" ")
+                                                              .append(timeSet)
+                                                              .toString()*/timeseet
+                                                    )
+
+                                                    // Append in a StringBuilder
+
+                                                },
+                                                hour,
+                                                minute,
+                                                false
                                             )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
-
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
-
-                                            // Append in a StringBuilder
-                                            changeHolidayClosingTime(
-                                                /*    StringBuilder()
-                                                        .append(hours)
-                                                        .append(':')
-                                                        .append(min)
-                                                        .append(" ")
-                                                        .append(timeSet)
-                                                        .toString()*/timeseet
-                                            )
-
-                                            // Append in a StringBuilder
-
+                                            // at last we are calling show to
+                                            // display our time picker dialog.
+                                            timePickerDialog.show()
                                         },
-                                        hour,
-                                        minute,
-                                        false
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    SimpleText(
+                                        textSize = 11,
+                                        text = uiState.sunday_closing_time,
+                                        isExtraBold = true,
+                                        textColor = Color.Black
                                     )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.holiday_closing_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
+                                }
 
-                        /* // widget.Button
-                         AndroidView(
-                             factory = { ctx ->
-                                 android.widget.TimePicker(ctx).apply {
-                                     layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-                                     setOnClickListener {
-                                         //  state.value++
-                                     }
-                                 }
-                             }, *//*modifier = Modifier.padding(8.dp)*//*
+                                /* // widget.Button
+                                 AndroidView(
+                                     factory = { ctx ->
+                                         android.widget.TimePicker(ctx).apply {
+                                             layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
+                                             setOnClickListener {
+                                                 //  state.value++
+                                             }
+                                         }
+                                     }, *//*modifier = Modifier.padding(8.dp)*//*
                     )*/
+                            }
+                        }
                     }
+
                 }
             }
-
-            AnimatedVisibility(
-                visible = uiState.saturdayState,
-                enter = fadeIn(animationSpec = tween(1000)) +
-                        expandVertically(
-                            animationSpec = tween(
-                                1500/*,
-                                    easing = BounceInterpolator()*/
-                            )
-                        ),
-                exit = fadeOut(animationSpec = tween(1000)) +
-                        shrinkVertically(
-                            animationSpec = tween(
-                                1500/*,
-                                    easing = BounceInterpolator()*/
-                            )
-                        )
-            ) {
-
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 24.dp, top = 16.dp)
-                        .fillMaxWidth()
-                ) {
-
-                    val context = LocalContext.current
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .weight(1f),
-                    ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Saturday Opening Time",
-                            isExtraBold = true,
-                            font = Font(R.font.axiformaextrabold)
-                        )
-
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
-                                )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
-
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
-
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
-
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
-
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
-                                            )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
-
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
-
-                                            // Append in a StringBuilder
-                                            changeSaturdayOpeningTime(
-                                                /*     StringBuilder()
-                                                         .append(hours)
-                                                         .append(':')
-                                                         .append(min)
-                                                         .append(" ")
-                                                         .append(timeSet)
-                                                         .toString()*/timeseet
-                                            )
-                                            // Append in a StringBuilder
-
-                                        },
-                                        hour,
-                                        minute,
-                                        false
-                                    )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.saturday_opening_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
-
-                        // widget.Button
-//                    AndroidView(
-//                        factory = { ctx ->
-//                            android.widget.TimePicker(ctx).apply {
-//                                layoutParams = LinearLayout.LayoutParams(140, 140)
-//                                setOnClickListener {
-//                                    //  state.value++
-//                                }
-//                            }
-//                        }, /*modifier = Modifier.padding(8.dp)*/
-//                    )
-                    }
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .weight(1f),
-                    ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Closing Time",
-                            isExtraBold = true
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
-                                )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
-
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
-
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
-
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
-
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
-                                            )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
-
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
-
-                                            // Append in a StringBuilder
-                                            changeSaturdayClosingTime(
-                                                /*       StringBuilder()
-                                                           .append(hours)
-                                                           .append(':')
-                                                           .append(min)
-                                                           .append(" ")
-                                                           .append(timeSet)
-                                                           .toString()*/timeseet
-                                            )
-
-                                            // Append in a StringBuilder
-
-                                        },
-                                        hour,
-                                        minute,
-                                        false
-                                    )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.saturday_closing_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
-
-                        /* // widget.Button
-                         AndroidView(
-                             factory = { ctx ->
-                                 android.widget.TimePicker(ctx).apply {
-                                     layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-                                     setOnClickListener {
-                                         //  state.value++
-                                     }
-                                 }
-                             }, *//*modifier = Modifier.padding(8.dp)*//*
-                    )*/
-                    }
-                }
-            }
-
-            AnimatedVisibility(
-                visible = uiState.sundayState,
-                enter = fadeIn(animationSpec = tween(1000)) +
-                        expandVertically(
-                            animationSpec = tween(
-                                1500/*,
-                                    easing = BounceInterpolator()*/
-                            )
-                        ),
-                exit = fadeOut(animationSpec = tween(1000)) +
-                        shrinkVertically(
-                            animationSpec = tween(
-                                1500/*,
-                                    easing = BounceInterpolator()*/
-                            )
-                        )
-            ) {
-
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 24.dp, top = 16.dp)
-                        .fillMaxWidth()
-                ) {
-
-                    val context = LocalContext.current
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .padding(end = 8.dp)
-                            .weight(1f),
-                    ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Sunday Opening Time",
-                            isExtraBold = true,
-                            font = Font(R.font.axiformaextrabold)
-                        )
-
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
-                                )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
-
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
-
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
-
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
-
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
-                                            )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
-
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
-
-                                            // Append in a StringBuilder
-                                            changeSundayOpeningTime(
-                                                /* StringBuilder()
-                                                     .append(hours)
-                                                     .append(':')
-                                                     .append(min)
-                                                     .append(" ")
-                                                     .append(timeSet)
-                                                     .toString()*/timeseet
-                                            )
-                                            // Append in a StringBuilder
-
-                                        },
-                                        hour,
-                                        minute,
-                                        false
-                                    )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.sunday_opening_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
-
-                        // widget.Button
-//                    AndroidView(
-//                        factory = { ctx ->
-//                            android.widget.TimePicker(ctx).apply {
-//                                layoutParams = LinearLayout.LayoutParams(140, 140)
-//                                setOnClickListener {
-//                                    //  state.value++
-//                                }
-//                            }
-//                        }, /*modifier = Modifier.padding(8.dp)*/
-//                    )
-                    }
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .weight(1f),
-                    ) {
-                        SimpleText(
-                            textSize = 10,
-                            text = "Closing Time",
-                            isExtraBold = true
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .padding(top = 8.dp)
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .border(
-                                    width = 2.dp,
-                                    color = Color.Black,
-                                    shape = RoundedCornerShape(7.dp)
-                                )
-                                .height(48.dp)
-                                .clickable {
-                                    // on below line we are getting
-                                    // the instance of our calendar.
-                                    val c = Calendar.getInstance()
-
-                                    // on below line we are getting our hour, minute.
-                                    val hour = c.get(Calendar.HOUR_OF_DAY)
-                                    val minute = c.get(Calendar.MINUTE)
-
-                                    // on below line we are initializing
-                                    // our Time Picker Dialog
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { view, hourOfDay, minute ->
-                                            // on below line we are setting selected
-                                            // time in our text view.
-                                            val timeseet = "$hourOfDay:$minute"
-
-                                            // TODO Auto-generated method stub
-                                            // TODO Auto-generated method stub
-                                            var hours = hourOfDay
-                                            val minutes = minute
-                                            var timeSet = ""
-
-                                            Log.d(
-                                                "huiop",
-                                                "AddShopDetailsContent: $hours     $hourOfDay"
-                                            )
-                                            if (hourOfDay > 12) {
-                                                hours -= 12
-                                                timeSet = "PM"
-                                            } else if (hours === 0) {
-                                                hours += 12
-                                                timeSet = "AM"
-                                            } else if (hours === 12) {
-                                                timeSet = "PM"
-                                            } else {
-                                                timeSet = "AM"
-                                            }
-
-                                            var min: String? = ""
-                                            if (minutes < 10) min = "0$minutes" else min =
-                                                java.lang.String.valueOf(minutes)
-
-                                            // Append in a StringBuilder
-                                            changeSundayClosingTime(
-                                                /*  StringBuilder()
-                                                      .append(hours)
-                                                      .append(':')
-                                                      .append(min)
-                                                      .append(" ")
-                                                      .append(timeSet)
-                                                      .toString()*/timeseet
-                                            )
-
-                                            // Append in a StringBuilder
-
-                                        },
-                                        hour,
-                                        minute,
-                                        false
-                                    )
-                                    // at last we are calling show to
-                                    // display our time picker dialog.
-                                    timePickerDialog.show()
-                                },
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SimpleText(
-                                textSize = 11,
-                                text = uiState.sunday_closing_time,
-                                isExtraBold = true,
-                                textColor = Color.Black
-                            )
-                        }
-
-                        /* // widget.Button
-                         AndroidView(
-                             factory = { ctx ->
-                                 android.widget.TimePicker(ctx).apply {
-                                     layoutParams = LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
-                                     setOnClickListener {
-                                         //  state.value++
-                                     }
-                                 }
-                             }, *//*modifier = Modifier.padding(8.dp)*//*
-                    )*/
-                    }
-                }
-            }
-
 
 
             /* AndroidView(

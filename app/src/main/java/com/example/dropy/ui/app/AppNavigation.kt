@@ -140,6 +140,8 @@ import com.example.dropy.ui.screens.shops.frontside.singleshop.ShopHomePage
 import com.example.dropy.ui.screens.shops.frontside.singleshop.ShopHomePageViewModel
 import com.example.dropy.ui.screens.tankerBorehole.TankerBorehole
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeViewModel
+import com.example.dropy.ui.screens.topUp.TopUp
+import com.example.dropy.ui.screens.topUp.TopUpViewModel
 import com.example.dropy.ui.screens.tracking.TrackParcel
 import com.example.dropy.ui.screens.truckDash.TruckDash
 import com.example.dropy.ui.screens.truckDash.TruckDashViewModel
@@ -221,6 +223,7 @@ object AppDestinations {
     const val TRUCK_ROUTE_CUSTOMER = "truckRouteCustomer"
     const val TRUCK_ORDER_COMPLETE = "truckOrderComplete"
     const val TRUCK_ORDERS_HISTORY = "truckOrdersHistory"
+    const val TOP_UP = "topUp"
     const val REVIEWSHOP = "reviewShop"
     const val REVIEWRIDER = "reviewRider"
     const val BALANCE = "balance"
@@ -494,6 +497,10 @@ fun App(
     if (truckCustomerViewModel.appViewModel == null) {
         truckCustomerViewModel.appViewModel = appViewModel
     }
+    val topUpViewModel: TopUpViewModel = hiltViewModel()
+    if (topUpViewModel.appViewModel == null) {
+        topUpViewModel.appViewModel = appViewModel
+    }
 
     val truckOrderCompleteViewModel: TruckOrderCompleteViewModel = hiltViewModel()
     if (truckOrderCompleteViewModel.appViewModel == null) {
@@ -508,9 +515,9 @@ fun App(
     if (authenticationViewModel.appViewModel == null) {
         authenticationViewModel.appViewModel = appViewModel
     }
-  /*  if (authenticationViewModel.context == null) {
-        authenticationViewModel.context = LocalContext.current
-    }*/
+    /*  if (authenticationViewModel.context == null) {
+          authenticationViewModel.context = LocalContext.current
+      }*/
 
 
     val trackYourOrderViewModel: TrackYourOrderViewModel = hiltViewModel()
@@ -618,6 +625,11 @@ fun App(
         composable(AppDestinations.ADDPAYMENT) {
 
             AddPayment()
+
+        }
+        composable(AppDestinations.TOP_UP) {
+
+            TopUp(cartPageViewModel = cartPageViewModel, topUpViewModel = topUpViewModel)
 
         }
         composable(AppDestinations.WORK_DIARY) {
