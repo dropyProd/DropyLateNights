@@ -41,6 +41,9 @@ data class TankerBoreholeUiState(
     val selectedTimeSlot: String = "",
     val selectedDate: String = "",
     val cheque: Uri? = null,
+    val slot: List<String> = listOf("Daily", "Monthly", "Weekly"),
+    val selctedSlot: String = "Daily",
+    val recurring: Boolean = false,
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
     val errorList: List<String> = emptyList(),
@@ -80,6 +83,20 @@ class TankerBoreholeViewModel @Inject constructor(
         viewModelScope.launch {
             uiState.update {
                 it.copy(selectedTimeSlot = text)
+            }
+        }
+    }
+    fun onSlotSelectedSelectedChange(text: String) {
+        viewModelScope.launch {
+            uiState.update {
+                it.copy(selctedSlot = text)
+            }
+        }
+    }
+    fun onRecurringChange(state: Boolean) {
+        viewModelScope.launch {
+            uiState.update {
+                it.copy(recurring = state)
             }
         }
     }

@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.dropy.R
+import com.example.dropy.ui.components.commons.Dropdown
+import com.example.dropy.ui.components.commons.SimpleText
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -49,7 +53,9 @@ fun formatTimee(text: String): String {
 fun WaterSelectDateContent(
     submitClicked: () -> Unit,
     selectedDate: (String) -> Unit,
+    recurringClicked: (Boolean) -> Unit,
     selectedTimeSlot: (String) -> Unit,
+    selectedSlot: (String) -> Unit,
     tankerBoreholeUiState: TankerBoreholeUiState
 ) {
 
@@ -214,6 +220,68 @@ fun WaterSelectDateContent(
             }
         }
 
+        Row(
+            modifier = Modifier
+                .padding(top = 32.dp, start = 41.dp, end = 42.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .height(IntrinsicSize.Min)
+                    .padding(bottom = 24.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                )
+
+                {
+                    Spacer(modifier = Modifier.padding(top = 20.dp))
+                    Switch(
+                        checked = tankerBoreholeUiState.recurring,
+                        onCheckedChange = recurringClicked,
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            uncheckedThumbColor = Color.White,
+                            checkedTrackColor = Color.Black,
+                            uncheckedTrackColor = Color.Transparent
+                        )
+                    )
+                    Spacer(modifier = Modifier.padding(top = 30.dp))
+                    SimpleText(
+                        textSize = 8,
+                        text = "Recurring",
+                        isExtraBold = false,
+                        font = Font(R.font.axiformablack),
+                        textColor = Color.Black
+                    )
+                }
+            }
+
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+//                        .padding(end = 8.dp)
+                    .weight(1f)
+                    .height(40.dp),
+            ) {
+                SimpleText(
+                    textSize = 10,
+                    text = "Truck capacity",
+                    isExtraBold = true,
+                    font = Font(R.font.axiformaextrabold)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Dropdown(
+                    truckCapacities = tankerBoreholeUiState.slot,
+                    onTruckCapacitySelect = selectedSlot,
+                    type = "waterTruck"
+                )
+            }
+        }
+
         Text(
             text = "selected date",
             color = Color(0xFF979797),
@@ -223,7 +291,7 @@ fun WaterSelectDateContent(
             letterSpacing = (-0.43).sp,
             lineHeight = 17.sp,
             modifier = Modifier
-                .padding(top = 45.dp, start = 45.dp, end = 42.dp)
+                .padding(top = 32.dp, start = 45.dp, end = 42.dp)
         )
 
         Text(
@@ -235,13 +303,13 @@ fun WaterSelectDateContent(
             letterSpacing = (-0.67).sp,
             lineHeight = 27.sp,
             modifier = Modifier
-                .padding(top = 14.dp, start = 45.dp, end = 42.dp)
+                .padding(top = 8.dp, start = 45.dp, end = 42.dp)
         )
 
         Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(top = 53.dp)
+                .padding(top = 34.dp, bottom = 20.dp)
                 .width(133.dp)
                 .height(36.dp)
                 .background(color = Color(0xFFAFF5FE), RoundedCornerShape(42.dp))
@@ -270,6 +338,8 @@ fun demo() {
         submitClicked = {},
         selectedDate = {},
         selectedTimeSlot = {},
-        tankerBoreholeUiState = TankerBoreholeUiState()
+        tankerBoreholeUiState = TankerBoreholeUiState(),
+        recurringClicked = {},
+        selectedSlot = {}
     )
 }

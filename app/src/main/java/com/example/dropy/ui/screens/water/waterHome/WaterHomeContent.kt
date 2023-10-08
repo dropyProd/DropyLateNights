@@ -122,7 +122,7 @@ fun WaterHomeContent(appViewModel: AppViewModel? = null, navigateTankBoreHole: (
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             itemWater(
-                image = R.drawable.bottle,
+                image = R.drawable.dispensaryy,
                 text = "\nDISPENSER REFILL",
                 color = Color(0xFFF5F5F5), borderColor = Color(0xFFDEDEDE),
                 clickable = {

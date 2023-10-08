@@ -108,7 +108,9 @@ fun TankerBorehole(
                     },
                     selectedDate = tankerBoreholeViewModel::onDateSelectedChange,
                     selectedTimeSlot = tankerBoreholeViewModel::onTimeSlotSelectedSelectedChange,
-                    tankerBoreholeUiState = tankerBoreholeUiState
+                    tankerBoreholeUiState = tankerBoreholeUiState,
+                    recurringClicked = tankerBoreholeViewModel::onRecurringChange,
+                    selectedSlot = tankerBoreholeViewModel::onSlotSelectedSelectedChange
                 )
                 /*Button(
                     onClick = {

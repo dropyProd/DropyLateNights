@@ -47,7 +47,7 @@ fun AppHomePage(
     })
     LaunchedEffect(key1 = true, block = {
         appHomePageViewModel.setContext(context)
-        checkoutViewModel.getmethods(shopuiState)
+      //  checkoutViewModel.getmethods(shopuiState)
 
     })
     LaunchedEffect(key1 = true, block = {

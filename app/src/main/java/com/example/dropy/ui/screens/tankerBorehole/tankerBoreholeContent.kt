@@ -85,10 +85,7 @@ fun TankerBoreholeContent(
                 .fillMaxSize()
                 .background(Color.Transparent)
         ) {
- /*           ClippedHeader(title = if (waterUiState.selectedType.equals("CLEAN WATER")) "CLEAN WATER" else if (waterUiState.selectedType.equals(
-                    "TREATED WATER"
-                )
-            ) " TREATED WATER" else "P", modifier = Modifier.offset(x = (-18).dp))*/
+            ClippedHeader(title = "CREATE AN ORDER ", modifier = Modifier.offset(x = (-18).dp))
 
             Row(
                 modifier = Modifier
@@ -247,7 +244,7 @@ fun TankerBoreholeContent(
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxHeight(.4f)
+                    .fillMaxHeight(.5f)
             )
 
             Column(
