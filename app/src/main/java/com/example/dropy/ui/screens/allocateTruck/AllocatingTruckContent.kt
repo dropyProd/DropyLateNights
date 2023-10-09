@@ -111,7 +111,7 @@ fun truckItem(
                                 color = Color.Black,
                                 shape = RoundedCornerShape(80)
                             )
-                            .padding(4.dp)
+                            .padding(2.dp)
                     ) {
                         Text(
                             text = "5",

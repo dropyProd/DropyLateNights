@@ -37,7 +37,8 @@ fun WaterTransactionCompleteContent(
                 .background(
                     color = Color(0xFF02CBE3),
                     shape = RoundedCornerShape(8.dp)
-                )
+                ),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = "TRANSACTION COMPLETED",
@@ -51,9 +52,7 @@ fun WaterTransactionCompleteContent(
                 color = Color.Black,
                 modifier = Modifier.padding(
                     start = 14.dp,
-                    end = 4.dp,
-                    top = 4.dp,
-                    bottom = 8.dp
+                    end = 4.dp
                 )
             )
         }
@@ -116,8 +115,8 @@ fun WaterTransactionCompleteContent(
                 lineHeight = 19.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(
-                    start = 45.dp,
-                    end = 45.dp,
+                    start = 40.dp,
+                    end = 40.dp,
                     top = 13.dp,
                     bottom = 13.dp
                 )
