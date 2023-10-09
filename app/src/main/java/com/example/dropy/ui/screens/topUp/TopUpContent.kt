@@ -6,9 +6,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Text
@@ -47,6 +49,7 @@ fun TopUpContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(rememberScrollState())
     ) {
         ClippedHeader(title = "${if (topUpUiState.state.equals("TOP UP")) "TOP UP" else "WITHDRAW"} AMOUNT")
 
@@ -90,7 +93,7 @@ fun TopUpContent(
                 modifier = Modifier
                     .padding(start = 8.dp)
                     .weight(1f)
-                    .height(64.dp)
+                    .height(80.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .border(2.dp, Color.LightGray, RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
@@ -259,14 +262,19 @@ fun TopUpContent(
 
         Column(
             modifier = Modifier
+                .padding(top = 25.dp)
                 .fillMaxSize()
-                .padding(bottom = 15.dp).clickable { topUp() },
+                .padding(bottom = 15.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BackgroundedText(
-                background = Color.Black, textColor = Color.White, text = if (topUpUiState.state.equals("TOP UP")) "TOP UP" else "WITHDRAW",
-                vertical = 8, textSize = 10
+                background = Color.Black,
+                textColor = Color.White,
+                text = if (topUpUiState.state.equals("TOP UP")) "TOP UP" else "WITHDRAW",
+                vertical = 8,
+                textSize = 10,
+                modifier = Modifier.clickable { topUp() }
             )
         }
     }
