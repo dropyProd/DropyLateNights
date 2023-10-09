@@ -56,7 +56,7 @@ fun TopUpContent(
         BackgroundedText(
             background = DropyYellow,
             textColor = Color.Black,
-            text = "select one top up method below",
+            text = "select one ${if (topUpUiState.state.equals("TOP UP")) "top up" else "withdraw"} method below",
             modifier = Modifier.padding(top = 18.dp, start = 12.dp)
         )
 
