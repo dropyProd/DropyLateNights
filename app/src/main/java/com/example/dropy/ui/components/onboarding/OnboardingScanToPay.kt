@@ -38,7 +38,7 @@ fun OnboardingScanToPay() {
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.6f)
+                    .fillMaxWidth(0.7f)
                     .padding(start = 44.dp),
                 verticalArrangement = Arrangement.Center
             ) {

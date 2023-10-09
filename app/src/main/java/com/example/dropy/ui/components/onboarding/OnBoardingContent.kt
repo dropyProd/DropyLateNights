@@ -170,7 +170,7 @@ fun OnBoardingNav(
             },
             modifier = Modifier
                 .padding(start = 8.dp, bottom = 13.dp)
-                .size(65.dp)
+                .size(68.dp)
                 .clip(CircleShape),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = Color.Black

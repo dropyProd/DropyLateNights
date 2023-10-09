@@ -92,7 +92,7 @@ fun OnBoardingScreenOne() {
                     lineHeight = 32.sp,
                     letterSpacing = (-.5).sp,
                     modifier = Modifier
-                        .padding(top = 80.dp, bottom = 47.dp)
+                        .padding(top = 60.dp, bottom = 27.dp)
                         .fillMaxWidth(),
                     text = "Dropy allows you to send anything as\nfast as possible. We are available\ncountrywide.",
                     fontFamily = FontFamily(

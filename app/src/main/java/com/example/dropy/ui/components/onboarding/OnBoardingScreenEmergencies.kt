@@ -40,7 +40,7 @@ fun OnBoardingScreenEmergencies() {
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.7f),
+                    .fillMaxWidth(0.8f),
                 verticalArrangement = Arrangement.Center
             ) {
 
