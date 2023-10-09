@@ -181,7 +181,8 @@ fun OrderPaymentPage(
         onSelectProfile = { checkoutViewModel.appViewModel?.onSelectProfile(it) },
         activeProfile = appUiState.value.activeProfile,
         showCart = false,
-        showImageRight = true
+        showImageRight = true,
+        showLogo = false
     )
     MpesaPaymentDialog(
         mpesaPaymentDialogViewModel = mpesaPaymentDialogViewModel,
