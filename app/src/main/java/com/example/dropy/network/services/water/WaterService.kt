@@ -38,6 +38,13 @@ interface WaterService {
         @Body topUpReq: TopUpReq
     ): GetWaterVendorsRes
 
+
+    @POST("transactions/user_wallet/{userId}/")
+    suspend fun getUserWalletBalance(
+        @Header("Authorization") token: String,
+        @Path("userId") taskId: String
+    ): AddWaterDriverRes
+
     @GET("water/water-vendors")
     suspend fun getWaterVendors(
         @Header("Authorization") token: String,

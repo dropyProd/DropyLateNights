@@ -186,6 +186,7 @@ class AppViewModel @Inject constructor(
     var systemUiController: SystemUiController? = null
 
     init {
+
         getLoggedInUser()
     }
 
@@ -479,7 +480,7 @@ class AppViewModel @Inject constructor(
                         is Resource.Success -> {
 
                             if (result.data != null) {
-                                Log.d("YYYTAG", "createNewUser: ${result.data}")
+                                Log.d("nbgfcpd", "createNewUser: ${result.data}")
                                 /*uiState.update {
                                     it.copy(activeProfile = )
                                 }*/
@@ -487,10 +488,10 @@ class AppViewModel @Inject constructor(
                                 val item = ActiveProfileDataClass(
                                     type = ProfileTypes.CUSTOMER,
                                     name = result.data.first_name.toString() + " " + result.data.last_name.toString(),
-                                    id = result.data.pk.toString()
+                                    id = result.data.id.toString()
                                 )
 
-                                Log.d("jikol", "getUserDetails: ${uiState.value.activeProfile}")
+                                Log.d("nbgfcpd", "getUserDetails: ${uiState.value.activeProfile}")
 
                                 profiles.add(item)
                                 uiState.update {
@@ -500,7 +501,7 @@ class AppViewModel @Inject constructor(
                                     )
                                 }
                                 app.setMyProfile(result.data)
-                                app.setId(result.data.pk.toString())
+                                app.setId(result.data.id.toString())
                                 app.setUserDetailRes(result.data)
                                 getMenuItems()
                                 getWaterpoints()

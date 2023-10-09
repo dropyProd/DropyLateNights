@@ -694,13 +694,13 @@ class AuthenticationViewModel @Inject constructor(
                             // Log.d("uopopi", "getAllShops: ${result.data}")
                             when (result) {
                                 is Resource.Success -> {
-                                    Log.d("YYYTAG", "createNewUser: ${result.data}")
+                                    Log.d("hbnoppl", "createNewUser: ${result.data}")
 
                                     if (result.data != null) {
                                         //   if (result.data.access != "" ) {
                                         //   appViewModel!!.setFirebaseUid(firebaseUid)
                                         result.data.key?.let { app.setToken(it) }
-                                        appViewModel?.getUserDetails()
+                                        appViewModel!!.getUserDetails()
                                         saveLoginInfo(
                                             phoneNumbeer = phoneNumbeer,
                                             passwordd = passwordd
