@@ -126,7 +126,9 @@ fun MyWalletContent() {
             }
         }
 
-        Transactions()
+        Column(modifier = Modifier.padding(top = 25.dp, start = 18.dp, end = 22.dp)) {
+            Transactions()
+        }
 
     }
 }
