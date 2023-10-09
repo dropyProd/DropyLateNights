@@ -36,6 +36,9 @@ import java.io.IOException
 class AuthenticationRepositoryImpl(
     private val registerService: RegisterService
 ) : AuthenticationRepository {
+
+    private val BASE_URL = "https://api.dropy.ke/"
+
     override suspend fun registerUser(
         firebase_uid: String,
         first_name: String,
@@ -44,6 +47,7 @@ class AuthenticationRepositoryImpl(
         email: String,
         password1: String,
         password2: String,
+        dropy_role: String,
         context: Context
     ): Flow<Resource<createUserRes?>> {
 
@@ -51,71 +55,29 @@ class AuthenticationRepositoryImpl(
             try {
                 emit(Resource.Loading())
 
-                /*     val res: MutableState<CreateUserResponse?> = mutableStateOf(null)
-
-
-                     val call: Call<CreateUserResponse> = registerService.registerUser(
-                         RegisterBody(
-                             user_name = first_name + last_name,
-                             first_name = first_name,
-                             last_name = last_name,
-                             phone_number = phone_number,
-                             email = email,
-                             password = password
-                         )
-                     )
-
-
-                     call!!.enqueue(object : Callback<CreateUserResponse?> {
-                         override fun onResponse(
-                             call: Call<CreateUserResponse?>,
-                             response: Response<CreateUserResponse?>
-                         ) {
-                             Log.d("juio", "onResponse: hduuy")
-                             res.value = response.body()
-                         }
-
-                         override fun onFailure(call: Call<CreateUserResponse?>, t: Throwable) {
-                             Log.d("juio", "onResponse: error creating user")
-                             Toast.makeText(context, "Error creating user", Toast.LENGTH_SHORT).show()
-                         }
-
-                     })
-
-                     delay(4000)
-
-                     Log.d("huy", "registerUser: " + res.value)
-
-                     if (!res.value!!.equals(null)) {
-                         emit(Resource.Success(res.value))
-                     }*/
-                // try {
-/*            val response =   registerService.registerUser(
-                firebase_uid = firebase_uid,
-                first_name = first_name,
-                last_name = last_name,
-                phone_number = phone_number,
-                email = email
-            )*/
                 val response = registerService.registerUser(
                     RegisterBody(
-                        user_name = first_name + last_name,
                         first_name = first_name,
                         last_name = last_name,
                         phone_number = phone_number,
                         //    password1 =  password1,
                         //    password2 = password2
-                        email = "dropy@gmail.com",
-                        password = password1
+                        password1 = password1,
+                        password2 = password2,
+                        dropy_role = dropy_role
                     )
                 )
                 emit(Resource.Success(response))
+
+
 
             } catch (e: IOException) {
                 emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
             } catch (e: HttpException) {
                 emit(Resource.Error(message = "Oops, something went wrong!"))
-            }
+            }/*catch (e: Exception){
+                emit(Resource.Error(message = "Oops, something went wrong!"))
+            }*/
             /*} catch (e: IOException) {
                 emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
             } catch (e: HttpException) {

@@ -18,6 +18,7 @@ interface AuthenticationRepository {
         email: String,
         password1: String,
         password2: String,
+        dropy_role: String,
         context: Context
     ): Flow<Resource<createUserRes?>>
 

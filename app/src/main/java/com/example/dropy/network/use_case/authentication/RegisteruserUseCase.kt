@@ -23,6 +23,7 @@ class RegisteruserUseCase(
         email: String,
         password1: String,
         password2: String,
+        dropy_role: String,
         context: Context
     ): Flow<Resource<createUserRes?>> {
         return authenticationRepository.registerUser(
@@ -33,6 +34,7 @@ class RegisteruserUseCase(
             email = email,
             password1 = password1,
             password2 = password2,
+            dropy_role = dropy_role,
             context = context
         )
     }

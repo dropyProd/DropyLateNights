@@ -16,21 +16,10 @@ interface RegisterService {
         @Query("phone_number") phonenumber: String,
     ): CheckUserResponse
 
-    /*@FormUrlEncoded
-    @POST("dropyusers/createnewuser")
-    suspend fun registerUser(
-        @Field("firebase_uid") firebase_uid: String,
-        @Field("first_name") first_name: String,
-        @Field("last_name") last_name: String,
-        @Field("phone_number") phone_number: String,
-        @Field("email") email: String,
-    ): CreateUserResponse
-    */
-  //  @FormUrlEncoded
-    @POST("dropyusers/createnewuser")
+    @POST("dj-rest-auth/registration/")
    suspend fun registerUser(
         @Body registerBody: RegisterBody
-    ): /*Call<*/createUserRes//>
+    ): /*Call<*/createUserRes?//>
 
     //@FormUrlEncoded
     @POST("api/token/")

@@ -204,9 +204,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                                 }
+
                                 is Resource.Loading -> {
                                     uiState.update { it.copy(isLoading = true) }
                                 }
+
                                 is Resource.Error -> {
                                     //                            result.message?.let { message ->
                                     uiState.update {
@@ -260,12 +262,12 @@ class AuthenticationViewModel @Inject constructor(
     }
 
     fun registerNewUser() {
-/*        uiState.update {
-            it.copy(
-                isNewUser = true
-            )
-        }
-       // initiateOtpVerification(authenticationUiState.value.currentPhoneNumberValue)*/
+        /*        uiState.update {
+                    it.copy(
+                        isNewUser = true
+                    )
+                }
+               // initiateOtpVerification(authenticationUiState.value.currentPhoneNumberValue)*/
         if (validateNewUserInput()) {
             if (validatePhoneNumber()) {
                 when (userExists()) {
@@ -276,11 +278,13 @@ class AuthenticationViewModel @Inject constructor(
                         Toast.makeText(context, PageErrors.USER_ALREADY_EXISTS, Toast.LENGTH_SHORT)
                             .show()
                     }
+
                     false -> {
                         uiState.update { it.copy(isNewUser = true, isLoading = true) }
                         initiateOtpVerification(authenticationUiState.value.currentPhoneNumberValue)
 
                     }
+
                     else -> {
                         val errorMessages = uiState.value.errorMessages + PageErrors.UNKNOWN_ERROR
                         uiState.update { it.copy(errorMessages = errorMessages) }
@@ -317,9 +321,11 @@ class AuthenticationViewModel @Inject constructor(
                             }
 
                         }
+
                         is Resource.Loading -> {
                             uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Error -> {
                             result.message?.let { message ->
                                 uiState.update {
@@ -473,16 +479,21 @@ class AuthenticationViewModel @Inject constructor(
                         email = email.toString(),
                         password1 = password.toString(),
                         password2 = password.toString(),
+                        dropy_role = "Truck Driver",
                         context = context!!
                     ).flowOn(Dispatchers.IO)
-                        /*      .catch { e ->
+                              .catch { e ->
                                   // handle exception
-                              }*/
+                                  apiLogin(loginAsDialogViewModel = loginAsDialogViewModel)
+
+                                  uiState.update { it.copy(isLoading = false) }
+                              }
                         .collect { result ->
                             // list of users from the network
+                            Log.d("nhpqrt", "getAllShops: ${result.data}")
+
                             if (result != null)
-                                Log.d("uopopi", "getAllShops: ${result.data?.id}")
-                            Log.d("koko", "getAllShops: lokiji")
+                                Log.d("koko", "getAllShops: lokiji")
                             when (result) {
                                 is Resource.Success -> {
 
@@ -490,7 +501,7 @@ class AuthenticationViewModel @Inject constructor(
                                         Log.d("YYYTAG", "createNewUser: $result")
                                         // if (result.data == 0) {
                                         //   appViewModel!!.setFirebaseUid(firebaseUid)
-                                        result.data.id?.let { app.setId(it) }
+//                                        result.data.id?.let { app.setId(it) }
                                         //createApiToken()
                                         apiLogin(loginAsDialogViewModel = loginAsDialogViewModel)
                                         //  appViewModel?.navigate(AppDestinations.APP_HOME)
@@ -502,9 +513,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                                 }
+
                                 is Resource.Loading -> {
                                     uiState.update { it.copy(isLoading = true) }
                                 }
+
                                 is Resource.Error -> {
                                     result.message?.let { message ->
                                         uiState.update {
@@ -570,9 +583,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                         }
+
                         is Resource.Loading -> {
                             uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Error -> {
                             result.message?.let { message ->
                                 uiState.update {
@@ -629,9 +644,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                         }
+
                         is Resource.Loading -> {
                             uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Error -> {
                             result.message?.let { message ->
                                 uiState.update {
@@ -715,9 +732,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                                 }
+
                                 is Resource.Loading -> {
                                     uiState.update { it.copy(isLoading = true) }
                                 }
+
                                 is Resource.Error -> {
                                     appViewModel!!.navigate(AppDestinations.ON_BOARDING)
                                     uiState.update {
@@ -777,9 +796,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                         }
+
                         is Resource.Loading -> {
                             uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Error -> {
                             result.message?.let { message ->
                                 uiState.update {
@@ -838,9 +859,11 @@ class AuthenticationViewModel @Inject constructor(
 
 
                         }
+
                         is Resource.Loading -> {
                             uiState.update { it.copy(isLoading = true) }
                         }
+
                         is Resource.Error -> {
                             result.message?.let { message ->
                                 uiState.update {
