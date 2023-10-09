@@ -45,6 +45,7 @@ fun CustomerDashboardContent(
     shopIncomingOrderUistate: ShopIncomingOrdersUiState,
     customerName: String,
     onOrderHistoryClicked: () -> Unit,
+    onMyWalletClicked: () -> Unit,
     onParcelsHistoryClicked: () -> Unit,
     onRidesHistoryClicked: () -> Unit,
     onMyAddressesClicked: () -> Unit,
@@ -65,7 +66,8 @@ fun CustomerDashboardContent(
         DashboardHeader(
             customerName = customerName,
             onAddProfileLogo = onAddProfileLogo,
-            uiState = uiState
+            uiState = uiState,
+            onMyWalletClicked = onMyWalletClicked
         )
         DashboardStats(
             noOffavs = appuiState.favouriteShops.size,
@@ -104,6 +106,7 @@ fun CustomerDashboardContent(
 fun DashboardHeader(
     customerName: String,
     onAddProfileLogo: () -> Unit,
+    onMyWalletClicked: () -> Unit,
     uiState: CustomerDashboardUiState,
 ) {
     Row(
@@ -132,7 +135,7 @@ fun DashboardHeader(
             )
         }
 
-        boxWithBadge(text = "WALLET", modifier = Modifier.offset(y = 10.dp))
+        boxWithBadge(text = "WALLET", modifier = Modifier.offset(y = 10.dp).clickable { onMyWalletClicked() })
     }
 }
 
@@ -374,7 +377,8 @@ fun CustomerDashboardContentPreview() {
              customerName = "",
              customerOrdersHistoryUiState = CustomerOrderHistoryUiState(),
              onAddProfileLogo = {},
-             onShopSelected = {_, _ ->}
+             onShopSelected = {_, _ ->},
+             onMyWalletClicked = {}
          )
 //     }
 //    DashboardHeader("mosh try", onAddProfileLogo = {}, uiState = CustomerDashboardUiState())

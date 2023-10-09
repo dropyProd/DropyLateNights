@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropy.network.repositories.shop.front.ShopFrontendRepository
+import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.app.navigation.shopsnavigation.ShopsFrontDestination
 import com.example.dropy.ui.components.shops.frontside.shoplist.ShopListItemDataClass
@@ -71,6 +72,9 @@ class CustomerDashboardViewModel @Inject constructor(
     fun onOrderHistoryClicked(){
       //  appViewModel?.navigate(ShopsBacksideNavigation.ORDER_HISTORY)
         appViewModel?.navigate(ShopsFrontDestination.CUSTOMER_ORDER_HISTORY)
+    }
+    fun onMyWalletClicked(){
+        appViewModel!!.navigate(AppDestinations.MY_WALLET)
     }
     fun onParcelsHistoryClicked(){
 

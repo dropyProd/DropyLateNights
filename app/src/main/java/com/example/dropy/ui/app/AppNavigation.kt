@@ -71,6 +71,8 @@ import com.example.dropy.ui.screens.locale.LocationExpressRider
 import com.example.dropy.ui.screens.loginAs.LoginAsDialogViewModel
 import com.example.dropy.ui.screens.myTrucks.MyTrucks
 import com.example.dropy.ui.screens.myTrucks.MyTrucksViewmodel
+import com.example.dropy.ui.screens.myWallet.MyWallet
+import com.example.dropy.ui.screens.myWallet.MyWalletViewModel
 import com.example.dropy.ui.screens.nearestTrucks.NearestTrucks
 import com.example.dropy.ui.screens.nearestTrucks.NearestTrucksViewmodel
 import com.example.dropy.ui.screens.nearestWaterPoint.NearestWaterPoint
@@ -250,6 +252,7 @@ object AppDestinations {
     const val SERVICE_PROVIDERS = "ServiceProviders"
     const val WATER_SERVICE_PROVIDERS = "WaterServiceProviders"
     const val WORK_DIARY = "WorkDiary"
+    const val MY_WALLET = "MyWallet"
 }
 
 
@@ -355,6 +358,10 @@ fun App(
     val cartPageViewModel: CartPageViewModel = hiltViewModel()
     if (cartPageViewModel.appViewModel == null) {
         cartPageViewModel.appViewModel = appViewModel
+    }
+    val myWalletViewModel: MyWalletViewModel = hiltViewModel()
+    if (myWalletViewModel.appViewModel == null) {
+        myWalletViewModel.appViewModel = appViewModel
     }
     val addWaterpointViewmodel: AddWaterpointViewmodel = hiltViewModel()
     if (addWaterpointViewmodel.appViewModel == null) {
@@ -769,6 +776,13 @@ fun App(
                 cartPageViewModel = cartPageViewModel,
                 waterHomeViewModel = waterHomeViewModel,
                 tankerBoreholeViewModel = tankerBoreholeViewModel
+            )
+        }
+        composable(AppDestinations.MY_WALLET) {
+            MyWallet(
+                cartPageViewModel = cartPageViewModel,
+                myWalletViewModel = myWalletViewModel,
+                topUpViewModel = topUpViewModel
             )
         }
         composable(AppDestinations.TRUCK_START_TRIP) {

@@ -4,6 +4,7 @@ import com.example.dropy.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,7 +33,9 @@ import com.example.dropy.ui.components.order.BackgroundedText
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 
 @Composable
-fun MyWalletContent() {
+fun MyWalletContent(
+    navigate: (String) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -78,7 +81,8 @@ fun MyWalletContent() {
                 color = Color.Black,
                 textColor = Color.White,
                 borderColor = Color(0xFFDEDEDE),
-                containerColor = Color.White
+                containerColor = Color.White,
+                navigate = navigate
             )
             moneyItem(
                 text = "WITHDRAW",
@@ -86,7 +90,8 @@ fun MyWalletContent() {
                 textColor = Color.Black,
                 borderColor = Color(0xFFDEDEDE),
                 borderColorIn = Color(0xFFDEDEDE),
-                containerColor = Color(0xFFF5F5F5)
+                containerColor = Color(0xFFF5F5F5),
+                navigate= navigate
             )
         }
         Row(
@@ -141,7 +146,8 @@ fun moneyItem(
     textColor: Color,
     borderColor: Color = Color.Transparent,
     borderColorIn: Color = Color.Transparent,
-    containerColor: Color
+    containerColor: Color,
+    navigate: (String) -> Unit
 ) {
 
     Column(
@@ -149,7 +155,8 @@ fun moneyItem(
             .width(130.dp)
             .height(140.dp)
             .background(color = containerColor)
-            .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(14.dp)),
+            .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(14.dp))
+            .clickable { navigate(text) },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
@@ -173,5 +180,5 @@ fun moneyItem(
 @Preview
 @Composable
 fun demo() {
-    MyWalletContent()
+    MyWalletContent(navigate = {})
 }

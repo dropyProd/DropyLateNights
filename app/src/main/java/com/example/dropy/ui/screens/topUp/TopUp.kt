@@ -32,7 +32,10 @@ fun TopUp(
                 topUpUiState = topUpUiState,
                 onAmountChange = topUpViewModel::onAmountChange,
                 topUp = {
-                    topUpViewModel.topUpWallet()
+                    if (topUpUiState.state.equals("TOP UP"))
+                        topUpViewModel.topUpWallet()
+                    else
+                        topUpViewModel.withdrawWallet()
                 })
         },
         pageLoading = topUpUiState.pageLoading,

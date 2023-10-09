@@ -73,7 +73,8 @@ fun CustomerDashboard(
                             )
                         }
                     },
-                    onAddProfileLogo = onAddProfileLogo
+                    onAddProfileLogo = onAddProfileLogo,
+                    onMyWalletClicked = customerDashboardViewModel::onMyWalletClicked
                 )
             }
         },

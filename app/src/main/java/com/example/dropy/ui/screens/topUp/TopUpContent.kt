@@ -48,7 +48,7 @@ fun TopUpContent(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ClippedHeader(title = "TOP UP AMOUNT")
+        ClippedHeader(title = "${if (topUpUiState.state.equals("TOP UP")) "TOP UP" else "WITHDRAW"} AMOUNT")
 
         BackgroundedText(
             background = DropyYellow,
@@ -182,7 +182,7 @@ fun TopUpContent(
                         ) {
                             TextField(
                                 value = topUpUiState.amount,
-                                onValueChange = {},
+                                onValueChange = onAmountChange,
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 colors = TextFieldDefaults.textFieldColors(
                                     backgroundColor = Color.White,
@@ -258,12 +258,14 @@ fun TopUpContent(
         }
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(bottom = 15.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 15.dp).clickable { topUp() },
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BackgroundedText(
-                background = Color.Black, textColor = Color.White, text = "TOP UP",
+                background = Color.Black, textColor = Color.White, text = if (topUpUiState.state.equals("TOP UP")) "TOP UP" else "WITHDRAW",
                 vertical = 8, textSize = 10
             )
         }
