@@ -132,7 +132,7 @@ fun DashboardHeader(
             )
         }
 
-        boxWithBadge(text = "EDIT", modifier = Modifier.offset(y = 10.dp))
+        boxWithBadge(text = "WALLET", modifier = Modifier.offset(y = 10.dp))
     }
 }
 
@@ -241,7 +241,7 @@ fun DashboardStatContainer(
             SimpleText(
                 text = title,
                 textColor = Color.White,
-                textSize = 14,
+                textSize = 9,
                 isUppercase = true,
                 fontWeight = FontWeight.SemiBold,
                 font = Font(R.font.axiformasemibold)
@@ -347,7 +347,7 @@ fun DashboardStats(
                     SimpleText(
                         text = "transactions",
                         textColor = Color.White,
-                        textSize = 13,
+                        textSize = 9,
                         isUppercase = true,
                         fontWeight = FontWeight.SemiBold,
                         font = Font(R.font.axiformasemibold)

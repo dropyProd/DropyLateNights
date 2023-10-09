@@ -211,7 +211,7 @@ fun WaterTrackingContent(
 
             Column(
                 modifier = Modifier
-                    .padding(top = 240.dp)
+                    .padding(top = 360.dp)
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .background(

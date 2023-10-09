@@ -309,7 +309,7 @@ fun WaterSelectDateContent(
         Row(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(top = 34.dp, bottom = 20.dp)
+                .padding(top = 34.dp)
                 .width(133.dp)
                 .height(36.dp)
                 .background(color = Color(0xFFAFF5FE), RoundedCornerShape(42.dp))
