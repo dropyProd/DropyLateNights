@@ -1,6 +1,5 @@
 package com.example.dropy.ui.components.shops.frontside.customer.customerdashboard.orderhistory
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,7 +8,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,18 +23,13 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.dropy.R
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersResItem
-import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
-import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
 import com.example.dropy.ui.app.AppViewModel
-import com.example.dropy.ui.app.navigation.shopsnavigation.ShopsFrontDestination
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.commons.SimpleText
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
-import com.example.dropy.ui.screens.shops.backside.shopincomingorders.ShopIncomingOrdersUiState
 import com.example.dropy.ui.screens.shops.frontside.checkout.trackyourorder.TrackYourOrderViewModel
 import com.example.dropy.ui.screens.shops.frontside.dashboard.orderhistory.CustomerOrderHistoryUiState
 import com.example.dropy.ui.screens.shops.frontside.singleshop.ShopHomePageViewModel
-import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun CustomerOrderHistoryContent(

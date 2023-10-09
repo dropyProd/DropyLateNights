@@ -3,10 +3,8 @@ package com.example.dropy.ui.screens.nearestTrucks
 import androidx.lifecycle.ViewModel
 import com.example.dropy.di.DropyApp
 import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
-import com.example.dropy.network.models.getWaterPoints.GetWaterPointsResItem
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
-import com.example.dropy.ui.screens.nearestWaterPoint.NearestWaterPointUiState
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 import com.example.dropy.ui.screens.waterOrderDetails.WaterOrderDetailsViewModel
 import com.google.android.gms.maps.model.LatLng

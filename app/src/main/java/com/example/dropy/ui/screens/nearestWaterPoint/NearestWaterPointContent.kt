@@ -90,7 +90,7 @@ fun NearestWaterPointContent(
 
             Box {
                 Row(modifier = Modifier
-                    .padding(start = 10.dp, end = 13.dp, top = 320.dp)
+                    .padding(start = 10.dp, end = 13.dp, top = 440.dp)
                     .fillMaxWidth()
                     .wrapContentHeight()
                     .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))

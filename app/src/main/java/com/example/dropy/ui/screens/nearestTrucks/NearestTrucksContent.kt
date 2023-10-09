@@ -1,10 +1,8 @@
 package com.example.dropy.ui.screens.nearestTrucks
 
-import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,32 +18,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.ui.components.order.BackgroundedText
 import com.example.dropy.R
-import com.example.dropy.network.models.getWaterPoints.GetWaterPointsResItem
+import com.example.dropy.network.models.GetIndividualOrders.AssignedTruck
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.commons.maps.GoogleMapWrapper
 import com.example.dropy.ui.components.commons.maps.MapComponent
 import com.example.dropy.ui.components.commons.maps.selectlocation.GoogleMapSelectLocation
-import com.example.dropy.ui.components.order.BackgroundedImageText
-import com.example.dropy.ui.screens.truckIncomingWork.TruckIncomingWorkUiState
 import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun NearestTruckContent(
     appViewModel: AppViewModel? = null,
     navigate: () -> Unit,
-    truckClicked: (AssignedTruck) -> Unit,
+    truckClicked: (com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck) -> Unit,
     tankerBoreholeUiState: TankerBoreholeUiState,
     nearestTrucksUiState: NearestTrucksUiState
 ) {
@@ -105,12 +99,12 @@ fun NearestTruckContent(
 
 @Composable
 fun truckItem(
-    assignedTruck: AssignedTruck,
-    navigate: (AssignedTruck) -> Unit
+    assignedTruck: com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck,
+    navigate: (com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck) -> Unit
 ) {
     Box {
         Row(modifier = Modifier
-            .padding(start = 10.dp, end = 13.dp, top = 320.dp)
+            .padding(start = 10.dp, end = 13.dp, top = 440.dp)
             .fillMaxWidth()
             .wrapContentHeight()
             .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))
