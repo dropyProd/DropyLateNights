@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.theme.DropyGray
 import com.example.dropy.ui.theme.DropyTheme
 
 @Composable
@@ -67,7 +68,7 @@ fun OnBoardingScreenTwo() {
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
                     ),
-                    color = Color(252, 211, 19),
+                    color = DropyGray,
                     modifier = Modifier.padding(top = 15.dp)
                 )
             }

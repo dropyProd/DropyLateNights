@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.theme.DropyGray
 import com.example.dropy.ui.theme.DropyTheme
 
 @Composable
@@ -63,7 +64,7 @@ fun OnBoardingScreenOne() {
                     letterSpacing = (-1).sp,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color(252, 211, 19),
+                    color = DropyGray,
                     modifier = Modifier
                         .padding(top = 15.dp)
                         .fillMaxWidth(0.8f),

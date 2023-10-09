@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.example.dropy.ui.theme.DropyTheme
 import com.example.dropy.ui.theme.DropyYellow
 import com.example.dropy.R
+import com.example.dropy.ui.theme.DropyGray
 
 @Composable
 fun OnBoardingScreenThree() {
@@ -53,7 +54,7 @@ fun OnBoardingScreenThree() {
                 fontFamily = FontFamily(
                     Font(R.font.axiformablack)
                 ),
-                color = DropyYellow,
+                color = DropyGray,
                 modifier = Modifier.padding(top = 9.dp)
             )
             Text(

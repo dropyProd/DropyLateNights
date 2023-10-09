@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.theme.DropyGray
 import com.example.dropy.ui.theme.DropyTheme
 
 @Composable
@@ -55,7 +56,7 @@ fun OnboardingScanToPay() {
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 27.sp,
                     letterSpacing = (-1).sp,
-                    color = Color(0xFFFCD313),
+                    color = DropyGray,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
                     ),

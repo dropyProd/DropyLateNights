@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.components.order.BackgroundedText
 import com.example.dropy.ui.theme.DropyTheme
 
 @Composable
@@ -51,19 +52,17 @@ fun OnBoardingScreenWater() {
                         .padding(start = 32.dp),
                     contentScale = ContentScale.FillWidth
                 )
-                Text(
+                BackgroundedText(
+                    background = Color(0xFF02CBE3),
+                    textColor = Color.Black,
                     text = "WATER",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 23.sp,
-                    letterSpacing = (-1).sp,
-                    color = Color.Black,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
+                    vertical = 4,
                     modifier = Modifier
-                        .offset(y = (-7).dp)
-                        .padding(start = 32.dp)
+                        .offset(y = (-16).dp)
+                        .padding(start = 90.dp),
+                    font = Font(R.font.axiformablack)
                 )
+
             }
             /*       Image(
                        painter = painterResource(id = R.drawable.location),

@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.theme.DropyGray
 import com.example.dropy.ui.theme.DropyTheme
 
 @Composable
@@ -54,7 +55,7 @@ fun OnBoardingScreenLogistics() {
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 22.sp,
                     letterSpacing = (-1).sp,
-                    color = Color(252, 211, 19),
+                    color = DropyGray,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
                     ),

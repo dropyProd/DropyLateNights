@@ -9,6 +9,7 @@ val Teal200 = Color(0xFF03DAC5)
 
 val LightBlue = Color(88, 74, 255)
 val DropyYellow = Color(253, 211, 19)
+val DropyGray = Color(0xFFD1D1D1)
 var Dt = Color(2,0,36)
 val GrayYellow = Color(252, 246, 216).copy(0.34f)
 val LightContainerBackground = Color(252, 211, 19, 38)
