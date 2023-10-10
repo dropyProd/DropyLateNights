@@ -47,9 +47,10 @@ fun ApprovalRequestContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
     ) {
         Spacer(modifier = Modifier.height(10.dp))
-        ClippedHeader(title = "order history")
+        ClippedHeader(title = "approval requests")
         Column(
             modifier = Modifier
                 .padding(16.dp)
