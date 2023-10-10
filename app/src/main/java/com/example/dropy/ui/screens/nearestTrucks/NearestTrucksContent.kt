@@ -115,7 +115,7 @@ fun truckItem(
         ) {
 
             LoadImage(
-                imageUrl = if (assignedTruck.image != null) assignedTruck.image.toString() else assignedTruc.image.toString(),
+                imageUrl = assignedTruck.image.toString() ,
                 modifier = Modifier
                     .padding(top = 11.dp, start = 17.dp)
                     .border(width = 1.dp, color = Color(0xFFDEDEDE), shape = CircleShape)
