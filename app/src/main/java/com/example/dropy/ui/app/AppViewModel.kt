@@ -101,6 +101,10 @@ val waterVendorMenu = listOf(
         route = ShopsFrontDestination.CUSTOMER_ORDER_HISTORY,
     ),
     DrawerMenuItem(
+        title = "Approval requests",
+        route = AppDestinations.APPROVAL_REQUESTS,
+    ),
+    DrawerMenuItem(
         title = "Create truck company",
         route = AppDestinations.CREATE_WATERVENDOR,
     ),

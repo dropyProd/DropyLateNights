@@ -47,6 +47,7 @@ fun CustomerOrderHistoryContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         ClippedHeader(title = "order history")

@@ -60,6 +60,8 @@ import com.example.dropy.ui.screens.allocateTruck.AllocatingTruck
 import com.example.dropy.ui.screens.allocateTruck.AllocatingTruckViewModel
 import com.example.dropy.ui.screens.apphome.AppHomePage
 import com.example.dropy.ui.screens.apphome.AppHomePageViewModel
+import com.example.dropy.ui.screens.approvalRequests.ApprovalRequestViewModel
+import com.example.dropy.ui.screens.approvalRequests.ApprovalRequests
 import com.example.dropy.ui.screens.authentication.AuthenticationViewModel
 
 import com.example.dropy.ui.screens.balance.BalanceScreen
@@ -253,6 +255,7 @@ object AppDestinations {
     const val WATER_SERVICE_PROVIDERS = "WaterServiceProviders"
     const val WORK_DIARY = "WorkDiary"
     const val MY_WALLET = "MyWallet"
+    const val APPROVAL_REQUESTS = "ApprovalRequests"
 }
 
 
@@ -327,6 +330,10 @@ fun App(
     val appHomePageViewModel: AppHomePageViewModel = hiltViewModel()
     if (appHomePageViewModel.appViewModel == null) {
         appHomePageViewModel.appViewModel = appViewModel
+    }
+    val approvalRequestViewModel: ApprovalRequestViewModel = hiltViewModel()
+    if (approvalRequestViewModel.appViewModel == null) {
+        approvalRequestViewModel.appViewModel = appViewModel
     }
     val truckStartTripViewModel: TruckStartTripViewModel = hiltViewModel()
     if (truckStartTripViewModel.appViewModel == null) {
@@ -776,6 +783,12 @@ fun App(
                 cartPageViewModel = cartPageViewModel,
                 waterHomeViewModel = waterHomeViewModel,
                 tankerBoreholeViewModel = tankerBoreholeViewModel
+            )
+        }
+        composable(AppDestinations.APPROVAL_REQUESTS) {
+            ApprovalRequests(
+                cartPageViewModel = cartPageViewModel,
+                approvalRequestViewModel = approvalRequestViewModel
             )
         }
         composable(AppDestinations.MY_WALLET) {
