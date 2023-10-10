@@ -1,7 +1,5 @@
 package com.example.dropy.network.models.getTruckDrivers
 
-import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersRes
-import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversRes
 import com.example.dropy.network.repositories.waterpoint.WaterRepository
 import com.example.dropy.ui.utils.Resource
 import kotlinx.coroutines.flow.Flow

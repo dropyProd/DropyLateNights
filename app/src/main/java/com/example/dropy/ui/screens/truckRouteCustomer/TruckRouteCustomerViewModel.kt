@@ -72,6 +72,8 @@ class TruckRouteCustomerViewModel @Inject constructor(
                  )
              )
          }*/
+
+
         val getIndividualOrdersResItem: MutableState<GetIndividualOrdersResItem?> =
             mutableStateOf(null)
         app.individualOrders.forEach {

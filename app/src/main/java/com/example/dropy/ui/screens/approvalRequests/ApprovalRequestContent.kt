@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -34,7 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
-import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersResItem
 import com.example.dropy.network.models.approvalRequests.ApprovalRequestsResItem
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.commons.SimpleText

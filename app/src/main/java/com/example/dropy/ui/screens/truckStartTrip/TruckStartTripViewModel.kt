@@ -17,8 +17,6 @@ import com.example.dropy.ui.screens.scanQRWater.ScanQRWaterViewModel
 import com.example.dropy.ui.screens.truckIncomingWork.TruckIncomingWorkUiState
 import com.example.dropy.ui.utils.Resource
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.DirectionsApi
 import com.google.maps.GeoApiContext
 import dagger.hilt.android.lifecycle.HiltViewModel
