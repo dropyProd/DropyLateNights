@@ -10,6 +10,7 @@ import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.addWaterTruckRes.AddWaterTruckRes
 import com.example.dropy.network.models.addWaterVendorRes.AddWaterVendorRes
 import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
+import com.example.dropy.network.models.approvalRequests.ApprovalRequestsResItem
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
@@ -19,6 +20,7 @@ import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrderReq
+import com.example.dropy.network.models.modifyApprovalRequestRes.ModifyApprovalRequestRes
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
@@ -35,6 +37,7 @@ data class LoginDetails(
 interface WaterRepository {
 
     suspend fun approvalRequests(token: String): Flow<Resource<ApprovalRequestsRes?>>
+    suspend fun modifyApprovalRequest(token: String, approvalRequestsResItem: ApprovalRequestsResItem): Flow<Resource<ModifyApprovalRequestRes?>>
     suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<TopUpRes?>>
     suspend fun updateTruckLocation(token: String,updateTruckLocationReq: UpdateTruckLocationReq): Flow<Resource<String?>>
     suspend fun withdrawWallet(topUpReq: TopUpReq): Flow<Resource<String?>>

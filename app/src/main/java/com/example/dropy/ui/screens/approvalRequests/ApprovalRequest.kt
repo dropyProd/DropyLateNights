@@ -29,7 +29,13 @@ fun ApprovalRequests(
 
     AppScaffold(
         content = {
-            ApprovalRequestContent(uiState = approvalRequestUiState, onClick = {})
+            ApprovalRequestContent(uiState = approvalRequestUiState, onClick = { text, item ->
+                approvalRequestViewModel.modifyApprovalRequests(
+                    text = text,
+                    approvalRequestsResItem = item,
+                    context = context
+                )
+            })
         },
         pageLoading = approvalRequestUiState.pageLoading,
         actionLoading = approvalRequestUiState.actionLoading,

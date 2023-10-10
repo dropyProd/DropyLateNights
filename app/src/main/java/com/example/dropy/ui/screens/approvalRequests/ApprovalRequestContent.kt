@@ -43,7 +43,7 @@ import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 @Composable
 fun ApprovalRequestContent(
     uiState: ApprovalRequestUiState,
-    onClick: (String) -> Unit
+    onClick: (String, ApprovalRequestsResItem) -> Unit
 ) {
     val context = LocalContext.current
     Column(
@@ -87,7 +87,8 @@ fun ApprovalRequestContent(
                         approvalRequestItem(
 //                            navigate = navigate,
                             color = backgroundColor,
-                            onClick = onClick
+                            onClick = onClick,
+                            approvalRequestsResItem = item
 //                            getIndividualOrdersResItem = item
                         )
                     }
@@ -100,9 +101,9 @@ fun ApprovalRequestContent(
 @Composable
 fun approvalRequestItem(
 //    navigate: (GetIndividualOrdersResItem) -> Unit,
-//    approvalRequestsResItem: ApprovalRequestsResItem,
+    approvalRequestsResItem: ApprovalRequestsResItem,
     color: Color,
-    onClick: (String) -> Unit
+    onClick: (String, ApprovalRequestsResItem) -> Unit
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -138,7 +139,7 @@ fun approvalRequestItem(
 
         Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
             Text(
-                text = "John Smith wants to be a\ntruck driver for KAB 102W",
+                text = "John Smith wants to be a\ntruck driver for ${approvalRequestsResItem.license_number}",
                 fontSize = 11.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily(
@@ -169,7 +170,7 @@ fun approvalRequestItem(
                     .background(color = Color(0xFF02CBE3), RoundedCornerShape(42.dp))
                     .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
                     .clickable {
-                               onClick("ACCEPT")
+                        onClick("ACCEPT", approvalRequestsResItem)
                     },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -193,7 +194,7 @@ fun approvalRequestItem(
                     .background(color = Color.Transparent, RoundedCornerShape(42.dp))
                     .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
                     .clickable {
-                        onClick("DECLINE")
+                        onClick("DECLINE", approvalRequestsResItem)
                     },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
@@ -217,5 +218,5 @@ fun approvalRequestItem(
 @Preview
 @Composable
 fun demo(){
-    approvalRequestItem(color = Color(0xFFF5F5F5), onClick = {})
+    ApprovalRequestContent(uiState = ApprovalRequestUiState(), onClick = {_, _ ->})
 }

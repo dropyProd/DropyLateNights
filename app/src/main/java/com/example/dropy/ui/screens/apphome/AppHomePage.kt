@@ -14,6 +14,7 @@ import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.components.apphome.AppHomePageContent
 import com.example.dropy.ui.components.commons.AppScaffold
 import com.example.dropy.ui.components.commons.appdrawer.ProfileTypes
+import com.example.dropy.ui.screens.approvalRequests.ApprovalRequestViewModel
 import com.example.dropy.ui.screens.rider.IncomingJobViewModel
 import com.example.dropy.ui.screens.shops.frontside.cart.CartPageViewModel
 import com.example.dropy.ui.screens.shops.frontside.checkout.CheckoutViewModel
@@ -29,7 +30,8 @@ fun AppHomePage(
     uiState: AppHomePageUiState,
     cartPageViewModel: CartPageViewModel,
     incomingJobViewModel: IncomingJobViewModel,
-    appViewModel: AppViewModel
+    appViewModel: AppViewModel,
+    approvalRequestViewModel: ApprovalRequestViewModel
 ) {
     val appUiState = appHomePageViewModel.appViewModel!!.appUiState.collectAsState()
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
@@ -39,6 +41,9 @@ fun AppHomePage(
 
 
     appHomePageViewModel.appViewModel?.setSystemUiControllerColor(Color(248, 242, 212))
+    LaunchedEffect(key1 = true, block = {
+        approvalRequestViewModel.getApprovalRequests()
+    })
     LaunchedEffect(key1 = true, block = {
         appHomePageViewModel.appViewModel!!.getIndividualOrders()
     })

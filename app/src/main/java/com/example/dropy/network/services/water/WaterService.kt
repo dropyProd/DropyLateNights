@@ -5,6 +5,7 @@ import com.example.dropy.network.models.VerifyDeliveryCodeReq
 import com.example.dropy.network.models.addWaterDriver.AddWaterDriverReq
 import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
+import com.example.dropy.network.models.approvalRequests.ApprovalRequestsResItem
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
@@ -14,6 +15,7 @@ import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrderReq
+import com.example.dropy.network.models.modifyApprovalRequestRes.ModifyApprovalRequestRes
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
@@ -100,6 +102,13 @@ interface WaterService {
     suspend fun approvalRequests(
         @Header("Authorization") token: String
     ): ApprovalRequestsRes
+
+    @PUT("water/approve-driver/{id}/")
+    suspend fun modifyApprovalRequest(
+        @Header("Authorization") token: String,
+        @Body approvalRequestsResItem: ApprovalRequestsResItem,
+        @Path("id") id: String,
+    ): ModifyApprovalRequestRes
 
     @POST("water/individual-water-orders/")
     suspend fun createIndividualWaterOrder(

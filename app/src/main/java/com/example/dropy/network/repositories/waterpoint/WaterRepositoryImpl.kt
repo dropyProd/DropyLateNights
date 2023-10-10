@@ -15,6 +15,7 @@ import com.example.dropy.network.models.addWaterDriversRes.AddWaterDriverRes
 import com.example.dropy.network.models.addWaterTruckRes.AddWaterTruckRes
 import com.example.dropy.network.models.addWaterVendorRes.AddWaterVendorRes
 import com.example.dropy.network.models.approvalRequests.ApprovalRequestsRes
+import com.example.dropy.network.models.approvalRequests.ApprovalRequestsResItem
 import com.example.dropy.network.models.collectionPointOrder.CollectionPointOrderReq
 import com.example.dropy.network.models.collectionPointOrderRes.CollectionPointOrderRes
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
@@ -24,6 +25,7 @@ import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrderReq
+import com.example.dropy.network.models.modifyApprovalRequestRes.ModifyApprovalRequestRes
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
@@ -48,11 +50,34 @@ class WaterRepositoryImpl(
     private val client: HttpClient,
     private val waterService: WaterService
 ) : WaterRepository {
-//    private val BASE_URL = "http://20.164.41.50:8000/"
+    //    private val BASE_URL = "http://20.164.41.50:8000/"
     private val BASE_URL = "https://api.dropy.ke/"
     override suspend fun approvalRequests(token: String): Flow<Resource<ApprovalRequestsRes?>> {
         return flow {
-            waterService.approvalRequests(token)
+            try {
+                val result = waterService.approvalRequests(token)
+                emit(Resource.Success(result/*.toDomain()*/))
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Oops, something went wrong!"))
+            }
+        }
+    }
+
+    override suspend fun modifyApprovalRequest(
+        token: String,
+        approvalRequestsResItem: ApprovalRequestsResItem
+    ): Flow<Resource<ModifyApprovalRequestRes?>> {
+        return flow {
+            try{
+            val result = waterService.modifyApprovalRequest(token, approvalRequestsResItem, approvalRequestsResItem.id)
+            emit(Resource.Success(result/*.toDomain()*/))
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Oops, something went wrong!"))
+            }
         }
     }
 
@@ -220,7 +245,7 @@ class WaterRepositoryImpl(
                 if (imageByteArray != null && imageByteArrayCover != null) {
 
 
-/*            try {*/
+                    /*            try {*/
                     val response: HttpResponse =
                         client/*.submitForm(
                 url = "${BASE_URL}shops/addshop",
@@ -406,7 +431,7 @@ class WaterRepositoryImpl(
                 if (imageByteArray != null && imageByteArrayCover != null) {
 
 
-/*            try {*/
+                    /*            try {*/
                     val response: HttpResponse =
                         client/*.submitForm(
                 url = "${BASE_URL}shops/addshop",
@@ -577,7 +602,7 @@ class WaterRepositoryImpl(
                 if (imageByteArray != null && imageByteArrayCover != null) {
 
 
-/*            try {*/
+                    /*            try {*/
                     val response: HttpResponse =
                         client/*.submitForm(
                 url = "${BASE_URL}shops/addshop",
@@ -837,7 +862,7 @@ class WaterRepositoryImpl(
                 if (imageByteArray != null /*&& imageByteArrayCover != null*/) {
 
 
-/*            try {*/
+                    /*            try {*/
                     val response: HttpResponse =
                         client/*.submitForm(
                 url = "${BASE_URL}shops/addshop",

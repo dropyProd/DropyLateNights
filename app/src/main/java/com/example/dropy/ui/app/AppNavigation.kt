@@ -705,7 +705,8 @@ fun App(
                 uiState = uiState,
                 cartPageViewModel = cartPageViewModel,
                 incomingJobViewModel = incomingJobViewModel,
-                appViewModel = appViewModel
+                appViewModel = appViewModel,
+                approvalRequestViewModel = approvalRequestViewModel
             )
             /*      LottieAnimation(
                       composition = composition,
