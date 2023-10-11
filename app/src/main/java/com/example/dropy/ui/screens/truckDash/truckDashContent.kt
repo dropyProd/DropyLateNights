@@ -366,7 +366,7 @@ fun DashboardStats(
                     SimpleText(
                         text = "transactions",
                         textColor = Color.White,
-                        textSize = 13,
+                        textSize = 9,
                         isUppercase = true,
                         fontWeight = FontWeight.SemiBold,
                         font = Font(R.font.axiformasemibold)
@@ -411,14 +411,14 @@ fun DashboardStatContainer(
                 text = stat.toString(),
                 padding = 4,
                 textColor = Color.White,
-                textSize = 9,
+                textSize = 14,
                 fontWeight = FontWeight.Black,
                 font = Font(R.font.axiformablack)
             )
             SimpleText(
                 text = title,
                 textColor = Color.White,
-                textSize = 14,
+                textSize = 9,
                 isUppercase = true,
                 fontWeight = FontWeight.SemiBold,
                 font = Font(R.font.axiformasemibold)

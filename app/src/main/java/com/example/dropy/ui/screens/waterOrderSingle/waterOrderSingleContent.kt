@@ -37,100 +37,194 @@ fun WaterOrderSingleContent(
     time: String = "",
     waterOrderSingleUiState: WaterOrderSingleUiState
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .padding(top = 23.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        ClippedHeader(title = "ORDER #${truckIncomingWorkUiState.selectedOrder?.tracking_id}")
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(top = 23.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            ClippedHeader(title = "ORDER #${truckIncomingWorkUiState.selectedOrder?.tracking_id}")
 
-        Text(
-            text = "ORDER DETAILS",
-            fontSize = 10.sp,
+            Text(
+                text = "ORDER DETAILS",
+                fontSize = 10.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily(
-                Font(R.font.axiformablack)
-            ),
-            letterSpacing = (-0.48).sp,
-            lineHeight = 17.sp,
-            color = Color.Black,
-            modifier = Modifier.padding(top = 16.dp, start = 17.dp)
-        )
+                fontFamily = FontFamily(
+                    Font(R.font.axiformablack)
+                ),
+                letterSpacing = (-0.48).sp,
+                lineHeight = 17.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(top = 16.dp, start = 17.dp)
+            )
 
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(
-                modifier = Modifier.padding(top = 30.dp, start = 39.dp)
-            ) {
-                Text(
-                    text = "WATER VOLUME ORDERED",
-                    fontSize = 9.sp,
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.padding(top = 30.dp, start = 39.dp)
+                ) {
+                    Text(
+                        text = "WATER VOLUME ORDERED",
+                        fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color.Black,
-                )
-                Text(
-                    text = "DELIVERY STATUS",
-                    fontSize = 9.sp,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color.Black,
+                    )
+                    Text(
+                        text = "DELIVERY STATUS",
+                        fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color.Black,
-                    modifier = Modifier.padding(top = 19.dp)
-                )
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(top = 19.dp)
+                    )
 
-                Text(
-                    text = "Order Date",
-                    fontSize = 9.sp,
+                    Text(
+                        text = "Order Date",
+                        fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                    modifier = Modifier.padding(top = 18.dp)
-                )
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                        modifier = Modifier.padding(top = 18.dp)
+                    )
 
-                Text(
-                    text = "Order Time",
-                    fontSize = 9.sp,
+                    Text(
+                        text = "Order Time",
+                        fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                    modifier = Modifier.padding(top = 14.dp)
-                )
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                        modifier = Modifier.padding(top = 14.dp)
+                    )
+
+                }
+
+                Column(modifier = Modifier.padding(top = 25.dp, start = 121.dp)) {
+                    Text(
+                        text = "${truckIncomingWorkUiState.truckDetails?.capacity} LITERS",
+                        fontSize = 12.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformaheavy)
+                        ),
+                        letterSpacing = (-0.58).sp,
+                        lineHeight = 23.sp,
+                        color = Color.Black,
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .padding(top = 5.dp)
+                            .width(65.dp)
+                            .height(14.dp)
+                            .background(
+                                color = Color(0xFF979797),
+                                shape = RoundedCornerShape(7.dp)
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color(0xFFD1D1D1),
+                                shape = RoundedCornerShape(7.dp)
+                            )
+                    ) {
+                        Text(
+                            text = "NOT STARTED",
+                            fontSize = 7.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                            fontFamily = FontFamily(
+                                Font(R.font.axiformablack)
+                            ),
+                            letterSpacing = (-0.34).sp,
+                            lineHeight = 13.sp,
+                            color = Color.White,
+                            modifier = Modifier.padding(
+                                start = 10.dp,
+                                end = 5.dp,
+                                top = 4.dp,
+                                bottom = 1.dp
+                            )
+                        )
+                    }
+
+                    Text(
+                        text = date,
+                        fontSize = 9.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                        modifier = Modifier.padding(top = 15.dp)
+                    )
+
+                    Text(
+                        text = time,
+                        fontSize = 9.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                        modifier = Modifier.padding(top = 18.dp)
+                    )
+                }
+
 
             }
 
-            Column(modifier = Modifier.padding(top = 25.dp, start = 121.dp)) {
-                Text(
-                    text = "${truckIncomingWorkUiState.truckDetails?.capacity} LITERS",
-                    fontSize = 12.sp,
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.padding(top = 21.dp, start = 29.dp)) {
+                    Text(
+                        text = "LOCATION DETAILS",
+                        fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformaheavy)
-                    ),
-                    letterSpacing = (-0.58).sp,
-                    lineHeight = 23.sp,
-                    color = Color.Black,
-                )
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                    )
+
+                    Text(
+                        text = "Delivery Location",
+                        fontSize = 9.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformablack)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 17.sp,
+                        color = Color(0xFF74728A),
+                        modifier = Modifier.padding(top = 18.dp)
+                    )
+                }
+
 
                 Row(
                     modifier = Modifier
-                        .padding(top = 5.dp)
+                        .padding(top = 49.dp, start = 135.dp)
                         .width(65.dp)
                         .height(14.dp)
                         .background(
@@ -144,7 +238,7 @@ fun WaterOrderSingleContent(
                         )
                 ) {
                     Text(
-                        text = "NOT STARTED",
+                        text = "NAIROBI WEST",
                         fontSize = 7.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                         fontFamily = FontFamily(
@@ -161,209 +255,118 @@ fun WaterOrderSingleContent(
                         )
                     )
                 }
-
-                Text(
-                    text = date,
-                    fontSize = 9.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                    modifier = Modifier.padding(top = 15.dp)
-                )
-
-                Text(
-                    text = time,
-                    fontSize = 9.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                    modifier = Modifier.padding(top = 18.dp)
-                )
             }
-
-
-        }
-
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(top = 21.dp, start = 29.dp)) {
-                Text(
-                    text = "LOCATION DETAILS",
-                    fontSize = 9.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                )
-
-                Text(
-                    text = "Delivery Location",
-                    fontSize = 9.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 17.sp,
-                    color = Color(0xFF74728A),
-                    modifier = Modifier.padding(top = 18.dp)
-                )
-            }
-
 
             Row(
                 modifier = Modifier
-                    .padding(top = 49.dp, start = 135.dp)
-                    .width(65.dp)
-                    .height(14.dp)
-                    .background(
-                        color = Color(0xFF979797),
-                        shape = RoundedCornerShape(7.dp)
-                    )
-                    .border(
-                        width = 1.dp,
-                        color = Color(0xFFD1D1D1),
-                        shape = RoundedCornerShape(7.dp)
-                    )
+                    .padding(start = 27.dp, end = 20.dp, top = 37.dp)
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(color = Color(0xFFDEDEDE))
             ) {
+
+            }
+
+            Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "NAIROBI WEST",
-                    fontSize = 7.sp,
+                    text = "DISTANCE",
+                    fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
                     ),
-                    letterSpacing = (-0.34).sp,
-                    lineHeight = 13.sp,
-                    color = Color.White,
-                    modifier = Modifier.padding(
-                        start = 10.dp,
-                        end = 5.dp,
-                        top = 4.dp,
-                        bottom = 1.dp
-                    )
+                    letterSpacing = (-0.43).sp,
+                    lineHeight = 17.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(top = 25.dp, start = 31.dp)
                 )
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(start = 27.dp, end = 20.dp, top = 37.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(color = Color(0xFFDEDEDE))
-        ) {
-
-        }
-
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = "DISTANCE",
-                fontSize = 9.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformablack)
-                ),
-                letterSpacing = (-0.43).sp,
-                lineHeight = 17.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(top = 25.dp, start = 31.dp)
-            )
-            Text(
-                text = "${waterOrderSingleUiState.distance} KILOMETERS",
-                fontSize = 12.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformaheavy)
-                ),
-                letterSpacing = (-0.58).sp,
-                lineHeight = 23.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(top = 22.dp, start = 128.dp)
-            )
-        }
-
-        Row(
-            modifier = Modifier
-                .padding(start = 73.dp, end = 74.dp, top = 24.dp)
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(color = Color(0xFFDEDEDE))
-        ) {
-
-        }
-        if (!truckIncomingWorkUiState.selectedOrder?.note.toString().equals("")) {
-            Text(
-                text = "DELIVERY NOTE",
-                fontSize = 12.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformaheavy)
-                ),
-                letterSpacing = (-0.58).sp,
-                lineHeight = 23.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(top = 27.dp, start = 39.dp)
-            )
-
-            Row(modifier = Modifier
-                .padding(start = 39.dp, end = 43.dp, top = 22.dp)
-                .fillMaxWidth()
-                .height(100.dp)
-                .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))
-                .border(
-                    width = 1.dp,
-                    color = Color(0xFFDEDEDE),
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .clickable { }
-            ) {
                 Text(
-                    text = truckIncomingWorkUiState.selectedOrder?.note.toString(),
-                    fontSize = 9.sp,
+                    text = "${waterOrderSingleUiState.distance} KILOMETERS",
+                    fontSize = 12.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformabold)
+                        Font(R.font.axiformaheavy)
                     ),
-                    letterSpacing = (-0.43).sp,
-                    lineHeight = 20.sp,
+                    letterSpacing = (-0.58).sp,
+                    lineHeight = 23.sp,
                     color = Color.Black,
-                    modifier = Modifier.padding(top = 18.dp, start = 39.dp)
+                    modifier = Modifier.padding(top = 22.dp, start = 128.dp)
                 )
             }
-        }
 
-        Text(
-            text = "CUSTOMER",
-            fontSize = 10.sp,
+            Row(
+                modifier = Modifier
+                    .padding(start = 73.dp, end = 74.dp, top = 24.dp)
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(color = Color(0xFFDEDEDE))
+            ) {
+
+            }
+            if (!truckIncomingWorkUiState.selectedOrder?.note.toString().equals("")) {
+                Text(
+                    text = "DELIVERY NOTE",
+                    fontSize = 12.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily(
-                Font(R.font.axiformaheavy)
-            ),
-            letterSpacing = (-0.48).sp,
-            lineHeight = 19.sp,
-            color = Color.Black,
-            modifier = Modifier.padding(top = 30.dp, start = 32.dp)
-        )
+                    fontFamily = FontFamily(
+                        Font(R.font.axiformaheavy)
+                    ),
+                    letterSpacing = (-0.58).sp,
+                    lineHeight = 23.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(top = 27.dp, start = 39.dp)
+                )
 
-        truckPerson(
-            modifier = Modifier.padding(start = 20.dp, end = 13.dp, top = 22.dp),
-            truckIncomingWorkUiState = truckIncomingWorkUiState
-        )
+                Row(modifier = Modifier
+                    .padding(start = 39.dp, end = 43.dp, top = 22.dp)
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(color = Color(0xFFF5F5F5), shape = RoundedCornerShape(12.dp))
+                    .border(
+                        width = 1.dp,
+                        color = Color(0xFFDEDEDE),
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .clickable { }
+                ) {
+                    Text(
+                        text = truckIncomingWorkUiState.selectedOrder?.note.toString(),
+                        fontSize = 9.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(
+                            Font(R.font.axiformabold)
+                        ),
+                        letterSpacing = (-0.43).sp,
+                        lineHeight = 20.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(top = 18.dp, start = 39.dp)
+                    )
+                }
+            }
 
+            Text(
+                text = "CUSTOMER",
+                fontSize = 10.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily(
+                    Font(R.font.axiformaheavy)
+                ),
+                letterSpacing = (-0.48).sp,
+                lineHeight = 19.sp,
+                color = Color.Black,
+                modifier = Modifier.padding(top = 30.dp, start = 32.dp)
+            )
+
+            truckPerson(
+                modifier = Modifier.padding(start = 20.dp, end = 13.dp, top = 22.dp),
+                truckIncomingWorkUiState = truckIncomingWorkUiState
+            )
+
+
+        }
         Row(
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
+                .align(Alignment.BottomEnd)
                 .padding(top = 28.dp)
                 .width(156.dp)
                 .height(49.dp)
