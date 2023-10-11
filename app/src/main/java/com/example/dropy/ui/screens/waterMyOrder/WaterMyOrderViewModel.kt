@@ -5,6 +5,7 @@ import com.example.dropy.di.DropyApp
 import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersResItem
 import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversResItem
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.screens.waterTracking.WaterTrackingViewModel
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 data class WaterMyOrderUiState(
+    val truckDriverList: List<GetTruckDriversResItem> = listOf(),
     val getIndividualOrdersResItem: GetIndividualOrdersResItem? = null,
     val createIndividualWaterOrderRes: CreateIndividualWaterOrderRes? = null,
     val selectedTruck: AssignedTruck? = null,
@@ -78,6 +80,12 @@ class WaterMyOrderViewModel @Inject constructor(
         }
         appViewModel?.navigate(AppDestinations.WATER_TRACKING)
     }
+    fun getTruckDrivers(){
+        uiState.update {
+            it.copy(truckDriverList = app.waterTruckDrivers)
+        }
+    }
+
 
     fun navigateWaterTracking(
         waterTrackingViewModel: WaterTrackingViewModel,

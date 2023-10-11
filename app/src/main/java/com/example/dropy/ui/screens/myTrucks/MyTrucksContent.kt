@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,13 +25,15 @@ import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 import com.example.dropy.ui.screens.locale.BackgroundedImage
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsUiState
 import com.example.dropy.ui.screens.waterVendorDash.WaterVendorDashUiState
 
 @Composable
 fun MyTrucksContent(
     waterVendorDashUiState: WaterVendorDashUiState,
     navigate: (GetTrucksResItem) -> Unit,
-    navigateEdit: (GetTrucksResItem) -> Unit
+    navigateEdit: (GetTrucksResItem) -> Unit,
+    myTrucksUiState: MyTrucksUiState
 ) {
     Column(
         modifier = Modifier
@@ -55,11 +58,30 @@ fun MyTrucksContent(
                             navigate = navigate,
                             color = backgroundColor,
                             assignedTruck = item,
-                            navigateEdit = navigateEdit
+                            navigateEdit = navigateEdit,
+                            myTrucksUiState = myTrucksUiState
                         )
                     }
             })
     }
+}
+
+fun getDriverName(myTrucksUiState: MyTrucksUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    myTrucksUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = it.driver.first_name + " " + it.driver.last_name
+    }
+    return text.value
+}
+
+fun getDriverLogo(myTrucksUiState: MyTrucksUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    myTrucksUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = ""
+    }
+    return text.value
 }
 
 @Composable
@@ -68,6 +90,7 @@ fun waterOrderItem(
     navigateEdit: (GetTrucksResItem) -> Unit,
     color: Color,
     assignedTruck: GetTrucksResItem? = null,
+    myTrucksUiState: MyTrucksUiState
 ) {
     Box (modifier = Modifier.fillMaxWidth()){
         Row(modifier = Modifier
@@ -96,7 +119,7 @@ fun waterOrderItem(
 
             Column(modifier = Modifier.padding(top = 16.dp)) {
                 Text(
-                    text = "ANTONY",
+                    text = getDriverName(myTrucksUiState,assignedTruck?.id.toString()),
                     fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(

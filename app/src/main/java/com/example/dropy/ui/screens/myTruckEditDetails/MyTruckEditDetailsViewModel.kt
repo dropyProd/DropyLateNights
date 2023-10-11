@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.dropy.di.DropyApp
+import com.example.dropy.network.models.getTruckDrivers.GetTruckDriversResItem
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
 import com.example.dropy.network.models.topUp.TopUpReq
 import com.example.dropy.network.use_case.modifyTruckDetails.ModifyTruckDetailsUseCase
@@ -40,8 +41,10 @@ data class MyTruckEditDetailsUiState(
     val shopLogoUri: Uri? = null,
     val active: Boolean = false,
     val selectedTruckCapacity: String = "5,000LT",
+    val truckDriverList: List<GetTruckDriversResItem> = listOf(),
     val truckCapacities: List<String> = listOf("5,000LT", "10,000LT"),
     val licensePlate: String = "",
+    val logo: String = "",
     val shopLocation: AddressDataClass? = null,
     val selectedTruckId: String = "",
     val model: String = "",
@@ -169,6 +172,13 @@ class MyTruckEditDetailsViewModel @Inject constructor(
             )
         }
     }
+    fun onLicensePlateChange(text: String) {
+        uiState.update {
+            it.copy(
+                licensePlate = text
+            )
+        }
+    }
     fun addAddress(addressDataClass: AddressDataClass) {
         uiState.update {
             it.copy(
@@ -178,10 +188,15 @@ class MyTruckEditDetailsViewModel @Inject constructor(
     }
     fun setSelectedTruckId(getTrucksResItem: GetTrucksResItem) {
         uiState.update {
-            it.copy(selectedTruckId = getTrucksResItem.id)
+            it.copy(selectedTruckId = getTrucksResItem.id, active = getTrucksResItem.is_active, selectedTruckCapacity = if (getTrucksResItem.capacity.equals(5000)) "5,000LT" else "10,000LT", logo = getTrucksResItem.image,licensePlate = getTrucksResItem.license_plate, model = getTrucksResItem.model, year = getTrucksResItem.year.toString())
         }
     }
 
+    fun getTruckDrivers(){
+        uiState.update {
+            it.copy(truckDriverList = app.waterTruckDrivers)
+        }
+    }
     fun navigateLocation(addWaterTruckViewmodel: AddWaterTruckViewmodel) {
         addWaterTruckViewmodel.onRouteeChanged("EditTruck")
         appViewModel!!.navigate(AppDestinations.WATERTRUCK_LOCALE)

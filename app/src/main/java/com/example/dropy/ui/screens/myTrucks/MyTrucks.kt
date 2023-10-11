@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.myTrucks
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -34,16 +35,28 @@ fun MyTrucks(
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
 
 
-
+    LaunchedEffect(key1 = true, block = {
+        myTrucksViewmodel.getTruckDrivers()
+    })
 
     AppScaffold(
         content = {
-            MyTrucksContent(waterVendorDashUiState = waterVendorDashUiState, navigate = {
-                myTrucksViewmodel.navigateTruckOrders(
-                    truckOrdersViewModel = truckOrdersViewModel,
-                    getTrucksResItem = it
-                )
-            }, navigateEdit = {myTrucksViewmodel.navigateTruckEdit(myTruckEditDetailsViewModel, it)})
+            MyTrucksContent(
+                waterVendorDashUiState = waterVendorDashUiState,
+                navigate = {
+                    myTrucksViewmodel.navigateTruckOrders(
+                        truckOrdersViewModel = truckOrdersViewModel,
+                        getTrucksResItem = it
+                    )
+                },
+                navigateEdit = {
+                    myTrucksViewmodel.navigateTruckEdit(
+                        myTruckEditDetailsViewModel,
+                        it
+                    )
+                },
+                myTrucksUiState = myTrucksUiState
+            )
         },
         pageLoading = waterVendorDashUiState.pageLoading,
         actionLoading = waterVendorDashUiState.actionLoading,

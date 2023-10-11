@@ -1225,13 +1225,13 @@ class AppViewModel @Inject constructor(
     fun getTruckDrivers() {
         viewModelScope.launch {
             getTruckDriversUseCase(
-                token = app.token.value
+                token = "Token "+app.token.value
             ).flowOn(Dispatchers.IO)
-                .catch { e ->
+               /* .catch { e ->
                     // handle exception
                     uiState.update { it.copy(appLoading = false) }
 
-                }
+                }*/
                 .collect { result ->
                     // list of users from the network
                     Log.d("uopopi", "getAllShops: $result")

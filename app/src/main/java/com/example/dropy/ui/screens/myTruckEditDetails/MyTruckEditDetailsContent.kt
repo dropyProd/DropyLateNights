@@ -71,401 +71,439 @@ fun MyTruckEditDetailsContent(
     myTruckEditDetailsUiState: MyTruckEditDetailsUiState,
     changeActiveState: (Boolean) -> Unit,
     selectedTruckCapacity: (String) -> Unit,
+    onLicensePlateChanged: (String) -> Unit,
     onModelChanged: (String) -> Unit,
     onYearChanged: (String) -> Unit,
-    onAddShopCoverPhoto: () -> Unit
+    onAddShopCoverPhoto: () -> Unit,
+    changeTruck: (GetTrucksResItem) -> Unit
 ) {
-   Box (modifier = Modifier
-       .fillMaxSize()
-       .background(Color.White)){
-       Column(
-           modifier = Modifier
-               .fillMaxSize()
-               .background(Color.White)
-               .verticalScroll(rememberScrollState())
-       ) {
-           Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-               ClippedHeader(title = "TRUCK DETAILS")
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                ClippedHeader(title = "TRUCK DETAILS")
 
-               Text(
-                   text = "STATUS",
-                   color = Color.Black,
-                   fontSize = 18.sp,
+                Text(
+                    text = "STATUS",
+                    color = Color.Black,
+                    fontSize = 18.sp,
 //                        fontWeight = FontWeight.SemiBold,
-                   fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-                   letterSpacing = (-0.48).sp,
-                   lineHeight = 35.sp,
-                   modifier = Modifier
-                       .padding(end = 60.dp)
-                       .offset(y = 40.dp)
-               )
-           }
+                    fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                    letterSpacing = (-0.48).sp,
+                    lineHeight = 35.sp,
+                    modifier = Modifier
+                        .padding(end = 60.dp)
+                        .offset(y = 40.dp)
+                )
+            }
 
 
-           val backgroundColorClose by animateColorAsState(
-               if (myTruckEditDetailsUiState.active) Color.LightGray else Color.Black
-           )
-           val backgroundColorOpen by animateColorAsState(
-               if (myTruckEditDetailsUiState.active) Color.Black else Color.LightGray
-           )
+            val backgroundColorClose by animateColorAsState(
+                if (myTruckEditDetailsUiState.active) Color.LightGray else Color.Black
+            )
+            val backgroundColorOpen by animateColorAsState(
+                if (myTruckEditDetailsUiState.active) Color.Black else Color.LightGray
+            )
 
-           Row(
-               modifier = Modifier
-                   .padding(start = 23.dp, end = 21.dp)
-                   .fillMaxWidth()
-                   .padding(top = 31.dp),
-               horizontalArrangement = Arrangement.SpaceBetween,
-               verticalAlignment = Alignment.CenterVertically
-           ) {
-               Row(
-                   horizontalArrangement = Arrangement.spacedBy(4.dp),
-                   verticalAlignment = Alignment.CenterVertically
-               ) {
-                   var mExpanded by remember { mutableStateOf(false) }
-                   var text by remember {
-                       mutableStateOf("")
-                   }
+            Row(
+                modifier = Modifier
+                    .padding(start = 23.dp, end = 21.dp)
+                    .fillMaxWidth()
+                    .padding(top = 31.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    var mExpanded by remember { mutableStateOf(false) }
+                    var text by remember {
+                        mutableStateOf("")
+                    }
 
-                   val list: MutableList<String> = mutableListOf()
+                    val list: MutableList<String> = mutableListOf()
 
 
-                   Text(
-                       text = "TRUCK",
-                       color = Color.Black,
-                       fontSize = 18.sp,
+                    Text(
+                        text = "TRUCK",
+                        color = Color.Black,
+                        fontSize = 18.sp,
 //                        fontWeight = FontWeight.SemiBold,
-                       fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-                       letterSpacing = (-0.48).sp,
-                       lineHeight = 35.sp
-                   )
+                        fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                        letterSpacing = (-0.48).sp,
+                        lineHeight = 35.sp
+                    )
 
 
-                   dropdownRounded(
-                       text = "KBB 374K",
-                       clicked = {
-                           mExpanded = true
-                       },
-                       color = Color(0xFFC2F8FF),
-                       bordercolor = Color.Transparent,
-                       contentColor = Color.Black,
-                       spacearound = 12,
-                       modifier = Modifier.padding(start = 8.dp)
-                   )
-                   DropdownMenu(
-                       expanded = mExpanded,
-                       onDismissRequest = { mExpanded = false },
-                       modifier = Modifier
-                           .wrapContentWidth()
-                           .height(200.dp)
-                       /*   .verticalScroll(rememberScrollState())*/
-                   ) {
-                       list.forEach { label ->
-                           DropdownMenuItem(
-                               onClick = {
-                                   text = label
-                                   mExpanded = false
-                               }, modifier = Modifier
-                                   .wrapContentWidth()
-                                   .wrapContentHeight()
-                           ) {
-                               label.let {
-                                   androidx.compose.material3.Text(
-                                       text = (it).toUpperCase(),
-                                       fontSize = 9.sp,
-                                       modifier = Modifier.padding(bottom = 7.dp),
-                                       fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-                                       fontWeight = FontWeight.Black
-                                   )
-                               }
-                           }
-                       }
-                   }
+                    dropdownRounded(
+                        text = myTruckEditDetailsUiState.licensePlate,
+                        clicked = {
+                            mExpanded = true
+                        },
+                        color = Color(0xFFC2F8FF),
+                        bordercolor = Color.Transparent,
+                        contentColor = Color.Black,
+                        spacearound = 12,
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                    DropdownMenu(
+                        expanded = mExpanded,
+                        onDismissRequest = { mExpanded = false },
+                        modifier = Modifier
+                            .wrapContentWidth()
+                            .height(200.dp)
+                        /*   .verticalScroll(rememberScrollState())*/
+                    ) {
+                        myTrucksUiState.truckList.forEach { label ->
+                            DropdownMenuItem(
+                                onClick = {
+                                    text = label.license_plate
+                                    changeTruck(label)
+                                    mExpanded = false
+                                }, modifier = Modifier
+                                    .wrapContentWidth()
+                                    .wrapContentHeight()
+                            ) {
+                                label.license_plate.let {
+                                    androidx.compose.material3.Text(
+                                        text = (it).toUpperCase(),
+                                        fontSize = 9.sp,
+                                        modifier = Modifier.padding(bottom = 7.dp),
+                                        fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                                        fontWeight = FontWeight.Black
+                                    )
+                                }
+                            }
+                        }
+                    }
 
 
-               }
-               Row(
-                   modifier = Modifier.wrapContentWidth(),
-                   horizontalArrangement = Arrangement.spacedBy(2.dp),
-                   verticalAlignment = Alignment.CenterVertically
-               ) {
-                   SimpleText(
-                       textSize = 8,
-                       text = "CLOSED",
-                       isExtraBold = false,
-                       font = Font(R.font.axiformablack),
-                       textColor = backgroundColorClose
-                   )
-                   Switch(
-                       checked = myTruckEditDetailsUiState.active,
-                       onCheckedChange = changeActiveState,
-                       colors = SwitchDefaults.colors(
-                           checkedThumbColor = Color.White,
-                           uncheckedThumbColor = Color.White,
-                           checkedTrackColor = Color.Black,
-                           uncheckedTrackColor = Color.Transparent
-                       )
-                   )
-                   SimpleText(
-                       textSize = 8,
-                       text = "OPEN",
-                       isExtraBold = false,
-                       font = Font(R.font.axiformablack),
-                       textColor = backgroundColorOpen
-                   )
-               }
+                }
+                Row(
+                    modifier = Modifier.wrapContentWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SimpleText(
+                        textSize = 8,
+                        text = "CLOSED",
+                        isExtraBold = false,
+                        font = Font(R.font.axiformablack),
+                        textColor = backgroundColorClose
+                    )
+                    Switch(
+                        checked = myTruckEditDetailsUiState.active,
+                        onCheckedChange = changeActiveState,
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.White,
+                            uncheckedThumbColor = Color.White,
+                            checkedTrackColor = Color.Black,
+                            uncheckedTrackColor = Color.Transparent
+                        )
+                    )
+                    SimpleText(
+                        textSize = 8,
+                        text = "OPEN",
+                        isExtraBold = false,
+                        font = Font(R.font.axiformablack),
+                        textColor = backgroundColorOpen
+                    )
+                }
 
-           }
+            }
 
-           Column(
-               modifier = Modifier
-                   .padding(bottom = 32.dp, start = 23.dp, end = 21.dp)
-                   .fillMaxWidth(),
-               horizontalAlignment = Alignment.CenterHorizontally
-           ) {
-               Box(
-                   modifier = Modifier
-                       .clip(RoundedCornerShape(8.dp))
-                       .background(LightBlue)
-                       .fillMaxWidth()
-                       .aspectRatio(2 / 1f)
-               ) {
-                   if (myTruckEditDetailsUiState.shopCoverPhoto == null) {
-                       LoadImage()
-                   } else {
-                       Image(
-                           bitmap = myTruckEditDetailsUiState.shopCoverPhoto,
-                           contentDescription = "image logo",
-                           contentScale = ContentScale.Crop,
-                           modifier = Modifier
-                               .fillMaxSize()
-                       )
-                   }
-                   IconButton(
-                       onClick = { onAddShopCoverPhoto() },
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .aspectRatio(2 / 1f)
-                           .background(Color(255, 255, 255, 77)),
-                   ) {
-                       Icon(
-                           imageVector = Icons.Filled.Add,
-                           contentDescription = "add icon",
-                           modifier = Modifier
-                               .size(24.dp),
-                           tint = Color.White
-                       )
-                   }
-               }
-               /*    SimpleText(
-                       textSize = 10,
-                       text = "Upload your watertruck feature photo",
-                       isUppercase = false,
-                       isBold = true,
-                       padding = 8,
-                       font = Font(R.font.axiformabold)
-                   )*/
-           }
+            Column(
+                modifier = Modifier
+                    .padding(bottom = 32.dp, start = 23.dp, end = 21.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(LightBlue)
+                        .fillMaxWidth()
+                        .aspectRatio(2 / 1f)
+                ) {
+                    if (myTruckEditDetailsUiState.shopCoverPhoto == null) {
+                        LoadImage(
+                            myTruckEditDetailsUiState.logo, modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    } else {
+                        Image(
+                            bitmap = myTruckEditDetailsUiState.shopCoverPhoto,
+                            contentDescription = "image logo",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    }
+                    IconButton(
+                        onClick = { onAddShopCoverPhoto() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(2 / 1f)
+                            .background(Color(255, 255, 255, 77)),
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = "add icon",
+                            modifier = Modifier
+                                .size(24.dp),
+                            tint = Color.White
+                        )
+                    }
+                }
+                /*    SimpleText(
+                        textSize = 10,
+                        text = "Upload your watertruck feature photo",
+                        isUppercase = false,
+                        isBold = true,
+                        padding = 8,
+                        font = Font(R.font.axiformabold)
+                    )*/
+            }
 
-           Row(
-               modifier = Modifier
-                   .padding(bottom = 24.dp)
-                   .fillMaxWidth()
-           ) {
-               Column(
-                   verticalArrangement = Arrangement.Center,
-                   modifier = Modifier
-                       .padding(end = 8.dp)
-                       .weight(1f),
-               ) {
-                   SimpleText(
-                       textSize = 10,
-                       text = "License plate",
-                       isExtraBold = true,
-                       modifier = Modifier.padding(start = 45.dp),
-                       font = Font(R.font.axiformaextrabold)
-                   )
+            Row(
+                modifier = Modifier
+                    .padding(bottom = 24.dp)
+                    .fillMaxWidth()
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .padding(end = 8.dp)
+                        .weight(1f),
+                ) {
+                    SimpleText(
+                        textSize = 10,
+                        text = "License plate",
+                        isExtraBold = true,
+                        modifier = Modifier.padding(start = 45.dp),
+                        font = Font(R.font.axiformaextrabold)
+                    )
 
-                   OutlinedTextField(
-                       value = myTruckEditDetailsUiState.licensePlate,
-                       onValueChange = {/* onShopPhoneOneChanged(it)*/ },
-                       shape = RoundedCornerShape(8.dp),
-                       modifier = Modifier
-                           .padding(top = 8.dp, start = 23.dp, end = 21.dp)
-                           .fillMaxWidth()
-                           .height(48.dp),
-                       colors = TextFieldDefaults.outlinedTextFieldColors(
-                           unfocusedBorderColor = Color.Black,
-                           focusedBorderColor = Color.Black,
-                       ),
-                       /* keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.
-                        ),*/
-                       textStyle = TextStyle(
-                           color = Color.Black,
-                           fontFamily = FontFamily(Font(R.font.axiformaregular))
-                       )
-                   )
-               }
-           }
-           Column(
-               modifier = Modifier
-                   .padding(start = 21.dp, end = 21.dp)
-                   .background(Color.White)
-                   .border(
-                       width = 1.dp,
-                       color = /*Color(0xFFDEDEDE)*/Color.Black,
-                       shape = RoundedCornerShape(6.dp)
-                   )
-                   .fillMaxWidth()
-                   .padding(start = 26.dp, top = 21.dp, bottom = 17.dp, end = 15.dp)
+                    OutlinedTextField(
+                        value = myTruckEditDetailsUiState.licensePlate,
+                        onValueChange = { onLicensePlateChanged(it) },
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .padding(top = 8.dp, start = 23.dp, end = 21.dp)
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                        ),
+                        /* keyboardOptions = KeyboardOptions(
+                             keyboardType = KeyboardType.
+                         ),*/
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontFamily = FontFamily(Font(R.font.axiformaregular))
+                        )
+                    )
+                }
+            }
+            Column(
+                modifier = Modifier
+                    .padding(start = 21.dp, end = 21.dp)
+                    .background(Color.White)
+                    .border(
+                        width = 1.dp,
+                        color = /*Color(0xFFDEDEDE)*/Color.Black,
+                        shape = RoundedCornerShape(6.dp)
+                    )
+                    .fillMaxWidth()
+                    .padding(start = 26.dp, top = 21.dp, bottom = 17.dp, end = 15.dp)
 
-           ) {
-               Row(
-                   horizontalArrangement = Arrangement.SpaceBetween,
-                   modifier = Modifier
-                       .fillMaxWidth()
-                       .height(30.dp)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(30.dp)
 //                        .padding(end = 8.dp)
-                   /*      .weight(1f)*/,
-                   verticalAlignment = Alignment.CenterVertically
-               ) {
-                   SimpleText(
-                       textSize = 10,
-                       text = "Truck capacity",
-                       isExtraBold = true,
-                       font = Font(R.font.axiformaextrabold)
-                   )
+                    /*      .weight(1f)*/,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SimpleText(
+                        textSize = 10,
+                        text = "Truck capacity",
+                        isExtraBold = true,
+                        font = Font(R.font.axiformaextrabold)
+                    )
 
-                   Row(modifier = Modifier.width(130.dp)) {
-                       Dropdown(
-                           truckCapacities = myTruckEditDetailsUiState.truckCapacities,
-                           onTruckCapacitySelect = selectedTruckCapacity,
-                           type = "waterTruck"
-                       )
-                   }
-               }
-               Row(
-                   verticalAlignment = Alignment.CenterVertically,
-                   modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
-                   horizontalArrangement = Arrangement.spacedBy(60.dp)
-               ) {
-                   SimpleText(
-                       textSize = 10,
-                       text = "Model",
-                       isExtraBold = true,
-                       font = Font(R.font.axiformaextrabold)
-                   )
+                    Row(modifier = Modifier.width(130.dp)) {
+                        Dropdown(
+                            truckCapacities = myTruckEditDetailsUiState.truckCapacities,
+                            onTruckCapacitySelect = selectedTruckCapacity,
+                            type = "waterTruck"
+                        )
+                    }
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(60.dp)
+                ) {
+                    SimpleText(
+                        textSize = 10,
+                        text = "Model",
+                        isExtraBold = true,
+                        font = Font(R.font.axiformaextrabold)
+                    )
 
-                   OutlinedTextField(
-                       value = myTruckEditDetailsUiState.model,
-                       onValueChange = { onModelChanged(it)  },
-                       shape = RoundedCornerShape(8.dp),
-                       modifier = Modifier
-                           .padding(top = 8.dp)
-                           .width(160.dp)
-                           .height(48.dp),
-                       colors = TextFieldDefaults.outlinedTextFieldColors(
-                           unfocusedBorderColor = Color.Black,
-                           focusedBorderColor = Color.Black,
-                       ),
-                       /*keyboardOptions = KeyboardOptions(
-                           keyboardType = KeyboardType.Phone
-                       ),*/
-                       textStyle = TextStyle(
-                           color = Color.Black,
-                           fontFamily = FontFamily(Font(R.font.axiformaregular))
-                       )
-                   )
-               }
+                    OutlinedTextField(
+                        value = myTruckEditDetailsUiState.model,
+                        onValueChange = { onModelChanged(it) },
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .width(160.dp)
+                            .height(48.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                        ),
+                        /*keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Phone
+                        ),*/
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontFamily = FontFamily(Font(R.font.axiformaregular))
+                        )
+                    )
+                }
 
-               Row(
-                   verticalAlignment = Alignment.CenterVertically,
-                   modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
-                   horizontalArrangement = Arrangement.spacedBy(60.dp)
-               ) {
-                   SimpleText(
-                       textSize = 10,
-                       text = "Year",
-                       isExtraBold = true,
-                       font = Font(R.font.axiformaextrabold)
-                   )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(60.dp)
+                ) {
+                    SimpleText(
+                        textSize = 10,
+                        text = "Year",
+                        isExtraBold = true,
+                        font = Font(R.font.axiformaextrabold)
+                    )
 
-                   OutlinedTextField(
-                       value = myTruckEditDetailsUiState.year,
-                       onValueChange = { onYearChanged(it)  },
-                       shape = RoundedCornerShape(8.dp),
-                       modifier = Modifier
-                           .padding(top = 8.dp)
-                           .width(160.dp)
-                           .height(48.dp),
-                       colors = TextFieldDefaults.outlinedTextFieldColors(
-                           unfocusedBorderColor = Color.Black,
-                           focusedBorderColor = Color.Black,
-                       ),
-                       /*keyboardOptions = KeyboardOptions(
-                           keyboardType = KeyboardType.Phone
-                       ),*/
-                       textStyle = TextStyle(
-                           color = Color.Black,
-                           fontFamily = FontFamily(Font(R.font.axiformaregular))
-                       )
-                   )
-               }
-           }
+                    OutlinedTextField(
+                        value = myTruckEditDetailsUiState.year,
+                        onValueChange = { onYearChanged(it) },
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .width(160.dp)
+                            .height(48.dp),
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            unfocusedBorderColor = Color.Black,
+                            focusedBorderColor = Color.Black,
+                        ),
+                        /*keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Phone
+                        ),*/
+                        textStyle = TextStyle(
+                            color = Color.Black,
+                            fontFamily = FontFamily(Font(R.font.axiformaregular))
+                        )
+                    )
+                }
+            }
 
-           Text(
-               text = "DRIVERS",
-               color = Color.Black,
-               fontSize = 14.sp,
+            Text(
+                text = "DRIVERS",
+                color = Color.Black,
+                fontSize = 14.sp,
 //                        fontWeight = FontWeight.SemiBold,
-               fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-               letterSpacing = (-0.67).sp,
-               lineHeight = 27.sp,
-               modifier = Modifier.padding(top = 32.dp, start = 39.dp)
-           )
+                fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                letterSpacing = (-0.67).sp,
+                lineHeight = 27.sp,
+                modifier = Modifier.padding(top = 32.dp, start = 39.dp)
+            )
 
-           Row(
-               Modifier
-                   .padding(top = 16.dp, start = 25.dp)
-                   .fillMaxWidth()
-                   .horizontalScroll(rememberScrollState()),
-               horizontalArrangement = Arrangement.spacedBy(35.dp)
-           ) {
-               imageText(text = "RAYMOND", truckClicked = {})
-               imageText(text = "ALEX", truckClicked = {})
-           }
+            Row(
+                Modifier
+                    .padding(top = 16.dp, start = 25.dp)
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(35.dp)
+            ) {
+                imageText(myTruckEditDetailsUiState = myTruckEditDetailsUiState, truckClicked = {})
+//                imageText(myTruckEditDetailsUiState = myTruckEditDetailsUiState, truckClicked = {})
+            }
 
-       }
+        }
 
-       Button(
-           onClick = {
+        Button(
+            onClick = {
 
-           },
-           modifier = Modifier
-               .padding(end = 21.dp, bottom = 13.dp)
-               .align(Alignment.BottomEnd)
-               .size(92.dp)
-               .clip(CircleShape),
-           colors = ButtonDefaults.buttonColors(
-               backgroundColor = Color.Black
-           )
-       ) {
-           SimpleText(
-               textSize = 16,
-               text = "UPDATE",
-               fontWeight = FontWeight.W900,
-               textColor = Color.White
+            },
+            modifier = Modifier
+                .padding(end = 21.dp, bottom = 13.dp)
+                .align(Alignment.BottomEnd)
+                .size(92.dp)
+                .clip(CircleShape),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Black
+            )
+        ) {
+            SimpleText(
+                textSize = 16,
+                text = "next",
+                fontWeight = FontWeight.W900,
+                textColor = Color.White
 
-           )
-       }
-   }
+            )
+        }
+
+    }
+}
+
+
+fun getDriverName(myTruckEditDetailsUiState: MyTruckEditDetailsUiState): String {
+    val text = mutableStateOf("")
+    myTruckEditDetailsUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(myTruckEditDetailsUiState.selectedTruckId))
+            text.value = it.driver.first_name + " " + it.driver.last_name
+    }
+    return text.value
+}
+
+fun getDriverLogo(myTruckEditDetailsUiState: MyTruckEditDetailsUiState): String {
+    val text = mutableStateOf("")
+    myTruckEditDetailsUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(myTruckEditDetailsUiState.selectedTruckId))
+            text.value = ""
+    }
+    return text.value
 }
 
 @Composable
-fun imageText(text: String, truckClicked: (String) -> Unit) {
+fun imageText(
+    myTruckEditDetailsUiState: MyTruckEditDetailsUiState,
+    truckClicked: (String) -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.clickable { truckClicked(text) }) {
+        modifier = Modifier.clickable { truckClicked("") }) {
         LoadImage(
             "",
             modifier = Modifier
@@ -475,7 +513,7 @@ fun imageText(text: String, truckClicked: (String) -> Unit) {
                 )
         )
         androidx.compose.material3.Text(
-            text = text,
+            text = getDriverName(myTruckEditDetailsUiState),
             fontSize = 9.sp,
 //                            fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily(
@@ -500,6 +538,8 @@ fun demo() {
         onAddShopCoverPhoto = {},
         selectedTruckCapacity = {},
         onModelChanged = {},
-        onYearChanged = {}
+        onYearChanged = {},
+        changeTruck = {},
+        onLicensePlateChanged = {}
     )
 }

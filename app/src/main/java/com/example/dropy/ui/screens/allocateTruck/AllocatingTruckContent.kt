@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,12 +23,14 @@ import com.example.dropy.R
 import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
+import com.example.dropy.ui.screens.myTrucks.MyTrucksUiState
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 
 @Composable
 fun AllocatingTruckContent(
     navigate: () -> Unit,
-    tankerBoreholeUiState: TankerBoreholeUiState
+    tankerBoreholeUiState: TankerBoreholeUiState,
+    allocatingTruckUiState: AllocatingTruckUiState
 ) {
 
     Column(
@@ -53,7 +56,7 @@ fun AllocatingTruckContent(
                     val backgroundColor = if (index % 2 == 0)
                         Color.Transparent
                     else Color(0xFFF5F5F5)
-                    truckItem(color = backgroundColor, navigate = navigate, assignedTruck = item)
+                    truckItem(color = backgroundColor, navigate = navigate, assignedTruck = item, allocatingTruckUiState = allocatingTruckUiState)
                 }
             })
     }
@@ -62,7 +65,8 @@ fun AllocatingTruckContent(
 @Composable
 fun truckItem(
     color: Color, navigate: () -> Unit,
-    assignedTruck: AssignedTruck
+    assignedTruck: AssignedTruck,
+    allocatingTruckUiState: AllocatingTruckUiState
 ) {
     Row(
         modifier = Modifier
@@ -89,7 +93,7 @@ fun truckItem(
 
             Column(modifier = Modifier.padding(top = 26.dp, start = 24.dp)) {
                 Text(
-                    text = "TOMAS KIMANI",
+                    text = getDriverName(allocatingTruckUiState, assignedTruck.id),
                     fontSize = 16.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(
@@ -191,9 +195,27 @@ fun truckItem(
 
     }
 }
+fun getDriverName(allocatingTruckUiState: AllocatingTruckUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    allocatingTruckUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = it.driver.first_name + " " + it.driver.last_name
+    }
+    return text.value
+}
+
+fun getDriverLogo(allocatingTruckUiState: AllocatingTruckUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    allocatingTruckUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = ""
+    }
+    return text.value
+}
+
 
 @Preview
 @Composable
 fun demo() {
-    AllocatingTruckContent(navigate = {}, tankerBoreholeUiState = TankerBoreholeUiState())
+    AllocatingTruckContent(navigate = {}, tankerBoreholeUiState = TankerBoreholeUiState(), allocatingTruckUiState = AllocatingTruckUiState())
 }

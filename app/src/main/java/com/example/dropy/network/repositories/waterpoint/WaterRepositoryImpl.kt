@@ -964,15 +964,15 @@ class WaterRepositoryImpl(
 
     override fun getTruckDrivers(token: String): Flow<Resource<GetTruckDriversRes?>> {
         return flow {
-            try {
+//            try {
                 val result = waterService.getTruckDrivers(token)
                 emit(Resource.Success(result/*.toDomain()*/))
 
-            } catch (e: IOException) {
+           /* } catch (e: IOException) {
                 emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
             } catch (e: HttpException) {
                 emit(Resource.Error(message = "Oops, something went wrong!"))
-            }
+            }*/
         }
     }
 

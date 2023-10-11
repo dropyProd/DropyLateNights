@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.allocateTruck
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.dropy.ui.components.commons.AppScaffold
@@ -22,11 +23,16 @@ fun AllocatingTruck(
     val appUiState = allocatingTruckViewModel.appViewModel!!.appUiState.collectAsState()
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
 
+    LaunchedEffect(key1 = true, block = {
+        allocatingTruckViewModel.getTruckDrivers()
+    })
+
     AppScaffold(
         content = {
             AllocatingTruckContent(
                 navigate = allocatingTruckViewModel::navigateWaterThankYou,
-                tankerBoreholeUiState = tankerBoreholeUiState
+                tankerBoreholeUiState = tankerBoreholeUiState,
+                allocatingTruckUiState = allocatingTruckUiState
             )
         },
         pageLoading = allocatingTruckUiState.pageLoading,

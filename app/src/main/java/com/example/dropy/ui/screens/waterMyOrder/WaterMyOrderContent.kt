@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +25,7 @@ import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersR
 import com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck
 import com.example.dropy.network.models.createIndividualWaterOrder.CreateIndividualWaterOrderRes
 import com.example.dropy.ui.components.commons.LoadImage
+import com.example.dropy.ui.screens.allocateTruck.AllocatingTruckUiState
 
 @Composable
 fun WaterMyOrderContent(
@@ -59,7 +61,8 @@ fun WaterMyOrderContent(
                                     color = backgroundColor,
                                     assignedTruckO = item,
                                     getIndividualOrdersResItem = waterMyOrderUiState.getIndividualOrdersResItem,
-                                    deliveryStatus = it.delivery_status
+                                    deliveryStatus = it.delivery_status,
+                                    waterMyOrderUiState = waterMyOrderUiState
                                 )
                             }
                         }
@@ -79,7 +82,8 @@ fun WaterMyOrderContent(
                                         color = backgroundColor,
                                         assignedTruck = item,
                                         createIndividualWaterOrderRes = waterMyOrderUiState.createIndividualWaterOrderRes,
-                                        deliveryStatus = it.delivery_status
+                                        deliveryStatus = it.delivery_status,
+                                        waterMyOrderUiState = waterMyOrderUiState
                                     )
                                 }
                         }
@@ -100,7 +104,8 @@ fun waterOrderItem(
     color: Color,
     assignedTruck: AssignedTruck? = null,
     assignedTruckO: com.example.dropy.network.models.GetIndividualOrders.AssignedTruck? = null,
-    deliveryStatus: String
+    deliveryStatus: String,
+    waterMyOrderUiState: WaterMyOrderUiState
 ) {
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -134,7 +139,7 @@ fun waterOrderItem(
             )
 
             Text(
-                text = "ANTONY",
+                text = if (assignedTruck != null) getDriverName(waterMyOrderUiState, assignedTruck.id) else getDriverName(waterMyOrderUiState, assignedTruckO?.id.toString()),
                 fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily(
@@ -323,6 +328,25 @@ fun waterOrderItem(
 
     }
 }
+
+fun getDriverName(waterMyOrderUiState: WaterMyOrderUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    waterMyOrderUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = it.driver.first_name + " " + it.driver.last_name
+    }
+    return text.value
+}
+
+fun getDriverLogo(waterMyOrderUiState: WaterMyOrderUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    waterMyOrderUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = ""
+    }
+    return text.value
+}
+
 
 @Preview
 @Composable

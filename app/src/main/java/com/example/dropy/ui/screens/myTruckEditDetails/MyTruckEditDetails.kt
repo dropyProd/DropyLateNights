@@ -28,6 +28,7 @@ fun MyTruckEditDetails(cartPageViewModel: CartPageViewModel,
 
     val context = LocalContext.current
 
+    LaunchedEffect(key1 = true, block = {myTruckEditDetailsViewModel.getTruckDrivers()})
 
     AppScaffold(
         content = {
@@ -38,7 +39,9 @@ fun MyTruckEditDetails(cartPageViewModel: CartPageViewModel,
                 selectedTruckCapacity = myTruckEditDetailsViewModel::setTruckCapacity,
                 onAddShopCoverPhoto = {choosePhoto("cover")},
                 onModelChanged = myTruckEditDetailsViewModel::onModelChange,
-                onYearChanged = myTruckEditDetailsViewModel::onYearChange
+                onYearChanged = myTruckEditDetailsViewModel::onYearChange,
+                onLicensePlateChanged = myTruckEditDetailsViewModel::onLicensePlateChange,
+                changeTruck = myTruckEditDetailsViewModel::setSelectedTruckId
             )
         },
         pageLoading = myTruckEditDetailsUiState.pageLoading,

@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.waterMyOrder
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.dropy.ui.components.commons.AppScaffold
@@ -20,6 +21,10 @@ fun WaterMyOrder(
 
     val appUiState = waterMyOrderViewModel.appViewModel!!.appUiState.collectAsState()
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
+
+    LaunchedEffect(key1 = true, block = {
+        waterMyOrderViewModel.getTruckDrivers()
+    })
 
     AppScaffold(
         content = {
