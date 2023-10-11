@@ -17,7 +17,10 @@ data class MyTruckEditDetailsUiState(
     val shopCoverPhoto: ImageBitmap? = null,
     val shopCoverPhotoUri: Uri? = null,
     val active: Boolean = false,
+    val selectedTruckCapacity: String = "5,000LT",
+    val truckCapacities: List<String> = listOf("5,000LT", "10,000LT"),
     val licensePlate: String = "",
+    val model: String = "",
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
     val errorList: List<String> = emptyList(),
@@ -41,6 +44,20 @@ class MyTruckEditDetailsViewModel @Inject constructor(
         uiState.update {
             it.copy(
                 active = state
+            )
+        }
+    }
+    fun setTruckCapacity(text: String) {
+        uiState.update {
+            it.copy(
+                selectedTruckCapacity = text
+            )
+        }
+    }
+    fun onModelChange(text: String) {
+        uiState.update {
+            it.copy(
+                model = text
             )
         }
     }

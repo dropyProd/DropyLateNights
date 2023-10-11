@@ -3,18 +3,25 @@ package com.example.dropy.ui.screens.myTruckEditDetails
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -45,6 +52,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
+import com.example.dropy.ui.components.commons.Dropdown
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.commons.SimpleText
 import com.example.dropy.ui.components.shops.frontside.dropdownRounded
@@ -57,6 +66,7 @@ fun MyTruckEditDetailsContent(
     myTrucksUiState: MyTrucksUiState,
     myTruckEditDetailsUiState: MyTruckEditDetailsUiState,
     changeActiveState: (Boolean) -> Unit,
+    selectedTruckCapacity: (String) -> Unit,
     onAddShopCoverPhoto: () -> Unit
 ) {
     Column(
@@ -195,8 +205,7 @@ fun MyTruckEditDetailsContent(
         Column(
             modifier = Modifier
                 .padding(bottom = 32.dp, start = 8.dp, end = 8.dp)
-                .fillMaxWidth()
-            ,
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
@@ -205,10 +214,10 @@ fun MyTruckEditDetailsContent(
                     .background(LightBlue)
                     .fillMaxWidth()
                     .aspectRatio(2 / 1f)
-            ){
-                if (myTruckEditDetailsUiState.shopCoverPhoto == null){
+            ) {
+                if (myTruckEditDetailsUiState.shopCoverPhoto == null) {
                     LoadImage()
-                }else{
+                } else {
                     Image(
                         bitmap = myTruckEditDetailsUiState.shopCoverPhoto,
                         contentDescription = "image logo",
@@ -222,27 +231,25 @@ fun MyTruckEditDetailsContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(2 / 1f)
-                        .background(Color(255, 255, 255, 77))
-                    ,
+                        .background(Color(255, 255, 255, 77)),
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = "add icon",
                         modifier = Modifier
-                            .size(24.dp)
-                        ,
+                            .size(24.dp),
                         tint = Color.White
                     )
                 }
             }
-        /*    SimpleText(
-                textSize = 10,
-                text = "Upload your watertruck feature photo",
-                isUppercase = false,
-                isBold = true,
-                padding = 8,
-                font = Font(R.font.axiformabold)
-            )*/
+            /*    SimpleText(
+                    textSize = 10,
+                    text = "Upload your watertruck feature photo",
+                    isUppercase = false,
+                    isBold = true,
+                    padding = 8,
+                    font = Font(R.font.axiformabold)
+                )*/
         }
 
         Row(
@@ -285,8 +292,129 @@ fun MyTruckEditDetailsContent(
                 )
             }
         }
+        Column(
+            modifier = Modifier
+                .padding(start = 21.dp, end = 21.dp)
+                .background(Color.White)
+                .border(
+                    width = 1.dp,
+                    color = /*Color(0xFFDEDEDE)*/Color.Black,
+                    shape = RoundedCornerShape(6.dp)
+                )
+                .fillMaxWidth()
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+//                        .padding(end = 8.dp)
+                /*      .weight(1f)*/,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                SimpleText(
+                    textSize = 10,
+                    text = "Truck capacity",
+                    isExtraBold = true,
+                    font = Font(R.font.axiformaextrabold)
+                )
+
+                Row(modifier = Modifier.width(130.dp)) {
+                    Dropdown(
+                        truckCapacities = myTruckEditDetailsUiState.truckCapacities,
+                        onTruckCapacitySelect = selectedTruckCapacity,
+                        type = "waterTruck"
+                    )
+                }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(40.dp)
+            ) {
+                SimpleText(
+                    textSize = 10,
+                    text = "Model",
+                    isExtraBold = true,
+                    font = Font(R.font.axiformaextrabold)
+                )
+
+                OutlinedTextField(
+                    value = myTruckEditDetailsUiState.model,
+                    onValueChange = { /*onModelChanged(it) */ },
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .width(160.dp)
+                        .height(48.dp),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        unfocusedBorderColor = Color.Black,
+                        focusedBorderColor = Color.Black,
+                    ),
+                    /*keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Phone
+                    ),*/
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = FontFamily(Font(R.font.axiformaregular))
+                    )
+                )
+            }
+        }
+
+        Text(
+            text = "DRIVERS",
+            color = Color.Black,
+            fontSize = 14.sp,
+//                        fontWeight = FontWeight.SemiBold,
+            fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+            letterSpacing = (-0.67).sp,
+            lineHeight = 27.sp,
+            modifier = Modifier.padding(top = 32.dp, start = 39.dp)
+        )
+
+        Row(
+            Modifier
+                .padding(top = 16.dp, start = 25.dp)
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(35.dp)
+        ) {
+            imageText(text = "RAYMOND", truckClicked = {})
+            imageText(text = "ALEX", truckClicked = {})
+        }
+
     }
 }
+
+@Composable
+fun imageText(text: String, truckClicked: (String) -> Unit) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.clickable { truckClicked(text) }) {
+        LoadImage(
+            "",
+            modifier = Modifier
+                .size(71.dp)
+                .clip(
+                    CircleShape
+                )
+        )
+        androidx.compose.material3.Text(
+            text = text,
+            fontSize = 9.sp,
+//                            fontWeight = FontWeight.ExtraBold,
+            fontFamily = FontFamily(
+                Font(R.font.axiformaextrabold)
+            ),
+            letterSpacing = (-0.43).sp,
+            lineHeight = 17.sp,
+            color = Color.Black,
+            modifier = Modifier.padding(top = 13.dp)
+        )
+    }
+}
+
 
 @Preview
 @Composable
@@ -295,6 +423,7 @@ fun demo() {
         myTrucksUiState = MyTrucksUiState(),
         myTruckEditDetailsUiState = MyTruckEditDetailsUiState(),
         changeActiveState = {},
-        onAddShopCoverPhoto = {}
+        onAddShopCoverPhoto = {},
+        selectedTruckCapacity = {}
     )
 }
