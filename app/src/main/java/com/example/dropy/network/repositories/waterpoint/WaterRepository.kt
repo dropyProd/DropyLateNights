@@ -37,14 +37,23 @@ data class LoginDetails(
 interface WaterRepository {
 
     suspend fun approvalRequests(token: String): Flow<Resource<ApprovalRequestsRes?>>
-    suspend fun modifyApprovalRequest(token: String, approvalRequestsResItem: ApprovalRequestsResItem): Flow<Resource<ModifyApprovalRequestRes?>>
+    suspend fun modifyApprovalRequest(
+        token: String,
+        approvalRequestsResItem: ApprovalRequestsResItem
+    ): Flow<Resource<ModifyApprovalRequestRes?>>
+
     suspend fun topUpWallet(topUpReq: TopUpReq): Flow<Resource<TopUpRes?>>
-    suspend fun updateTruckLocation(token: String,updateTruckLocationReq: UpdateTruckLocationReq): Flow<Resource<String?>>
+    suspend fun updateTruckLocation(
+        token: String,
+        updateTruckLocationReq: UpdateTruckLocationReq
+    ): Flow<Resource<String?>>
+
     suspend fun withdrawWallet(topUpReq: TopUpReq): Flow<Resource<String?>>
     suspend fun generateDeliveryCode(
         token: String,
         taskId: String
     ): Flow<Resource<String?>>
+
     suspend fun verifyDeliveryCode(
         token: String,
         taskId: String,
@@ -55,6 +64,11 @@ interface WaterRepository {
         token: String,
         registerDeviceReq: RegisterDeviceReq
     ): Flow<Resource<RegisterDeviceRes?>>
+
+    suspend fun modifyTruckDetails(
+        token: String,
+        truckId: String
+    ): Flow<Resource<AddWaterTruckRes?>>
 
     suspend fun saveLoginInfo(
         phone_number: String,
@@ -136,7 +150,7 @@ interface WaterRepository {
 
     suspend fun addWaterTruck(
         token: String,
-        vendor : String,
+        vendor: String,
         license_plate: String,
         capacity: Int?,
         current_location: String,
@@ -155,6 +169,27 @@ interface WaterRepository {
     ): Flow<Resource<AddWaterTruckRes?>>
 
 
+    suspend fun modifyWaterTruck(
+        token: String,
+        truckId: String,
+        vendor: String,
+        license_plate: String,
+        capacity: Int?,
+        current_location: String,
+        name: String,
+        model: String,
+        year: Int,
+        is_active: Boolean,
+        is_available: Boolean,
+        registered_latitude: String,
+        registered_longitude: String,
+        current_latitude: String,
+        current_longitude: String,
+        shop_cover_photo: Uri?,
+        image: Uri?,
+        context: Context
+    ): Flow<Resource<AddWaterTruckRes?>>
+
 
     fun getWaterpoints(token: String): Flow<Resource<GetWaterPointsRes?>>
     fun getWatervendors(token: String): Flow<Resource<GetWaterVendorsRes?>>
@@ -164,24 +199,26 @@ interface WaterRepository {
         token: String,
         individualWaterOrderReq: IndividualWaterOrderReq
     ): Flow<Resource<CreateIndividualWaterOrderRes?>>
+
     fun createCollectionPointOrder(
         token: String,
         collectionPointOrderReq: CollectionPointOrderReq
     ): Flow<Resource<CollectionPointOrderRes?>>
+
     fun getCollectionPointOrder(
         token: String,
     ): Flow<Resource<GetWaterPointOrdersRes?>>
 
-     fun getIndividualWaterOrders(
+    fun getIndividualWaterOrders(
         token: String,
     ): Flow<Resource<GetIndividualOrdersRes?>>
 
-     fun createDriver(
+    fun createDriver(
         token: String,
         addWaterDriverReq: AddWaterDriverReq
     ): Flow<Resource<AddWaterDriverRes?>>
 
-     fun getTruckDrivers(
+    fun getTruckDrivers(
         token: String
     ): Flow<Resource<GetTruckDriversRes?>>
 

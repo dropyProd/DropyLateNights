@@ -57,6 +57,12 @@ interface WaterService {
         @Header("Authorization") token: String,
     ): GetTrucksRes
 
+    @GET("water/water-trucks/{truckId}/")
+    suspend fun modifyWaterTruck(
+        @Header("Authorization") token: String,
+        @Path("truckId") truckId: String
+    ): GetTrucksRes
+
     @GET("water/individual-water-orders/")
     suspend fun getIndividualWaterOrders(
         @Header("Authorization") token: String,

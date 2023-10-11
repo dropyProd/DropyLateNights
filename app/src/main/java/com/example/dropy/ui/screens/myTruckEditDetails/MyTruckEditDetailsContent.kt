@@ -71,6 +71,8 @@ fun MyTruckEditDetailsContent(
     myTruckEditDetailsUiState: MyTruckEditDetailsUiState,
     changeActiveState: (Boolean) -> Unit,
     selectedTruckCapacity: (String) -> Unit,
+    onModelChanged: (String) -> Unit,
+    onYearChanged: (String) -> Unit,
     onAddShopCoverPhoto: () -> Unit
 ) {
    Box (modifier = Modifier
@@ -356,7 +358,41 @@ fun MyTruckEditDetailsContent(
 
                    OutlinedTextField(
                        value = myTruckEditDetailsUiState.model,
-                       onValueChange = { /*onModelChanged(it) */ },
+                       onValueChange = { onModelChanged(it)  },
+                       shape = RoundedCornerShape(8.dp),
+                       modifier = Modifier
+                           .padding(top = 8.dp)
+                           .width(160.dp)
+                           .height(48.dp),
+                       colors = TextFieldDefaults.outlinedTextFieldColors(
+                           unfocusedBorderColor = Color.Black,
+                           focusedBorderColor = Color.Black,
+                       ),
+                       /*keyboardOptions = KeyboardOptions(
+                           keyboardType = KeyboardType.Phone
+                       ),*/
+                       textStyle = TextStyle(
+                           color = Color.Black,
+                           fontFamily = FontFamily(Font(R.font.axiformaregular))
+                       )
+                   )
+               }
+
+               Row(
+                   verticalAlignment = Alignment.CenterVertically,
+                   modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+                   horizontalArrangement = Arrangement.spacedBy(60.dp)
+               ) {
+                   SimpleText(
+                       textSize = 10,
+                       text = "Year",
+                       isExtraBold = true,
+                       font = Font(R.font.axiformaextrabold)
+                   )
+
+                   OutlinedTextField(
+                       value = myTruckEditDetailsUiState.year,
+                       onValueChange = { onYearChanged(it)  },
                        shape = RoundedCornerShape(8.dp),
                        modifier = Modifier
                            .padding(top = 8.dp)
@@ -462,6 +498,8 @@ fun demo() {
         myTruckEditDetailsUiState = MyTruckEditDetailsUiState(),
         changeActiveState = {},
         onAddShopCoverPhoto = {},
-        selectedTruckCapacity = {}
+        selectedTruckCapacity = {},
+        onModelChanged = {},
+        onYearChanged = {}
     )
 }

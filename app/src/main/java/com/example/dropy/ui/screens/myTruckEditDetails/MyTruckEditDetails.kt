@@ -15,7 +15,9 @@ import com.example.dropy.ui.screens.water.waterHome.WaterHomeViewModel
 @Composable
 fun MyTruckEditDetails(cartPageViewModel: CartPageViewModel,
                       myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel,
-                       myTrucksViewmodel: MyTrucksViewmodel
+                       myTrucksViewmodel: MyTrucksViewmodel,
+                       choosePhoto: (String) -> Unit
+
 ) {
 
     val myTruckEditDetailsUiState by myTruckEditDetailsViewModel.myTruckEditDetailsUiState.collectAsState()
@@ -34,7 +36,9 @@ fun MyTruckEditDetails(cartPageViewModel: CartPageViewModel,
                 myTruckEditDetailsUiState = myTruckEditDetailsUiState,
                 changeActiveState = myTruckEditDetailsViewModel::changeActiveState,
                 selectedTruckCapacity = myTruckEditDetailsViewModel::setTruckCapacity,
-                onAddShopCoverPhoto = {}
+                onAddShopCoverPhoto = {choosePhoto("cover")},
+                onModelChanged = myTruckEditDetailsViewModel::onModelChange,
+                onYearChanged = myTruckEditDetailsViewModel::onYearChange
             )
         },
         pageLoading = myTruckEditDetailsUiState.pageLoading,

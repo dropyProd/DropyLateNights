@@ -52,6 +52,7 @@ data class AddWaterTruckUiState(
 )
 
 data class AddWaterTruckLocationUiState(
+    val state: String = "",
     val shopAddress: AddressDataClass? = null,
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
@@ -112,6 +113,13 @@ class AddWaterTruckViewmodel @Inject constructor(
         _addWaterTruckUiState.update {
             it.copy(
                 driverId = shopName
+            )
+        }
+    }
+    fun onRouteeChanged(route: String) {
+        _addWaterTruckLocationUiState.update {
+            it.copy(
+                state = route
             )
         }
     }

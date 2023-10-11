@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.example.dropy.ui.components.commons.AppScaffold
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.nearestTrucks.NearestTruckContent
 import com.example.dropy.ui.screens.nearestTrucks.NearestTrucksViewmodel
 import com.example.dropy.ui.screens.shops.frontside.cart.CartPageViewModel
@@ -20,7 +21,8 @@ fun MyTrucks(
     cartPageViewModel: CartPageViewModel,
     myTrucksViewmodel: MyTrucksViewmodel,
     waterVendorDashViewModel: WaterVendorDashViewModel,
-    truckOrdersViewModel: TruckOrdersViewModel
+    truckOrdersViewModel: TruckOrdersViewModel,
+    myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel
 ) {
 
     val myTrucksUiState by myTrucksViewmodel.myTrucksUiState.collectAsState()
@@ -41,7 +43,7 @@ fun MyTrucks(
                     truckOrdersViewModel = truckOrdersViewModel,
                     getTrucksResItem = it
                 )
-            })
+            }, navigateEdit = {myTrucksViewmodel.navigateTruckEdit(myTruckEditDetailsViewModel, it)})
         },
         pageLoading = waterVendorDashUiState.pageLoading,
         actionLoading = waterVendorDashUiState.actionLoading,

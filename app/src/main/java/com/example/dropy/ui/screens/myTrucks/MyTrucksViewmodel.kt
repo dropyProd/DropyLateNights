@@ -6,6 +6,7 @@ import com.example.dropy.network.models.GetIndividualOrders.GetIndividualOrdersR
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
 import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.truckOrders.TruckOrdersViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,11 @@ class MyTrucksViewmodel @Inject constructor(
     fun navigateTruckOrders(truckOrdersViewModel: TruckOrdersViewModel, getTrucksResItem: GetTrucksResItem) {
         truckOrdersViewModel.getOrders(getTrucksResItem)
         appViewModel!!.navigate(AppDestinations.TRUCK_ORDERS_HISTORY)
+    }
+
+    fun navigateTruckEdit(myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel, getTrucksResItem: GetTrucksResItem){
+        myTruckEditDetailsViewModel.setSelectedTruckId(getTrucksResItem)
+        appViewModel!!.navigate(AppDestinations.MYTRUCK_EDITDETAILS)
     }
 
 }

@@ -23,12 +23,14 @@ import com.example.dropy.R
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksResItem
 import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
+import com.example.dropy.ui.screens.locale.BackgroundedImage
 import com.example.dropy.ui.screens.waterVendorDash.WaterVendorDashUiState
 
 @Composable
 fun MyTrucksContent(
     waterVendorDashUiState: WaterVendorDashUiState,
-    navigate: (GetTrucksResItem) -> Unit
+    navigate: (GetTrucksResItem) -> Unit,
+    navigateEdit: (GetTrucksResItem) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -52,7 +54,8 @@ fun MyTrucksContent(
                         waterOrderItem(
                             navigate = navigate,
                             color = backgroundColor,
-                            assignedTruck = item
+                            assignedTruck = item,
+                            navigateEdit = navigateEdit
                         )
                     }
             })
@@ -62,69 +65,71 @@ fun MyTrucksContent(
 @Composable
 fun waterOrderItem(
     navigate: (GetTrucksResItem) -> Unit,
+    navigateEdit: (GetTrucksResItem) -> Unit,
     color: Color,
     assignedTruck: GetTrucksResItem? = null,
 ) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .height(100.dp)
-        .background(color = color, shape = RoundedCornerShape(12.dp))
-        .border(width = 1.dp, color = Color(0xFFDEDEDE), shape = RoundedCornerShape(12.dp))
-        .clickable {
-            if (assignedTruck != null) {
-                navigate(assignedTruck)
+    Box (modifier = Modifier.fillMaxWidth()){
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .background(color = color, shape = RoundedCornerShape(12.dp))
+            .border(width = 1.dp, color = Color(0xFFDEDEDE), shape = RoundedCornerShape(12.dp))
+            .clickable {
+                if (assignedTruck != null) {
+                    navigate(assignedTruck)
+                }
             }
-        }
-    ) {
+        ) {
 
-        Column(modifier = Modifier.padding(top = 9.dp)) {
-            LoadImage(
-                imageUrl =  assignedTruck?.image,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .width(50.dp)
-                    .height(50.dp)
-                    .clip(CircleShape)
-            )
-        }
+            Column(modifier = Modifier.padding(top = 9.dp)) {
+                LoadImage(
+                    imageUrl =  assignedTruck?.image,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .width(50.dp)
+                        .height(50.dp)
+                        .clip(CircleShape)
+                )
+            }
 
-        Column(modifier = Modifier.padding(top = 16.dp)) {
-            Text(
-                text = "ANTONY",
-                fontSize = 9.sp,
+            Column(modifier = Modifier.padding(top = 16.dp)) {
+                Text(
+                    text = "ANTONY",
+                    fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformablack)
-                ),
-                letterSpacing = (-0.43).sp,
-                lineHeight = 17.sp,
-                color = Color.Black,
-                modifier = Modifier.padding( start = 18.dp)
-            )
-            Text(
-                text = assignedTruck?.license_plate.toString(),
-                fontSize = 11.sp,
+                    fontFamily = FontFamily(
+                        Font(R.font.axiformablack)
+                    ),
+                    letterSpacing = (-0.43).sp,
+                    lineHeight = 17.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding( start = 18.dp)
+                )
+                Text(
+                    text = assignedTruck?.license_plate.toString(),
+                    fontSize = 11.sp,
 //                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformablack)
-                ),
-                letterSpacing = (-0.53).sp,
-                lineHeight = 21.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(start = 18.dp,top = 13.dp,)
-            )
+                    fontFamily = FontFamily(
+                        Font(R.font.axiformablack)
+                    ),
+                    letterSpacing = (-0.53).sp,
+                    lineHeight = 21.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(start = 18.dp,top = 13.dp,)
+                )
 
-           /* Row(
-                modifier = Modifier
-                    .padding(top = 1.dp, start = 18.dp)
-                    .width(89.dp)
-                    .height(18.dp)
-                    .background(
-                        color = Color(0xFF979797),
-                        shape = RoundedCornerShape(9.dp)
-                    )
-                *//*.border(
+                /* Row(
+                     modifier = Modifier
+                         .padding(top = 1.dp, start = 18.dp)
+                         .width(89.dp)
+                         .height(18.dp)
+                         .background(
+                             color = Color(0xFF979797),
+                             shape = RoundedCornerShape(9.dp)
+                         )
+                     *//*.border(
                     width = 1.dp,
                     color = Color(0xFFD1D1D1),
                     shape = RoundedCornerShape(7.dp)
@@ -214,39 +219,39 @@ fun waterOrderItem(
                     )
                 )
             }*/
-        }
+            }
 
-        Column(
-            modifier = Modifier
-                .padding(top = 27.dp)
-                .fillMaxWidth(), horizontalAlignment = Alignment.End
-        ) {
-            Text(
-                text = "${assignedTruck?.capacity}LT",
-                fontSize = 17.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-                fontFamily = FontFamily(
-                    Font(R.font.axiformaheavy)
-                ),
-                letterSpacing = (-0.82).sp,
-                lineHeight = 32.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-
-           /* Row(
+            Column(
                 modifier = Modifier
-                    .padding(top = 17.dp, end = 8.dp)
-                    .wrapContentWidth()
-                    .height(18.dp)
-                    .background(
-                        color = Color(0xFF02CBE3),
-                        shape = RoundedCornerShape(12.dp)
-                    )
-                    .padding(horizontal = 4.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-                *//*.border(
+                    .padding(top = 27.dp)
+                    .fillMaxWidth(), horizontalAlignment = Alignment.End
+            ) {
+                Text(
+                    text = "${assignedTruck?.capacity}LT",
+                    fontSize = 17.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+                    fontFamily = FontFamily(
+                        Font(R.font.axiformaheavy)
+                    ),
+                    letterSpacing = (-0.82).sp,
+                    lineHeight = 32.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+
+                /* Row(
+                     modifier = Modifier
+                         .padding(top = 17.dp, end = 8.dp)
+                         .wrapContentWidth()
+                         .height(18.dp)
+                         .background(
+                             color = Color(0xFF02CBE3),
+                             shape = RoundedCornerShape(12.dp)
+                         )
+                         .padding(horizontal = 4.dp),
+                     horizontalArrangement = Arrangement.Center,
+                     verticalAlignment = Alignment.CenterVertically
+                     *//*.border(
                     width = 1.dp,
                     color = Color(0xFFD1D1D1),
                     shape = RoundedCornerShape(7.dp)
@@ -264,7 +269,14 @@ fun waterOrderItem(
                     color = Color.White
                 )
             }*/
-        }
+            }
 
+        }
+        BackgroundedImage(background = Color.White, image = R.drawable.add, imageColor = Color.White, modifier = Modifier.align(
+            Alignment.TopEnd).clickable {
+            if (assignedTruck != null) {
+                navigateEdit(assignedTruck)
+            }
+        })
     }
 }

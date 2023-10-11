@@ -40,6 +40,7 @@ fun AddWatertruckDetails(
                 onShopPhoneTwoChanged = { addWaterTruckViewmodel.onShopPhoneTwoChanged(it) },
                 //onAddShop = { addShopViewModel.onGoToShopUploads() }
                 onAddShopLocation = {
+                    addWaterTruckViewmodel.onRouteeChanged("")
                     addWaterTruckViewmodel.onGoToShopLocations(context)
 
                     //        addShopViewModel.getShopCategories(appHomePageViewModel)

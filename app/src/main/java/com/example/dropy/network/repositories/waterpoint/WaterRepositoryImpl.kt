@@ -46,6 +46,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 
+
 class WaterRepositoryImpl(
     private val client: HttpClient,
     private val waterService: WaterService
@@ -131,6 +132,15 @@ class WaterRepositoryImpl(
     ): Flow<Resource<RegisterDeviceRes?>> {
         return flow {
             waterService.registerDevice(token = token, registerDeviceReq = registerDeviceReq)
+        }
+    }
+
+    override suspend fun modifyTruckDetails(
+        token: String,
+        truckId: String
+    ): Flow<Resource<AddWaterTruckRes?>> {
+        return flow {
+            waterService.modifyWaterTruck(token = token, truckId = truckId)
         }
     }
 
@@ -624,6 +634,141 @@ class WaterRepositoryImpl(
                     append("shop_place_name", "009090")
                 }
             )*//*.post("${BASE_URL}shop/")*/.post("${BASE_URL}water/water-trucks/") {
+
+                            headers {
+                                //  append(HttpHeaders.Accept, "text/html")
+                                append(HttpHeaders.Authorization, "Token " + token)
+                                // append(HttpHeaders.UserAgent, "ktor client")
+                            }
+                            val totalbytes: MutableState<Long?> = mutableStateOf(null)
+                            onUpload { bytesSentTotal, contentLength ->
+                                println("Sent $bytesSentTotal bytes from $contentLength")
+//                        totalbytes.value = contentLength
+//
+//                      if (totalbytes.value!! > 550000){
+//                          Toast.makeText(context, "choose a smaller image", Toast.LENGTH_SHORT).show()
+//                      }
+                            }
+                            body = MultiPartFormDataContent(
+                                formData {
+                                    //  append("firebase_uid", firebase_uid)
+                                    /*    append("shop_cover_photo", imageByteArrayCover, Headers.build {
+                                            append(HttpHeaders.ContentType, "image/png")
+                                            append(
+                                                HttpHeaders.ContentDisposition,
+                                                "filename=\"ktor_logo.png\""
+                                            )
+                                        })*/
+                                    append("image", imageByteArray, Headers.build {
+                                        append(HttpHeaders.ContentType, "image/png")
+                                        append(
+                                            HttpHeaders.ContentDisposition,
+                                            "filename=\"ktor_logo.png\""
+                                        )
+                                    })
+                                    //    append("shop_category", shopCategory)
+                                    append("license_plate", license_plate.toString())
+                                    append("capacity", capacity.toString())
+                                    //   append("shop_location", shopLocation.placeName)
+                                    append("current_location", current_location)
+                                    append("is_active", is_active.toString())
+                                    append("is_available", is_available.toString())
+                                    append("name", name)
+                                    append("model", model)
+                                    append("year", year.toString())
+                                    append("registered_latitude", registered_latitude)
+                                    append("registered_longitude", registered_longitude)
+                                    append("current_latitude", current_latitude)
+                                    append("current_longitude", current_longitude)
+                                    append("vendor ", vendor)
+                                },
+                                //  boundary = "WebAppBoundary"
+                            )
+
+
+                        }
+
+                    if (response.status == HttpStatusCode./*OK*/Created) {
+                        val raw = response.readText()
+                        val result = Gson().fromJson(
+                            raw,
+                            AddWaterTruckRes::class.java
+                        )
+                        Log.d("eeerre", "onStart: $raw")
+                        //  Toast.makeText(context, "Shop created success", Toast.LENGTH_SHORT).show()
+                        emit(Resource.Success(result/*.toDomain()*/))
+                    }
+
+                    /*   } catch (e: Exception) {
+
+                           Log.d("TAG", "addShop: error")
+                       }*/
+
+                }
+
+            } catch (e: IOException) {
+                emit(Resource.Error(message = "Could not reach the server, please check your internet connection!"))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = "Oops, something went wrong!"))
+            }
+
+        }
+    }
+
+    override suspend fun modifyWaterTruck(
+        token: String,
+        truckId: String,
+        vendor: String,
+        license_plate: String,
+        capacity: Int?,
+        current_location: String,
+        name: String,
+        model: String,
+        year: Int,
+        is_active: Boolean,
+        is_available: Boolean,
+        registered_latitude: String,
+        registered_longitude: String,
+        current_latitude: String,
+        current_longitude: String,
+        shop_cover_photo: Uri?,
+        image: Uri?,
+        context: Context
+    ): Flow<Resource<AddWaterTruckRes?>> {
+        val inputStream = image?.let { context.contentResolver.openInputStream(it) }
+        val imageByteArray = inputStream?.readBytes()
+        val inputStreamCover = shop_cover_photo?.let { context.contentResolver.openInputStream(it) }
+        val imageByteArrayCover = inputStreamCover?.readBytes()
+
+
+        return flow {
+            emit(Resource.Loading())
+            try {
+                if (imageByteArray != null && imageByteArrayCover != null) {
+
+
+                    /*            try {*/
+                    val response: HttpResponse =
+                        client/*.submitForm(
+                url = "${BASE_URL}shops/addshop",
+                formParameters = Parameters.build {
+                    append("firebase_uid", firebase_uid)
+               //     append("shop_cover_photo", imageByteArrayCover, Headers.build {
+                        append(HttpHeaders.ContentType, "image/png")
+                        append(HttpHeaders.ContentDisposition, "filename=\"ktor_logo.png\"")
+                    })
+                    append("shop_logo", imageByteArray, Headers.build {
+                        append(HttpHeaders.ContentType, "image/png")
+                        append(HttpHeaders.ContentDisposition, "filename=\"ktor_logo.png\"")
+                    })//
+                    append("shop_category", shopCategory)
+                    append("shop_name", shopname)
+                    append("shop_lat", shopLocation.toString())
+                    append("shop_long", shopLocation.toString())
+                    append("shop_place_id", "4")
+                    append("shop_place_name", "009090")
+                }
+            )*//*.post("${BASE_URL}shop/")*/.post("${BASE_URL}water-trucks/{$truckId}/") {
 
                             headers {
                                 //  append(HttpHeaders.Accept, "text/html")

@@ -1,6 +1,7 @@
 package com.example.dropy.ui.screens.addWaterTruck
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import com.example.dropy.ui.app.navigation.parcelnavigation.ParcelDestination
 import com.example.dropy.ui.app.navigation.shopsnavigation.ShopsBacksideNavigation
@@ -8,6 +9,7 @@ import com.example.dropy.ui.components.commons.AddressDataClass
 import com.example.dropy.ui.components.commons.AppScaffold
 import com.example.dropy.ui.components.commons.maps.selectlocation.SelectLocationViewModel
 import com.example.dropy.ui.components.maps.selectlocation.SelectLocationContent
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.shops.backside.addshop.AddShopViewModel
 import com.example.dropy.ui.screens.shops.frontside.cart.CartPageViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -24,7 +26,8 @@ fun AddWatertruckLocation(
     suggestedLocales: List<AddressDataClass>,
     fetchLocaleDetails: (String) -> Unit,
     openSearchPlaces: () -> Unit,
-    cartPageViewModel: CartPageViewModel
+    cartPageViewModel: CartPageViewModel,
+    myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel
 ) {
     val appUiState = addWaterTruckViewmodel.appViewModel!!.appUiState.collectAsState()
 
@@ -33,6 +36,7 @@ fun AddWatertruckLocation(
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
 
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     AppScaffold(
         content = {
@@ -44,6 +48,9 @@ fun AddWatertruckLocation(
                            if (it.placeName.equals(text)) id.value = it.placeId
                        }
                        id.value?.let { fetchLocaleDetails(it) }*/
+                    if (uiState.state.equals("EditTruck"))
+                        myTruckEditDetailsViewModel.modifyTruck(context = context)
+                        else
                     addWaterTruckViewmodel.onGoToShopUploads()
                 },
                 start = start,

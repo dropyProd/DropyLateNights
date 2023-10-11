@@ -803,7 +803,8 @@ fun App(
            MyTruckEditDetails(
                cartPageViewModel = cartPageViewModel,
                myTruckEditDetailsViewModel = myTruckEditDetailsViewModel,
-               myTrucksViewmodel = myTrucksViewmodel
+               myTrucksViewmodel = myTrucksViewmodel,
+               choosePhoto = {choosePhoto("editwatertruck", it)}
            )
         }
         composable(AppDestinations.MY_WALLET) {
@@ -833,7 +834,8 @@ fun App(
                 cartPageViewModel = cartPageViewModel,
                 myTrucksViewmodel = myTrucksViewmodel,
                 waterVendorDashViewModel = waterVendorDashViewModel,
-                truckOrdersViewModel = truckOrdersViewModel
+                truckOrdersViewModel = truckOrdersViewModel,
+                myTruckEditDetailsViewModel = myTruckEditDetailsViewModel
             )
         }
         composable(AppDestinations.WATER_VENDOR_DASHBOARD) {
@@ -1440,7 +1442,8 @@ fun App(
                     navController = navController,
                     fetchLocaleDetails = fetchLocaleDetails,
                     openSearchPlaces = openSearchmapdialog,
-                    cartPageViewModel = cartPageViewModel
+                    cartPageViewModel = cartPageViewModel,
+                    myTruckEditDetailsViewModel = myTruckEditDetailsViewModel
                 )
             }
 

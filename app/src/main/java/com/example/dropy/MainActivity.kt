@@ -51,6 +51,7 @@ import com.example.dropy.ui.screens.ImageUri
 import com.example.dropy.ui.screens.addWaterPoint.AddWaterpointViewmodel
 import com.example.dropy.ui.screens.addWaterTruck.AddWaterTruckViewmodel
 import com.example.dropy.ui.screens.addWaterVendor.AddWaterVendorViewModel
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.rider.IncomingJobViewModel
 import com.example.dropy.ui.screens.rider.becomerider.AddRiderViewModel
 import com.example.dropy.ui.screens.rider.becomerider.BecomeRiderViewModel
@@ -106,6 +107,7 @@ class MainActivity : ComponentActivity() {
     val tankerBoreholeViewModel: TankerBoreholeViewModel by viewModels()
     val addWaterpointViewmodel: AddWaterpointViewmodel by viewModels()
     val addWaterTruckViewmodel: AddWaterTruckViewmodel by viewModels()
+    val myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel by viewModels()
     val addWaterVendorViewModel: AddWaterVendorViewModel by viewModels()
     val shopHomePageViewModel: ShopHomePageViewModel by viewModels()
     val addRiderViewModel: AddRiderViewModel by viewModels()
@@ -916,6 +918,47 @@ class MainActivity : ComponentActivity() {
 
                         }
                     }
+                    screenSect.equals("editwatertruck") -> {
+                        if (photoSect == "cover") {
+                            coveruri.value = data.data!!
+                            /*         actualImage = FileUtil.from(this, data.data)*//*?.also {
+                                actualImageView.setImageBitmap(loadBitmap(it))
+                                actualSizeTextView.text = String.format("Size : %s", getReadableFileSize(it.length()))
+                                clearImage()
+                            }*/
+
+
+
+                            if (coveruri.value != null) {
+                                coverbitmap.value =
+                                    MediaStore.Images.Media.getBitmap(
+                                        this.contentResolver,
+                                        coveruri.value
+                                    )
+                            }
+                            Log.d("uu", "onActivityResult: ${coveruri.value} ${coverbitmap.value}")
+                            myTruckEditDetailsViewModel.onAddShopCoverPhoto(
+                                coverbitmap.value!!,
+                                uri = coveruri.value!!,
+                                context = this
+                            )
+                        } else {
+                            val uri = data.data!!
+
+
+                            if (uri != null) {
+                                val bitmap =
+                                    MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+
+                                myTruckEditDetailsViewModel.onAddShopLogo(
+                                    bitmap!!,
+                                    uri = uri!!,
+                                    context = this
+                                )
+                            }
+
+                        }
+                    }
                     screenSect.equals("tankerBorehole") -> {
                             coveruri.value = data.data!!
                             /*         actualImage = FileUtil.from(this, data.data)*//*?.also {
@@ -1043,6 +1086,7 @@ class MainActivity : ComponentActivity() {
                         addShopViewModel.addAddress(item)
                         tankerBoreholeViewModel.addAddress(item)
                         addWaterpointViewmodel.addAddress(item)
+                        myTruckEditDetailsViewModel.addAddress(item)
                         addWaterTruckViewmodel.addAddress(item)
                         addWaterVendorViewModel.addAddress(item)
                         appViewModel.addAddress(item)
