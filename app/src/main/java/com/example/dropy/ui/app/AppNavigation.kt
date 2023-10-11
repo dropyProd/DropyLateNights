@@ -71,6 +71,8 @@ import com.example.dropy.ui.screens.dropymainmodel.DropyMainParcels
 import com.example.dropy.ui.screens.dropymainmodel.MainParcelViewModel
 import com.example.dropy.ui.screens.locale.LocationExpressRider
 import com.example.dropy.ui.screens.loginAs.LoginAsDialogViewModel
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetails
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.myTrucks.MyTrucks
 import com.example.dropy.ui.screens.myTrucks.MyTrucksViewmodel
 import com.example.dropy.ui.screens.myWallet.MyWallet
@@ -256,6 +258,7 @@ object AppDestinations {
     const val WORK_DIARY = "WorkDiary"
     const val MY_WALLET = "MyWallet"
     const val APPROVAL_REQUESTS = "ApprovalRequests"
+    const val MYTRUCK_EDITDETAILS = "MyTruckEditDetails"
 }
 
 
@@ -338,6 +341,10 @@ fun App(
     val truckStartTripViewModel: TruckStartTripViewModel = hiltViewModel()
     if (truckStartTripViewModel.appViewModel == null) {
         truckStartTripViewModel.appViewModel = appViewModel
+    }
+    val myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel = hiltViewModel()
+    if (myTruckEditDetailsViewModel.appViewModel == null) {
+        myTruckEditDetailsViewModel.appViewModel = appViewModel
     }
 
 
@@ -791,6 +798,13 @@ fun App(
                 cartPageViewModel = cartPageViewModel,
                 approvalRequestViewModel = approvalRequestViewModel
             )
+        }
+        composable(AppDestinations.MYTRUCK_EDITDETAILS) {
+           MyTruckEditDetails(
+               cartPageViewModel = cartPageViewModel,
+               myTruckEditDetailsViewModel = myTruckEditDetailsViewModel,
+               myTrucksViewmodel = myTrucksViewmodel
+           )
         }
         composable(AppDestinations.MY_WALLET) {
             MyWallet(
