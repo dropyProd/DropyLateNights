@@ -77,28 +77,29 @@ fun AuthLandingPageContent(
         ) {
             Text(
                 text = "WELCOME TO DROPY ",
-                fontWeight = FontWeight.ExtraBold,
+//                fontWeight = FontWeight.ExtraBold,
                 fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.axiformaextrabold)),
-                letterSpacing = (-.77).sp
+                fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                letterSpacing = (-.77).sp,
+                lineHeight = 31.sp
             )
             Spacer(modifier = Modifier.size(10.dp))
             Text(
 
                 text = " SUPERAPP ",
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Center,
-                fontFamily = FontFamily(Font(R.font.axiformaextrabold)),
-                letterSpacing = (-.77).sp
+//                fontWeight = FontWeight.ExtraBold,
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.axiformaheavy)),
+                letterSpacing = (-.77).sp,
+                lineHeight = 31.sp
             )
             // Spacer(modifier = Modifier.size(10.dp))
             Text(
                 textAlign = TextAlign.Center,
-                letterSpacing = (-0.77).sp,
+                letterSpacing = (-0.86).sp,
                 text = "feel at home.",
                 lineHeight = 32.sp,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontFamily = FontFamily(Font(R.font.amsterdamo)),
                 modifier = Modifier
                     .padding(top = 43.dp),

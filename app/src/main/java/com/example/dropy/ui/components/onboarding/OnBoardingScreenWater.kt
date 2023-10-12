@@ -47,8 +47,8 @@ fun OnBoardingScreenWater() {
                     painter = painterResource(id = R.drawable.logonewblack),
                     contentDescription = "Location iconv",
                     modifier = Modifier
-                        .width(154.dp)
-                        .height(89.dp)
+                        .width(195.dp)
+                        .height(92.dp)
                         .padding(start = 32.dp),
                     contentScale = ContentScale.FillWidth
                 )
@@ -59,7 +59,7 @@ fun OnBoardingScreenWater() {
                     vertical = 4,
                     modifier = Modifier
                         .offset(y = (-16).dp)
-                        .padding(start = 90.dp),
+                        .padding(start = 130.dp),
                     font = Font(R.font.axiformablack)
                 )
 

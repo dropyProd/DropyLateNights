@@ -1325,22 +1325,25 @@ class AppViewModel @Inject constructor(
     }
 
     fun navigate(route: String) {
-        if (route == "signOut") {
-            Firebase.auth.signOut()
-            setFirebaseUid(null)
-        } else {
-            if (route == AppDestinations.APP_HOME ||
-                route == AppDestinations.SHOPS_FRONT ||
-                route == AppDestinations.RIDES ||
-                route == AppDestinations.PARCELS
-            ) {
-                navHostController?.popBackStack()
-            }
-            navHostController?.navigate(route = route) {
-                navOptions { // Use the Kotlin DSL for building NavOptions
-                    anim {
-                        enter = R.animator.fade_in
-                        exit = R.animator.fade_out
+        if (!route.equals(ShopsFrontDestination.SHOPS_HOME) && !route.equals(RiderDestination.RIDERINCOMINGORDERS)){
+
+            if (route == "signOut") {
+                Firebase.auth.signOut()
+                setFirebaseUid(null)
+            } else {
+                if (route == AppDestinations.APP_HOME ||
+                    route == AppDestinations.SHOPS_FRONT ||
+                    route == AppDestinations.RIDES ||
+                    route == AppDestinations.PARCELS
+                ) {
+                    navHostController?.popBackStack()
+                }
+                navHostController?.navigate(route = route) {
+                    navOptions { // Use the Kotlin DSL for building NavOptions
+                        anim {
+                            enter = R.animator.fade_in
+                            exit = R.animator.fade_out
+                        }
                     }
                 }
             }

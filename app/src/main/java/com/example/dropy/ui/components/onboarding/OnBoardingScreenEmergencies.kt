@@ -3,7 +3,9 @@ package com.example.dropy.ui.components.onboarding
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +31,7 @@ fun OnBoardingScreenEmergencies() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
             .padding(top = 24.dp, start = 40.dp, end = 42.dp)
     ) {
         Row(
@@ -40,20 +43,21 @@ fun OnBoardingScreenEmergencies() {
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(0.8f),
+                    .fillMaxWidth(0.99f),
                 verticalArrangement = Arrangement.Center
             ) {
 
                 Text(
                     text = "EMERGENCIES",
 //                    style = MaterialTheme.typography.h3,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     letterSpacing = (-1.92).sp,
-                    fontSize = 30.sp,
+                    fontSize = 36.sp,
                     color = DropyGray,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    )
+                        Font(R.font.axiformaheavy)
+                    ),
+                    lineHeight = 49.sp
                 )
                 Spacer(modifier = Modifier.size(24.dp))
 
@@ -61,11 +65,13 @@ fun OnBoardingScreenEmergencies() {
                     text = "SAVING LIVES",
 //                    style = MaterialTheme.typography.h3,
                     fontWeight = FontWeight.ExtraBold,
-                    fontSize = 30.sp,
+                    fontSize = 27.sp,
                     color = Color.White,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
-                    )
+                    ),
+                    letterSpacing = (-1.3).sp,
+                    lineHeight = 68.sp
                 )
 
             }
@@ -114,16 +120,18 @@ fun OnBoardingScreenEmergencies() {
                         Text(
                             text = "AMBULANCE",
                             color = Color.White,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+//                            fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily(
-                                Font(R.font.axiformablack)
-                            )
+                                Font(R.font.axiformaheavy)
+                            ),
+                            letterSpacing = (-.77).sp,
+                            lineHeight = 31.sp
                         )
                     }
 
                     Image(
-                        painter = painterResource(id = R.drawable.robot),
+                        painter = painterResource(id = R.drawable.ambul),
                         contentDescription = "clothes",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -150,16 +158,18 @@ fun OnBoardingScreenEmergencies() {
                         Text(
                             text = "BREAKDOWN",
                             color = Color.White,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+//                            fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily(
-                                Font(R.font.axiformablack)
-                            )
+                                Font(R.font.axiformaheavy)
+                            ),
+                            letterSpacing = (-.77).sp,
+                            lineHeight = 31.sp
                         )
                     }
 
                     Image(
-                        painter = painterResource(id = R.drawable.robot),
+                        painter = painterResource(id = R.drawable.breakd),
                         contentDescription = "Food",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -195,11 +205,13 @@ fun OnBoardingScreenEmergencies() {
                         Text(
                             text = "ACCIDENT",
                             color = Color.White,
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+//                            fontWeight = FontWeight.Bold,
                             fontFamily = FontFamily(
-                                Font(R.font.axiformablack)
-                            )
+                                Font(R.font.axiformaheavy)
+                            ),
+                            letterSpacing = (-.77).sp,
+                            lineHeight = 31.sp
                         )
                         /*     Text(
                                  text = "ACCIDENT",
@@ -213,7 +225,7 @@ fun OnBoardingScreenEmergencies() {
                     }
 
                     Image(
-                        painter = painterResource(id = R.drawable.robot),
+                        painter = painterResource(id = R.drawable.acciid),
                         contentDescription = "groceries",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -247,16 +259,16 @@ fun OnBoardingScreenEmergencies() {
                               )
                           )
                       }*/
-/*
-                    Image(
-                        painter = painterResource(id = R.drawable.computer),
-                        contentDescription = "computer",
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f)
-                            .clip(RoundedCornerShape(bottomEnd = 24.dp))
-                        ,
-                        contentScale = ContentScale.FillWidth
-                    )*/
+                    /*
+                                        Image(
+                                            painter = painterResource(id = R.drawable.computer),
+                                            contentDescription = "computer",
+                                            modifier = Modifier
+                                                .fillMaxWidth(0.8f)
+                                                .clip(RoundedCornerShape(bottomEnd = 24.dp))
+                                            ,
+                                            contentScale = ContentScale.FillWidth
+                                        )*/
                 }
             }
         }

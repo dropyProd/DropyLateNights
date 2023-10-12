@@ -28,12 +28,12 @@ fun OnBoardingScreenLogistics() {
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
-            .padding(top= 50.dp)
+            .padding(top = 50.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding( start = 34.dp, end = 24.dp),
+                .padding(start = 34.dp, end = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
 
         ) {
@@ -42,24 +42,26 @@ fun OnBoardingScreenLogistics() {
             ) {
                 Text(
                     text = "LOGISTICS",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 35.sp,
-                    letterSpacing = (-1).sp,
+//                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 43.sp,
+                    letterSpacing = (-2.06).sp,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
+                        Font(R.font.axiformaheavy)
                     ),
                     color = Color.Black,
+                    lineHeight = 49.sp
                 )
                 Text(
                     text = "MOVE ANYTHING",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 22.sp,
-                    letterSpacing = (-1).sp,
+//                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 27.sp,
+                    letterSpacing = (-1.3).sp,
                     color = DropyGray,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
+                        Font(R.font.axiformaheavy)
                     ),
-                    modifier = Modifier.padding(top = 15.dp)
+                    modifier = Modifier.padding(top = 15.dp),
+                    lineHeight = 49.sp
                 )
 
             }

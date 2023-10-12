@@ -20,8 +20,12 @@ fun WaterPointDash(
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
 
     LaunchedEffect(key1 = true, block = {
-        waterPointDashViewModel.getWaterpoint()
-       waterPointDashViewModel.getWaterpointOrders()
+        try {
+            waterPointDashViewModel.getWaterpoint()
+            waterPointDashViewModel.getWaterpointOrders()
+        }catch (e: Exception){
+
+        }
     })
 
     AppScaffold(

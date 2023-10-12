@@ -50,18 +50,18 @@ fun MyTrucksContent(
         LazyColumn(modifier = Modifier
             .padding(top = 36.dp, start = 15.dp, end = 14.dp),
             verticalArrangement = Arrangement.spacedBy(11.dp), content = {
-                    itemsIndexed(waterVendorDashUiState.truckList) { index, item ->
-                        val backgroundColor = if (index % 2 == 0)
-                            Color.Transparent
-                        else Color(0xFFF5F5F5)
-                        waterOrderItem(
-                            navigate = navigate,
-                            color = backgroundColor,
-                            assignedTruck = item,
-                            navigateEdit = navigateEdit,
-                            myTrucksUiState = myTrucksUiState
-                        )
-                    }
+                itemsIndexed(waterVendorDashUiState.truckList) { index, item ->
+                    val backgroundColor = if (index % 2 == 0)
+                        Color.Transparent
+                    else Color(0xFFF5F5F5)
+                    waterOrderItem(
+                        navigate = navigate,
+                        color = backgroundColor,
+                        assignedTruck = item,
+                        navigateEdit = navigateEdit,
+                        myTrucksUiState = myTrucksUiState
+                    )
+                }
             })
     }
 }
@@ -92,7 +92,7 @@ fun waterOrderItem(
     assignedTruck: GetTrucksResItem? = null,
     myTrucksUiState: MyTrucksUiState
 ) {
-    Box (modifier = Modifier.fillMaxWidth()){
+    Box(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
@@ -107,7 +107,7 @@ fun waterOrderItem(
 
             Column(modifier = Modifier.padding(top = 9.dp)) {
                 LoadImage(
-                    imageUrl =  assignedTruck?.image,
+                    imageUrl = assignedTruck?.image,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .padding(start = 16.dp)
@@ -119,7 +119,7 @@ fun waterOrderItem(
 
             Column(modifier = Modifier.padding(top = 16.dp)) {
                 Text(
-                    text = getDriverName(myTrucksUiState,assignedTruck?.id.toString()),
+                    text = getDriverName(myTrucksUiState, assignedTruck?.id.toString()),
                     fontSize = 9.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(
@@ -128,7 +128,7 @@ fun waterOrderItem(
                     letterSpacing = (-0.43).sp,
                     lineHeight = 17.sp,
                     color = Color.Black,
-                    modifier = Modifier.padding( start = 18.dp)
+                    modifier = Modifier.padding(start = 18.dp)
                 )
                 Text(
                     text = assignedTruck?.license_plate.toString(),
@@ -140,7 +140,7 @@ fun waterOrderItem(
                     letterSpacing = (-0.53).sp,
                     lineHeight = 21.sp,
                     color = Color.Black,
-                    modifier = Modifier.padding(start = 18.dp,top = 13.dp,)
+                    modifier = Modifier.padding(start = 18.dp, top = 13.dp)
                 )
 
                 /* Row(
@@ -295,11 +295,37 @@ fun waterOrderItem(
             }
 
         }
-        BackgroundedImage(background = Color.White, image = R.drawable.add, imageColor = Color.White, modifier = Modifier.align(
-            Alignment.TopEnd).clickable {
-            if (assignedTruck != null) {
-                navigateEdit(assignedTruck)
-            }
-        })
+        BackgroundedImage(
+            background = Color.Black,
+            image = R.drawable.pencil,
+            imageColor = Color.White,
+            modifier = Modifier
+                .align(
+                    Alignment.TopEnd
+                )
+                .offset(y = (-20).dp, x = 20.dp)
+                .clickable {
+                    if (assignedTruck != null) {
+                        navigateEdit(assignedTruck)
+                    }
+                },
+            shape = RoundedCornerShape(50.dp)
+        )
+        BackgroundedImage(
+            background = Color.Red,
+            image = R.drawable.bin,
+            imageColor = Color.Black,
+            modifier = Modifier
+                .align(
+                    Alignment.BottomEnd
+                )
+                .offset(y = 20.dp, x = 20.dp)
+                .clickable {
+                    if (assignedTruck != null) {
+                        navigateEdit(assignedTruck)
+                    }
+                },
+            shape = RoundedCornerShape(50.dp)
+        )
     }
 }

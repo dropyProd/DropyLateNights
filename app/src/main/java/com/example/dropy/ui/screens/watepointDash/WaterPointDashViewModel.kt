@@ -76,11 +76,11 @@ class WaterPointDashViewModel @Inject constructor(
             getCollectionPointOrdersUseCase(
                 token = "Token " + app.token.value,
             ).flowOn(Dispatchers.IO)
-                /*  .catch { e ->
+                  .catch { e ->
                       // handle exception
-                      _addWaterpointImagesUiState.update { it.copy(pageLoading = false) }
+                      uiState.update { it.copy(pageLoading = false) }
 
-                  }*/
+                  }
                 .collect { result ->
                     // list of users from the network
                     Log.d("uopopi", "getAllShops: $result")

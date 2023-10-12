@@ -38,24 +38,26 @@ fun OnBoardingScreenThree() {
         ) {
             Text(
                 text = "SHOP.",
-                fontWeight = FontWeight.ExtraBold,
+//                fontWeight = FontWeight.ExtraBold,
                 fontSize = 58.sp,
-                letterSpacing = (-1.00).sp,
+                letterSpacing = (-2.78).sp,
                 color = Color.Black,
                 fontFamily = FontFamily(
-                    Font(R.font.axiformablack)
-                )
+                    Font(R.font.axiformaheavy)
+                ),
+                lineHeight = 49.sp
             )
             Text(
                 text = "WE DELIVER",
-                fontWeight = FontWeight.ExtraBold,
+//                fontWeight = FontWeight.ExtraBold,
                 fontSize = 27.sp,
                 letterSpacing = (-1.3).sp,
                 fontFamily = FontFamily(
                     Font(R.font.axiformablack)
                 ),
                 color = DropyGray,
-                modifier = Modifier.padding(top = 9.dp)
+                modifier = Modifier.padding(top = 9.dp),
+                lineHeight = 49.sp
             )
             Text(
                 lineHeight = 32.sp,
@@ -72,7 +74,7 @@ fun OnBoardingScreenThree() {
         }
         Box(
             modifier = Modifier
-                .padding(top = 56.dp)
+                .padding(top = 54.dp)
                 .width(466.dp)
                 .height(349.dp)
                 .clip(

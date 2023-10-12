@@ -60,15 +60,15 @@ fun ServiceProvidersContent(navigate: (String) -> Unit) {
             mutableListOf(
                 ServiceItem(
                     text = "SHOP",
-                    image = R.drawable.shop1
+                    image = R.drawable.store
                 ),
                 ServiceItem(
                     text = "PARCELS",
-                    image = R.drawable.shop1
+                    image = R.drawable.pkgg
                 ),
                 ServiceItem(
                     text = "RIDES",
-                    image = R.drawable.shop1
+                    image = R.drawable.man
                 )
             )
         }
@@ -76,11 +76,11 @@ fun ServiceProvidersContent(navigate: (String) -> Unit) {
             mutableListOf(
                 ServiceItem(
                     text = "WATER",
-                    image = R.drawable.shop1
+                    image = R.drawable.waterr
                 ),
                 ServiceItem(
                     text = "LOGISTICS",
-                    image = R.drawable.shop1
+                    image = R.drawable.diagram
                 ),
                 ServiceItem(
                     text = "LOGISTICS",

@@ -2,6 +2,7 @@ package com.example.dropy.ui.components.authentication
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -163,6 +164,7 @@ fun EnterPhoneNumberContent(
         modifier = Modifier
             .fillMaxHeight()
             .fillMaxWidth()
+            .background(Color.White)
             .padding(start = 24.dp, end = 24.dp),
 //        verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -181,161 +183,168 @@ fun EnterPhoneNumberContent(
                     .height(88.dp)
             )
         }
-        Column(
-            modifier = Modifier
-                .padding(top = 50.dp)
+       Box(modifier =Modifier.fillMaxSize().background(Color.White) ){
+           Column(
+               modifier = Modifier
+                   .padding(top = 50.dp)
 //                .weight(1f)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),
-            ) {
-                Text(
-                    text = "Enter Phone No",
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth(),
-                    fontSize = 10.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(Font(R.font.axiformaextrabold))
-                )
-                OutlinedTextField(
-                    value = uiState.currentPhoneNumberValue ?: "",
-                    onValueChange = onPhoneNumberValueChanged,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 3.dp),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Phone
-                    ),
-                    textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.axiformaregular))),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedLabelColor = Color.Black,
-                        focusedIndicatorColor = Color.Black,
-                        leadingIconColor = Color.Black
-                    )
-                )
-                Text(
-                    text = "forgot username ?",
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth()
-                        .clickable { onForgotPasswordClicked() },
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF828282)
-                )
-            }
+                   .fillMaxWidth(),
+               horizontalAlignment = Alignment.CenterHorizontally,
+           ) {
+               Column(
+                   modifier = Modifier
+                       .fillMaxWidth()
+                       .padding(4.dp),
+               ) {
+                   Text(
+                       text = "Enter Phone No",
+                       textAlign = TextAlign.Start,
+                       modifier = Modifier
+                           .padding(bottom = 8.dp)
+                           .fillMaxWidth(),
+                       fontSize = 10.sp,
+                       fontWeight = FontWeight.ExtraBold,
+                       fontFamily = FontFamily(Font(R.font.axiformaextrabold))
+                   )
+                   OutlinedTextField(
+                       value = uiState.currentPhoneNumberValue ?: "",
+                       onValueChange = onPhoneNumberValueChanged,
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .padding(bottom = 3.dp),
+                       keyboardOptions = KeyboardOptions(
+                           keyboardType = KeyboardType.Phone
+                       ),
+                       textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.axiformaregular))),
+                       colors = TextFieldDefaults.textFieldColors(
+                           focusedLabelColor = Color.Black,
+                           focusedIndicatorColor = Color.Black,
+                           leadingIconColor = Color.Black,
+                           backgroundColor = Color.White
+                       )
+                   )
+                   Text(
+                       text = "forgot username ?",
+                       textAlign = TextAlign.End,
+                       modifier = Modifier
+                           .padding(bottom = 8.dp)
+                           .fillMaxWidth()
+                           .clickable { onForgotPasswordClicked() },
+                       fontSize = 9.sp,
+                       fontWeight = FontWeight.SemiBold,
+                       color = Color(0xFF828282)
+                   )
+               }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 4.dp, end = 4.dp, top = 34.dp),
-            ) {
-                Text(
-                    text = "Enter your pin",
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth(),
-                    fontSize = 10.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    fontFamily = FontFamily(Font(R.font.axiformaextrabold))
-                )
-                OutlinedTextField(
-                    value = uiState.currentPasswordValue ?: "",
-                    onValueChange = onPasswordValueChanged,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 3.dp)/*,
+               Column(
+                   modifier = Modifier
+                       .fillMaxWidth()
+                       .padding(start = 4.dp, end = 4.dp, top = 34.dp),
+               ) {
+                   Text(
+                       text = "Enter your pin",
+                       textAlign = TextAlign.Start,
+                       modifier = Modifier
+                           .padding(bottom = 8.dp)
+                           .fillMaxWidth(),
+                       fontSize = 10.sp,
+                       fontWeight = FontWeight.ExtraBold,
+                       fontFamily = FontFamily(Font(R.font.axiformaextrabold))
+                   )
+                   OutlinedTextField(
+                       value = uiState.currentPasswordValue ?: "",
+                       onValueChange = onPasswordValueChanged,
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .padding(bottom = 3.dp)/*,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email
                     )*/, textStyle = TextStyle(fontFamily = FontFamily(Font(R.font.axiformaregular))),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedLabelColor = Color.Black,
-                        focusedIndicatorColor = Color.Black,
-                        leadingIconColor = Color.Black
-                    )
-                )
-                Text(
-                    text = "forgot password ?",
-                    textAlign = TextAlign.End,
-                    modifier = Modifier
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth()
-                        .clickable { onForgotPasswordClicked() },
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color(0xFF828282)
-                )
+                       colors = TextFieldDefaults.textFieldColors(
+                           focusedLabelColor = Color.Black,
+                           focusedIndicatorColor = Color.Black,
+                           leadingIconColor = Color.Black,
+                           backgroundColor = Color(0xFFF5F5F5)
+                       )
+                   )
+                   Text(
+                       text = "forgot password ?",
+                       textAlign = TextAlign.End,
+                       modifier = Modifier
+                           .padding(bottom = 8.dp)
+                           .fillMaxWidth()
+                           .clickable { onForgotPasswordClicked() },
+                       fontSize = 9.sp,
+                       fontWeight = FontWeight.SemiBold,
+                       color = Color(0xFF828282)
+                   )
 
-            }
+               }
 
-            Button(
-                onClick = { onSubmitButtonClicked() },
-                modifier = Modifier
-                    .padding(top = 87.dp)
-                    .sizeIn(minHeight = 48.dp, maxHeight = 48.dp)
-                    .fillMaxWidth(0.7f)
-                    .clip(RoundedCornerShape(50)),
-                colors = ButtonDefaults.buttonColors(Color.Black),
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.registericon),
-                    contentDescription = "register icon",
-                    modifier = Modifier
-                        .size(16.dp),
-                    tint = Color.White
+               Button(
+                   onClick = { onSubmitButtonClicked() },
+                   modifier = Modifier
+                       .padding(top = 87.dp)
+                       .sizeIn(minHeight = 48.dp, maxHeight = 48.dp)
+                       .fillMaxWidth(0.7f)
+                       .clip(RoundedCornerShape(50)),
+                   colors = ButtonDefaults.buttonColors(Color.Black),
+               ) {
+                   Icon(
+                       painter = painterResource(id = R.drawable.registericon),
+                       contentDescription = "register icon",
+                       modifier = Modifier
+                           .size(16.dp),
+                       tint = Color.White
 
-                )
-                Spacer(modifier = Modifier.size(24.dp))
-                Text(
-                    text = "LOGIN",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 10.sp,
-                    letterSpacing = (-1).sp,
-                    color = Color.White
-                )
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 252.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "If you have no account,",
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily(Font(R.font.axiformabold))
-            )
-            Button(
-                onClick = { onRegisterButtonClicked() },
-                modifier = Modifier
-                    .width(101.dp)
-                    .height(24.dp)
+                   )
+                   Spacer(modifier = Modifier.size(24.dp))
+                   Text(
+                       text = "LOGIN",
+                       fontWeight = FontWeight.ExtraBold,
+                       fontSize = 10.sp,
+                       letterSpacing = (-1).sp,
+                       color = Color.White,
+                       fontFamily = FontFamily(Font(R.font.axiformaextrabold))
+                   )
+               }
+           }
+           Row(
+               modifier = Modifier
+                   .align(Alignment.BottomCenter)
+                   .padding(bottom = 25.dp)
+                   .fillMaxWidth(),
+               horizontalArrangement = Arrangement.SpaceBetween,
+               verticalAlignment = Alignment.CenterVertically,
+           ) {
+               Text(
+                   text = "If you have no account,",
+                   fontSize = 10.sp,
+                   fontWeight = FontWeight.Bold,
+                   fontFamily = FontFamily(Font(R.font.axiformabold))
+               )
+               Button(
+                   onClick = { onRegisterButtonClicked() },
+                   modifier = Modifier
+                       .width(101.dp)
+                       .height(24.dp)
 //                    .sizeIn(minHeight = 32.dp, maxHeight = 48.dp)
-                    .clip(RoundedCornerShape(90)),
-                colors = ButtonDefaults.buttonColors(Color.Black),
-                shape = RoundedCornerShape(90)
-            ) {
-                Text(
-                    text = "REGISTER",
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White,
-                    fontSize = 10.sp,
-                    fontFamily = FontFamily(Font(R.font.axiformablack))
-                )
+                       .clip(RoundedCornerShape(90)),
+                   colors = ButtonDefaults.buttonColors(Color.Black),
+                   shape = RoundedCornerShape(90)
+               ) {
+                   Text(
+                       text = "REGISTER",
+                       fontWeight = FontWeight.ExtraBold,
+                       color = Color.White,
+                       fontSize = 10.sp,
+                       fontFamily = FontFamily(Font(R.font.axiformablack))
+                   )
 
-            }
-        }
+               }
+           }
+
+       }
     }
 
     if (uiState.errorMessages.isNotEmpty()) {

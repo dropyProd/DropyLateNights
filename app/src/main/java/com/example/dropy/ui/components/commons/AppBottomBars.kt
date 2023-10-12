@@ -110,10 +110,13 @@ fun AppBottomNav(
                         icon = item.icon,
                         pathName = item.pathName,
                         onClick = {
+                            Log.d("lopkvg", "AppBottomNav: ${item.pathName}")
                             if (item.pathName.equals("pay") && item.pathName.equals("shops")) {
 
-                            } else
+                            } else {
                                 navigateTo(item.route)
+                            }
+
 
                         }
                     )

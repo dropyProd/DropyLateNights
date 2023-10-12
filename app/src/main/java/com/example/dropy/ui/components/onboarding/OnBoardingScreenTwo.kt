@@ -42,12 +42,13 @@ fun OnBoardingScreenTwo() {
             ) {
                 Text(
                     text = "REALTIME.",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 45.sp,
-                    letterSpacing = (-1).sp,
+//                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 43.sp,
+                    letterSpacing = (-2.06).sp,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    )
+                        Font(R.font.axiformaheavy)
+                    ),
+                    lineHeight = 51.sp
                 )
                 /*Text(
                     text = "ORDER",
@@ -62,14 +63,15 @@ fun OnBoardingScreenTwo() {
                 )*/
                 Text(
                     text = "TRACKING",
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     fontSize = 30.sp,
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-1.44).sp,
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
+                        Font(R.font.axiformaheavy)
                     ),
                     color = DropyGray,
-                    modifier = Modifier.padding(top = 15.dp)
+                    modifier = Modifier.padding(top = 15.dp),
+                    lineHeight = 51.sp
                 )
             }
 

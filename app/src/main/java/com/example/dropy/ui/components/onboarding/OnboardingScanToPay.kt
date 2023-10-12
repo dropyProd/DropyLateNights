@@ -44,23 +44,25 @@ fun OnboardingScanToPay() {
             ) {
                 Text(
                     text = "SCAN.",
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     fontSize = 58.sp,
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-2.78).sp,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
-                    )
+                    ),
+                    lineHeight = 49.sp
                 )
                 Text(
                     text = "TO PAY",
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     fontSize = 27.sp,
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-1.3).sp,
                     color = DropyGray,
                     fontFamily = FontFamily(
                         Font(R.font.axiformablack)
                     ),
-                    modifier = Modifier.padding(top = 10.dp)
+                    modifier = Modifier.padding(top = 10.dp),
+                    lineHeight = 49.sp
                 )
 
             }

@@ -5,10 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowForwardIos
+import androidx.compose.material.icons.filled.QrCode
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -205,18 +207,20 @@ fun DrawerBody(
         for (item in items) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(217.dp)
+                    .height(49.dp)
                     .clickable {
                         onItemClick(item)
-                    }
-                    .padding(16.dp),
+                    }.border(width = 1.dp, color = Color(0xFFDEDEDE), shape = RoundedCornerShape(bottomEnd = 14.dp))
+                    .background(color = Color(0xFFF5F5F5),shape = RoundedCornerShape(bottomEnd = 14.dp))
+                    .padding(start = 40.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowForwardIos,
+                    imageVector = Icons.Filled.QrCode,
                     contentDescription = "next"
                 )
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(27.dp))
                 Text(
                     text = item.title,
                     style = itemTextStyle,

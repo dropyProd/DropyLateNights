@@ -49,41 +49,44 @@ fun OnBoardingScreenOne() {
             ) {
                 Text(
                     text = "SEND",
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-1.44).sp,
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     color = Color.White,
                     modifier = Modifier
                         .fillMaxWidth(0.8f),
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
+                        Font(R.font.axiformaheavy)
                     )
                 )
                 Text(
                     text = "ANYTHING",
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-1.44).sp,
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     color = DropyGray,
                     modifier = Modifier
                         .padding(top = 15.dp)
                         .fillMaxWidth(0.8f),
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    )
+                        Font(R.font.axiformaheavy)
+                    ),
+                    lineHeight = 49.sp
                 )
                 Text(
                     text = "ANYWHERE",
-                    letterSpacing = (-1).sp,
+                    letterSpacing = (-1.44).sp,
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     color = Color.White,
                     modifier = Modifier
                         .padding(top = 15.dp)
                         .fillMaxWidth(0.8f),
                     fontFamily = FontFamily(
-                        Font(R.font.axiformablack)
-                    )
+                        Font(R.font.axiformaheavy)
+                    ),
+                    lineHeight = 49.sp
+
                 )
 
                 Text(

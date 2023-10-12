@@ -41,20 +41,22 @@ fun OnBoardingScreenFive() {
                 text = "BODA.",
                 fontSize = 58.sp,
                 letterSpacing = (-2.78).sp,
-                fontWeight = FontWeight.ExtraBold,
+//                fontWeight = FontWeight.ExtraBold,
                 color = Color.Black,
                 fontFamily = FontFamily(
-                    Font(R.font.axiformablack)
-                )
+                    Font(R.font.axiformaheavy)
+                ),
+                lineHeight = 49.sp
 
             )
             Text(
                 text = "BILA STRESS",
                 fontSize = 30.sp,
-                letterSpacing = (-1).sp,
-                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = (-1.44).sp,
+//                fontWeight = FontWeight.ExtraBold,
                 fontFamily = FontFamily(Font(R.font.axiformablack)),
-                color = DropyGray
+                color = DropyGray,
+                lineHeight = 49.sp
             )
 
             Text(
