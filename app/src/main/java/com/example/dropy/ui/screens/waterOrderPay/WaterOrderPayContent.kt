@@ -4,6 +4,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -11,15 +13,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.components.commons.SimpleText
 import com.example.dropy.ui.screens.tankerBorehole.TankerBoreholeUiState
 import com.example.dropy.ui.screens.waterOrderDetails.WaterOrderDetailsUiState
 
@@ -512,7 +517,29 @@ fun WaterOrderPayContent(
                }
            }
        }
-       Row(
+
+       Button(
+           onClick = {
+               payClicked()
+           },
+           modifier = Modifier
+               .align(Alignment.BottomEnd)
+               .padding(end = 18.dp, bottom = 13.dp)
+               .size(68.dp)
+               .clip(CircleShape),
+           colors = ButtonDefaults.buttonColors(
+               backgroundColor = Color.Black
+           )
+       ) {
+           SimpleText(
+               textSize = 16,
+               text = "pay",
+               fontWeight = FontWeight.W900,
+               textColor = Color.White
+
+           )
+       }
+     /*  Row(
            modifier = Modifier
                .align(Alignment.BottomEnd)
                .padding(top = 45.dp)
@@ -532,7 +559,7 @@ fun WaterOrderPayContent(
                fontFamily = FontFamily(Font(R.font.axiformaheavy)),
                letterSpacing = (-0.48).sp,
            )
-       }
+       }*/
    }
 }
 

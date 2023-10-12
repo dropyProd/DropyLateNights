@@ -6,6 +6,8 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -18,11 +20,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dropy.R
+import com.example.dropy.ui.components.commons.SimpleText
 import com.example.dropy.ui.components.shops.shopscommons.ClippedHeader
 import com.example.dropy.ui.screens.locale.BackgroundedImage
 import com.example.dropy.ui.screens.truckIncomingWork.TruckIncomingWorkUiState
@@ -364,25 +368,26 @@ fun WaterOrderSingleContent(
 
 
         }
-        Row(
+
+        Button(
+            onClick = {
+                nextClicked()
+            },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(top = 28.dp)
-                .width(156.dp)
-                .height(49.dp)
-                .background(color = Color(0xFFAFF5FE), RoundedCornerShape(42.dp))
-                .border(width = 1.dp, color = Color(0x57707070), RoundedCornerShape(42.dp))
-                .clickable { nextClicked() },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+                .padding(end = 18.dp, bottom = 13.dp)
+                .size(68.dp)
+                .clip(CircleShape),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Black
+            )
         ) {
-            androidx.compose.material.Text(
-                text = "Next",
-                color = Color.Black,
-                fontSize = 10.sp,
-//                        fontWeight = FontWeight.SemiBold,
-                fontFamily = FontFamily(Font(R.font.axiformaheavy)),
-                letterSpacing = (-0.48).sp,
+            SimpleText(
+                textSize = 16,
+                text = "next",
+                fontWeight = FontWeight.W900,
+                textColor = Color.White
+
             )
         }
     }

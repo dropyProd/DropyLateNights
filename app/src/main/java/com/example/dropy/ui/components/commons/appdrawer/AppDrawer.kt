@@ -133,7 +133,9 @@ fun SelectProfile(
                     )
 
                     BackgroundedText(
-                        background = DropyYellow,
+                        background = if (activeProfile?.type.equals(ProfileTypes.CUSTOMER)) DropyYellow else Color(
+                            0xFF02CBE3
+                        ),
                         textColor = Color.Black,
                         text = "${activeProfile?.type}",
                         vertical = 2
@@ -175,7 +177,9 @@ fun SelectProfile(
                         )
 
                         BackgroundedText(
-                            background = DropyYellow,
+                            background = if (profile.type.equals(ProfileTypes.CUSTOMER)) DropyYellow else Color(
+                                0xFF02CBE3
+                            ),
                             textColor = Color.Black,
                             text = "${profile.type}",
                             vertical = 2,
