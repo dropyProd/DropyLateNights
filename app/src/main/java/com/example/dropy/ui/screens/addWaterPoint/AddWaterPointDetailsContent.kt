@@ -47,7 +47,7 @@ fun formatTime(text: String): String {
             val formatterNewTime = DateTimeFormatter.ofPattern("hh:mm a")
             textdate.value = formatterNewTime.format(newTime)
         }
-    }catch (e: Exception){
+    } catch (e: Exception) {
 
     }
     return textdate.value
@@ -119,54 +119,57 @@ fun AddWaterPointDetailsContent(
                 isBold = true,
                 font = Font(R.font.axiformabold)
             )
-/*
-            Column(
+            /*
+                        Column(
+                            modifier = Modifier
+                                .height(IntrinsicSize.Min)
+                                .padding(bottom = 24.dp)
+                                .width(width = 277.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .padding(top = 20.dp, bottom = 8.dp)
+                            ) {
+                                SimpleText(
+                                    textSize = 10,
+                                    text = "Shop Type",
+                                    isExtraBold = true,
+                                    font = Font(R.font.axiformaextrabold)
+                                )
+                            }
+                            Dropdown(
+                                shoptypes = uiState.shopTypeList,
+                                onSelect = { it, num ->
+                                },
+                                onShopTypeSelect = { it ->
+                                    changeShopType(it)
+                                }, type = "shoptype",
+                                onShopSelect = { _, _ ->
+                                }
+                            )
+                        }*/
+
+            Row(
                 modifier = Modifier
-                    .height(IntrinsicSize.Min)
-                    .padding(bottom = 24.dp)
-                    .width(width = 277.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
-                Box(
-                    modifier = Modifier
-                        .padding(top = 20.dp, bottom = 8.dp)
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(5.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    RadioButton(
+                        selected = uiState.operationHrState,
+                        onClick = { changeOperationHrState(uiState.operationHrState) })
                     SimpleText(
-                        textSize = 10,
-                        text = "Shop Type",
-                        isExtraBold = true,
-                        font = Font(R.font.axiformaextrabold)
+                        textSize = 8,
+                        text = "OPEN 24 hrs",
+                        isExtraBold = false,
+                        font = Font(R.font.axiformablack),
+                        textColor = Color.Black
                     )
                 }
-                Dropdown(
-                    shoptypes = uiState.shopTypeList,
-                    onSelect = { it, num ->
-                    },
-                    onShopTypeSelect = { it ->
-                        changeShopType(it)
-                    }, type = "shoptype",
-                    onShopSelect = { _, _ ->
-                    }
-                )
-            }*/
-
-         Row (
-             modifier = Modifier
-                 .fillMaxWidth(),
-             horizontalArrangement = Arrangement.End
-         ){
-             Row(horizontalArrangement = Arrangement.spacedBy(5.dp),
-                 verticalAlignment = Alignment.CenterVertically
-             ){
-                 RadioButton(selected =uiState.operationHrState , onClick = { changeOperationHrState(uiState.operationHrState)})
-                 SimpleText(
-                     textSize = 8,
-                     text = "OPEN 24 hrs",
-                     isExtraBold = false,
-                     font = Font(R.font.axiformablack),
-                     textColor = Color.Black
-                 )
-             }
-         }
+            }
             Row(
                 modifier = Modifier
                     .padding(bottom = 24.dp, top = 16.dp)

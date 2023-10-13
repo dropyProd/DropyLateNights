@@ -477,11 +477,11 @@ class AddWaterpointViewmodel @Inject constructor(
                 sub_county = addWaterpointLocationUiState.value.waterpointAddress?.region.toString(),
                 total_earnings = "0",
             ).flowOn(Dispatchers.IO)
-                .catch { e ->
+          /*      .catch { e ->
                     // handle exception
                     _addWaterpointImagesUiState.update { it.copy(pageLoading = false) }
 
-                }
+                }*/
                 .collect { result ->
                     // list of users from the network
                     Log.d("uopopi", "getAllShops: $result")
