@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -99,7 +100,7 @@ fun ServiceProvidersContent(navigate: (String) -> Unit) {
                 horizontalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 itemsIndexed(listO) { index, itemm ->
-                    item(itemm.text, navigate = navigate)
+                    item(itemm.text, navigate = navigate, image = itemm.image)
                 }
             }
         }
@@ -114,9 +115,9 @@ fun ServiceProvidersContent(navigate: (String) -> Unit) {
             ) {
                 itemsIndexed(listT) { index, itemm ->
                     if (index.equals(2))
-                        item(itemm.text, navigate = navigate, color = Color.White)
+                        item(itemm.text, navigate = navigate, color = Color.White, image = itemm.image)
                     else
-                        item(itemm.text, navigate = navigate)
+                        item(itemm.text, navigate = navigate, image = itemm.image)
                 }
             }
         }
@@ -125,7 +126,7 @@ fun ServiceProvidersContent(navigate: (String) -> Unit) {
 }
 
 @Composable
-fun item(text: String, navigate: (String) -> Unit, color: Color? = null) {
+fun item(text: String, navigate: (String) -> Unit, color: Color? = null, image: Int) {
     Column(
         modifier = Modifier
             .width(94.dp)
@@ -141,7 +142,7 @@ fun item(text: String, navigate: (String) -> Unit, color: Color? = null) {
     ) {
 
         Icon(
-            Icons.Filled.Person,
+           painter = painterResource(id = image),
             contentDescription = "",
             modifier = Modifier
                 .padding(top = 24.dp)

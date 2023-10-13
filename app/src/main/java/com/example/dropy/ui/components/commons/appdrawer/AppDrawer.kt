@@ -207,6 +207,7 @@ fun DrawerBody(
         for (item in items) {
             Row(
                 modifier = Modifier
+                    .padding(top = 24.dp, start = 51.dp)
                     .width(217.dp)
                     .height(49.dp)
                     .clickable {
@@ -234,9 +235,15 @@ fun DrawerBody(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .clickable { onSignOutClicked() }
-                .padding(16.dp)
+                .padding(top = 24.dp, start = 51.dp)
+                .width(217.dp)
+                .height(49.dp)
+                .clickable {
+                    onSignOutClicked()
+                }.border(width = 1.dp, color = Color(0xFFDEDEDE), shape = RoundedCornerShape(bottomEnd = 14.dp))
+                .background(color = Color(0xFFF5F5F5),shape = RoundedCornerShape(bottomEnd = 14.dp))
+                .padding(start = 40.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 imageVector = Icons.Filled.ArrowForwardIos,
@@ -253,6 +260,7 @@ fun DrawerBody(
                 letterSpacing = -(.72).sp
             )
         }
+
 
     }
 }

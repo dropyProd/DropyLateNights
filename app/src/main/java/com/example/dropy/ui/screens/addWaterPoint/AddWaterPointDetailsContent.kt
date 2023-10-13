@@ -148,6 +148,25 @@ fun AddWaterPointDetailsContent(
                     }
                 )
             }*/
+
+         Row (
+             modifier = Modifier
+                 .fillMaxWidth(),
+             horizontalArrangement = Arrangement.End
+         ){
+             Row(horizontalArrangement = Arrangement.spacedBy(5.dp),
+                 verticalAlignment = Alignment.CenterVertically
+             ){
+                 RadioButton(selected =uiState.operationHrState , onClick = { changeOperationHrState(uiState.operationHrState)})
+                 SimpleText(
+                     textSize = 8,
+                     text = "OPEN 24 hrs",
+                     isExtraBold = false,
+                     font = Font(R.font.axiformablack),
+                     textColor = Color.Black
+                 )
+             }
+         }
             Row(
                 modifier = Modifier
                     .padding(bottom = 24.dp, top = 16.dp)
