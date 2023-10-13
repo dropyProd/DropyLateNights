@@ -75,6 +75,7 @@ fun MyTruckEditDetailsContent(
     onModelChanged: (String) -> Unit,
     onYearChanged: (String) -> Unit,
     onAddShopCoverPhoto: () -> Unit,
+    nextClicked: () -> Unit,
     changeTruck: (GetTrucksResItem) -> Unit
 ) {
     Box(
@@ -454,7 +455,7 @@ fun MyTruckEditDetailsContent(
 
         Button(
             onClick = {
-
+                nextClicked()
             },
             modifier = Modifier
                 .padding(end = 21.dp, bottom = 13.dp)
@@ -540,6 +541,7 @@ fun demo() {
         onModelChanged = {},
         onYearChanged = {},
         changeTruck = {},
-        onLicensePlateChanged = {}
+        onLicensePlateChanged = {},
+        nextClicked = {}
     )
 }

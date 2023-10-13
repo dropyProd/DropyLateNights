@@ -804,7 +804,8 @@ fun App(
                cartPageViewModel = cartPageViewModel,
                myTruckEditDetailsViewModel = myTruckEditDetailsViewModel,
                myTrucksViewmodel = myTrucksViewmodel,
-               choosePhoto = {choosePhoto("editwatertruck", it)}
+               choosePhoto = {choosePhoto("editwatertruck", it)},
+               addWaterTruckViewmodel = addWaterTruckViewmodel
            )
         }
         composable(AppDestinations.MY_WALLET) {

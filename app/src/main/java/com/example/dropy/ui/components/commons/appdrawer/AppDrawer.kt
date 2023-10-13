@@ -246,7 +246,7 @@ fun DrawerBody(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Filled.ArrowForwardIos,
+                imageVector = Icons.Filled.QrCode,
                 contentDescription = "next"
             )
             Spacer(modifier = Modifier.width(16.dp))
