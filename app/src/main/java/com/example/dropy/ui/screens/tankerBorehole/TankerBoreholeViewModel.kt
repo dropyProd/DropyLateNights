@@ -7,6 +7,7 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dropy.di.DropyApp
@@ -18,6 +19,7 @@ import com.example.dropy.ui.app.AppDestinations
 import com.example.dropy.ui.app.AppViewModel
 import com.example.dropy.ui.components.commons.AddressDataClass
 import com.example.dropy.ui.screens.deliveryType.DeliveryTypeUiState
+import com.example.dropy.ui.screens.deliveryType.DeliveryTypeViewModel
 import com.example.dropy.ui.screens.nearestTrucks.NearestTrucksViewmodel
 import com.example.dropy.ui.screens.water.waterHome.WaterUiState
 import com.example.dropy.ui.screens.waterOrderDetails.WaterOrderDetailsViewModel
@@ -96,6 +98,24 @@ class TankerBoreholeViewModel @Inject constructor(
             uiState.update {
                 it.copy(recurring = state)
             }
+        }
+    }
+
+    fun changeDialogState(deliveryTypeViewModel: DeliveryTypeViewModel, context: Context){
+        if (uiState.value.selectedAddress != null &&  uiState.value.volume != ""){
+            val rem = mutableStateOf(0)
+            val state = mutableStateOf(false)
+
+
+            if (uiState.value.volume.toInt() <= 5000){
+                val rem = uiState.value.volume.toInt() % 5000
+            }else{
+
+            }
+            deliveryTypeViewModel.changeDialogState(true)
+
+        }else{
+            Toast.makeText(context, "Fill all required fields", Toast.LENGTH_SHORT).show()
         }
     }
 

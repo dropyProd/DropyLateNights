@@ -21,6 +21,7 @@ import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrderReq
 import com.example.dropy.network.models.modifyApprovalRequestRes.ModifyApprovalRequestRes
+import com.example.dropy.network.models.modifyTruck.ModifyTruckRes
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
@@ -188,7 +189,7 @@ interface WaterRepository {
         shop_cover_photo: Uri?,
         image: Uri?,
         context: Context
-    ): Flow<Resource<AddWaterTruckRes?>>
+    ): Flow<Resource<ModifyTruckRes?>>
 
 
     fun getWaterpoints(token: String): Flow<Resource<GetWaterPointsRes?>>

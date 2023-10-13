@@ -32,7 +32,7 @@ fun WaterOrderPay(
             WaterOrderPayContent(
                 payClicked = {
                     checkoutViewModel.setDeliveryPrice((waterOrderDetailsUiState.tenTrucks.size * 4000) + (waterOrderDetailsUiState.fiveTrucks.size * 2000))
-                    waterOrderPayViewModel.navigateAllocatingTruck()
+                    waterOrderPayViewModel.navigateWaterThankYou()
                 },
                 tankerBoreholeUiState = tankerBoreholeUiState,
                 waterOrderDetailsUiState = waterOrderDetailsUiState

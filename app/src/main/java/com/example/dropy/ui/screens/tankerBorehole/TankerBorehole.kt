@@ -134,7 +134,7 @@ fun TankerBorehole(
         AppScaffold(
             content = {
                 TankerBoreholeContent(
-                    continueClicked = { deliveryTypeViewModel.changeDialogState(true) },
+                    continueClicked = { tankerBoreholeViewModel.changeDialogState(deliveryTypeViewModel, context = context) },
                     tankerBoreholeUiState = tankerBoreholeUiState,
                     onVolumeChanged = tankerBoreholeViewModel::onVolumeChange,
                     onLocationChanged = onLocationChanged,

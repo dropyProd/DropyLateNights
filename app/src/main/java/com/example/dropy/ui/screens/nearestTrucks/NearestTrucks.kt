@@ -32,6 +32,10 @@ fun NearestTrucks(
     val cartUiState = cartPageViewModel.cartPageUiState.collectAsState()
 
 
+    LaunchedEffect(key1 = true, block = {
+        nearestTrucksViewmodel.getTruckDrivers()
+    })
+
 
 
     AppScaffold(

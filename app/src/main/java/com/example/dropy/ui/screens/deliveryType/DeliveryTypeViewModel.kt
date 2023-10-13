@@ -48,6 +48,7 @@ class DeliveryTypeViewModel @Inject constructor(
     }
 
     fun changeDialogState(state: Boolean){
+
         uiState.update {
             it.copy(
                 showDialog = state

@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,6 +32,7 @@ import com.example.dropy.ui.components.commons.LoadImage
 import com.example.dropy.ui.components.commons.maps.GoogleMapWrapper
 import com.example.dropy.ui.components.commons.maps.MapComponent
 import com.example.dropy.ui.components.commons.maps.selectlocation.GoogleMapSelectLocation
+import com.example.dropy.ui.screens.allocateTruck.AllocatingTruckUiState
 import com.google.android.gms.maps.model.LatLng
 
 @Composable
@@ -86,7 +88,7 @@ fun NearestTruckContent(
 
             LazyRow(content = {
                 itemsIndexed(tankerBoreholeUiState.createIndividualWaterOrderRes?.assigned_trucks!!) { index, item ->
-                    truckItem(assignedTruck = item, navigate = truckClicked)
+                    truckItem(assignedTruck = item, navigate = truckClicked, nearestTrucksUiState = nearestTrucksUiState)
                 }
             })
 
@@ -94,10 +96,29 @@ fun NearestTruckContent(
     }
 }
 
+fun getDriverName(nearestTrucksUiState: NearestTrucksUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    nearestTrucksUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = it.driver.first_name + " " + it.driver.last_name
+    }
+    return text.value
+}
+
+fun getDriverLogo(nearestTrucksUiState: NearestTrucksUiState, truckId: String): String {
+    val text = mutableStateOf("")
+    nearestTrucksUiState.truckDriverList.forEach {
+        if (it.truck.id.equals(truckId))
+            text.value = ""
+    }
+    return text.value
+}
+
 
 @Composable
 fun truckItem(
     assignedTruck: com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck,
+    nearestTrucksUiState: NearestTrucksUiState,
     navigate: (com.example.dropy.network.models.createIndividualWaterOrder.AssignedTruck) -> Unit
 ) {
     Box {
@@ -128,7 +149,7 @@ fun truckItem(
 
             Column() {
                 Text(
-                    text = "TIMOTHY KAMAU",
+                    text = getDriverName(nearestTrucksUiState, assignedTruck.id),
                     fontSize = 10.sp,
 //                        fontWeight = FontWeight.ExtraBold,
                     fontFamily = FontFamily(

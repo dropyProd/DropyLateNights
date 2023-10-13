@@ -9,6 +9,7 @@ import com.example.dropy.network.models.addWaterTruckRes.AddWaterTruckRes
 import com.example.dropy.network.models.createShop.createShopReq
 import com.example.dropy.network.models.getWaterPoints.GetWaterPointsRes
 import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
+import com.example.dropy.network.models.modifyTruck.ModifyTruckRes
 import com.example.dropy.network.models.shops.ShopsResponse
 import com.example.dropy.network.repositories.shop.front.ShopFrontendRepository
 import com.example.dropy.network.repositories.waterpoint.WaterRepository
@@ -38,7 +39,7 @@ class ModifyTruckDetailsUseCase @Inject constructor(
         shop_cover_photo: Uri?,
         image: Uri?,
         context: Context
-    ): Flow<Resource<AddWaterTruckRes?>> {
+    ): Flow<Resource<ModifyTruckRes?>> {
         return waterRepository.modifyWaterTruck(
             token = token,
             truckId = truckId,

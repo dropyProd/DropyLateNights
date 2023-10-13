@@ -32,6 +32,7 @@ import com.example.dropy.ui.components.commons.maps.autocopletepredictions.Googl
 import com.example.dropy.ui.components.commons.maps.selectlocation.GoogleMapSelectLocation
 import com.example.dropy.ui.components.commons.maps.selectlocation.SelectLocationViewModel
 import com.example.dropy.ui.components.textfield.sample.AutoCompleteObjectSample
+import com.example.dropy.ui.screens.myTruckEditDetails.MyTruckEditDetailsViewModel
 import com.example.dropy.ui.screens.shops.backside.addshop.AddShopViewModel
 import com.example.dropy.ui.theme.DropyYellow
 import com.example.dropy.ui.theme.LightBlue
@@ -53,10 +54,12 @@ fun AddWatertruckLocationContent(
     onTextChange: (String) -> Unit,
     suggestedLocales: List<com.example.dropy.ui.components.commons.AddressDataClass>,
     addWaterTruckViewmodel: AddWaterTruckViewmodel,
-    openSearchPlaces: () -> Unit
+    openSearchPlaces: () -> Unit,
+    myTruckEditDetailsViewModel: MyTruckEditDetailsViewModel
 ) {
-    val uiState = selectLocationViewModel.selectLocationUiState.collectAsState()
+//    val uiState = selectLocationViewModel.selectLocationUiState.collectAsState()
     val locationuiState by addWaterTruckViewmodel.addWaterTruckLocationUiState.collectAsState()
+    val myTruckEditDetailsUiState by myTruckEditDetailsViewModel.myTruckEditDetailsUiState.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -75,11 +78,28 @@ fun AddWatertruckLocationContent(
                   }*/
                 MapComponent {
                     GoogleMapWrapper(
-                        cameraPosition = locationuiState.shopAddress?.latitude?.let {
-                            locationuiState.shopAddress?.longitude?.let { it1 ->
+                        cameraPosition = if (locationuiState.state.equals("EditTruck")) {
+                            if (locationuiState.shopAddress != null) {
+                                locationuiState.shopAddress?.latitude?.let {
+                                    locationuiState.shopAddress?.longitude?.let { it1 ->
+                                        LatLng(
+                                            it, it1
+                                        )
+                                    }
+                                }
+                            } else {
                                 LatLng(
-                                    it, it1
+                                    myTruckEditDetailsUiState.selectedTruck?.registered_latitude.toString().toDouble(),
+                                    myTruckEditDetailsUiState.selectedTruck?.registered_longitude.toString().toDouble()
                                 )
+                            }
+                        }else {
+                            locationuiState.shopAddress?.latitude?.let {
+                                locationuiState.shopAddress?.longitude?.let { it1 ->
+                                    LatLng(
+                                        it, it1
+                                    )
+                                }
                             }
                         }
                     ) { mapUiSettings, mapProperties, cameraPositionState ->
@@ -89,11 +109,28 @@ fun AddWatertruckLocationContent(
                             mapUiSettings = mapUiSettings,
                             mapProperties = mapProperties,
                             locationSelected = { selectLocationViewModel.setUserLatLong(it) },
-                            markerPosition = locationuiState.shopAddress?.latitude?.let {
-                                locationuiState.shopAddress?.longitude?.let { it1 ->
+                            markerPosition = if (locationuiState.state.equals("EditTruck")) {
+                                if (locationuiState.shopAddress != null) {
+                                    locationuiState.shopAddress?.latitude?.let {
+                                        locationuiState.shopAddress?.longitude?.let { it1 ->
+                                            LatLng(
+                                                it, it1
+                                            )
+                                        }
+                                    }
+                                } else {
                                     LatLng(
-                                        it, it1
+                                        myTruckEditDetailsUiState.selectedTruck?.registered_latitude.toString().toDouble(),
+                                        myTruckEditDetailsUiState.selectedTruck?.registered_longitude.toString().toDouble()
                                     )
+                                }
+                            }else {
+                                locationuiState.shopAddress?.latitude?.let {
+                                    locationuiState.shopAddress?.longitude?.let { it1 ->
+                                        LatLng(
+                                            it, it1
+                                        )
+                                    }
                                 }
                             },
                             markerInfoWindowClicked = { selectLocationViewModel.deleteMarker() }
@@ -183,22 +220,22 @@ fun AddWatertruckLocationContent(
                                 buttonText = "confirm",
                                 backgroundColor = Color.Black,
                                 action = {
-                                   // if (locationuiState.shopAddress?.placeName?.isEmpty() == true) {
-                                        /*       if (uiState.value.address!!.userLatitude == null || uiState.value.address!!.userLongitude == null ){
-                                                   Toast
-                                                       .makeText(context,"Please long click on the map to mark your exact location",Toast.LENGTH_LONG)
-                                                       .show()
-                                               }*/
-                                        onConfirmClicked(locationuiState.shopAddress?.placeName.toString())
-                                  /*  } else {
-                                        Toast
-                                            .makeText(
-                                                context,
-                                                "Please select a valid location",
-                                                Toast.LENGTH_LONG
-                                            )
-                                            .show()
-                                    }*/
+                                    // if (locationuiState.shopAddress?.placeName?.isEmpty() == true) {
+                                    /*       if (uiState.value.address!!.userLatitude == null || uiState.value.address!!.userLongitude == null ){
+                                               Toast
+                                                   .makeText(context,"Please long click on the map to mark your exact location",Toast.LENGTH_LONG)
+                                                   .show()
+                                           }*/
+                                    onConfirmClicked(locationuiState.shopAddress?.placeName.toString())
+                                    /*  } else {
+                                          Toast
+                                              .makeText(
+                                                  context,
+                                                  "Please select a valid location",
+                                                  Toast.LENGTH_LONG
+                                              )
+                                              .show()
+                                      }*/
                                 },
 
                                 )
@@ -257,7 +294,8 @@ fun SelectLocationPreview() {
             suggestedLocales = listOf(),
             selectLocationViewModel = SelectLocationViewModel(),
             openSearchPlaces = {},
-            addWaterTruckViewmodel = hiltViewModel()
+            addWaterTruckViewmodel = hiltViewModel(),
+            myTruckEditDetailsViewModel = hiltViewModel()
         )
     }
 }

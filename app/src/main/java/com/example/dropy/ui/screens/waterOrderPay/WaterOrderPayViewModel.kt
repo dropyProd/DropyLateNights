@@ -37,4 +37,8 @@ class WaterOrderPayViewModel @Inject constructor(
         appViewModel?.navigate(ShopsFrontDestination.ORDER_PAYMENT)
     }
 
+    fun navigateWaterThankYou(){
+        appViewModel?.navigate(AppDestinations.WATER_TRANSACTION_COMPLETE)
+    }
+
 }

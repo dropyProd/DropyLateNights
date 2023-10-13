@@ -48,6 +48,7 @@ data class MyTruckEditDetailsUiState(
     val shopLocation: AddressDataClass? = null,
     val selectedTruckId: String = "",
     val model: String = "",
+    val selectedTruck: GetTrucksResItem? = null,
     val year: String = "",
     val pageLoading: Boolean = false,
     val actionLoading: Boolean = false,
@@ -172,6 +173,7 @@ class MyTruckEditDetailsViewModel @Inject constructor(
             )
         }
     }
+
     fun onLicensePlateChange(text: String) {
         uiState.update {
             it.copy(
@@ -179,6 +181,7 @@ class MyTruckEditDetailsViewModel @Inject constructor(
             )
         }
     }
+
     fun addAddress(addressDataClass: AddressDataClass) {
         uiState.update {
             it.copy(
@@ -186,17 +189,28 @@ class MyTruckEditDetailsViewModel @Inject constructor(
             )
         }
     }
+
     fun setSelectedTruckId(getTrucksResItem: GetTrucksResItem) {
         uiState.update {
-            it.copy(selectedTruckId = getTrucksResItem.id, active = getTrucksResItem.is_active, selectedTruckCapacity = if (getTrucksResItem.capacity.equals(5000)) "5,000LT" else "10,000LT", logo = getTrucksResItem.image,licensePlate = getTrucksResItem.license_plate, model = getTrucksResItem.model, year = getTrucksResItem.year.toString())
+            it.copy(
+                selectedTruckId = getTrucksResItem.id,
+                active = getTrucksResItem.is_active,
+                selectedTruckCapacity = if (getTrucksResItem.capacity.equals(5000)) "5,000LT" else "10,000LT",
+                logo = getTrucksResItem.image,
+                licensePlate = getTrucksResItem.license_plate,
+                model = getTrucksResItem.model,
+                year = getTrucksResItem.year.toString(),
+                selectedTruck = getTrucksResItem
+            )
         }
     }
 
-    fun getTruckDrivers(){
+    fun getTruckDrivers() {
         uiState.update {
             it.copy(truckDriverList = app.waterTruckDrivers)
         }
     }
+
     fun navigateLocation(addWaterTruckViewmodel: AddWaterTruckViewmodel) {
         addWaterTruckViewmodel.onRouteeChanged("EditTruck")
         appViewModel!!.navigate(AppDestinations.WATERTRUCK_LOCALE)
@@ -204,16 +218,21 @@ class MyTruckEditDetailsViewModel @Inject constructor(
 
     fun modifyTruck(context: Context) {
         viewModelScope.launch {
-
+//            Toast.makeText(context, "reacheddddd", Toast.LENGTH_SHORT).show()
             modifyTruckDetailsUseCase(
                 token = app.token.value,
                 capacity = if (uiState.value.selectedTruckCapacity.equals("5,000LT")) 5000 else 10000,
                 context = context,
-                current_latitude = uiState.value.shopLocation?.latitude.toString(),
-                current_longitude = uiState.value.shopLocation?.longitude.toString(),
-                registered_latitude = uiState.value.shopLocation?.latitude.toString(),
-                registered_longitude = uiState.value.shopLocation?.longitude.toString(),
-                current_location = uiState.value.shopLocation?.placeName.toString(),
+                current_latitude = if (uiState.value.shopLocation == null) uiState.value.selectedTruck?.current_latitude.toString()
+                else uiState.value.shopLocation?.latitude.toString(),
+                current_longitude = if (uiState.value.shopLocation == null) uiState.value.selectedTruck?.current_longitude.toString()
+                        else uiState.value.shopLocation?.longitude.toString(),
+                registered_latitude =if (uiState.value.shopLocation == null) uiState.value.selectedTruck?.registered_latitude.toString()
+                else uiState.value.shopLocation?.latitude.toString(),
+                registered_longitude =if (uiState.value.shopLocation == null) uiState.value.selectedTruck?.registered_longitude.toString()
+                else uiState.value.shopLocation?.longitude.toString(),
+                current_location =if (uiState.value.shopLocation == null) uiState.value.selectedTruck?.current_location.toString()
+                else uiState.value.shopLocation?.placeName.toString(),
                 image = uiState.value.shopCoverPhotoUri,
                 is_active = true,
                 is_available = true,
@@ -242,7 +261,6 @@ class MyTruckEditDetailsViewModel @Inject constructor(
                                 //                                _addShopImagesUiState.update { it.copy(pageLoading = false) }
                                 //                                moveAddProductCategory()
                                 // }
-
                                 Toast.makeText(
                                     context,
                                     result.data.license_plate + "updated success",
@@ -255,6 +273,9 @@ class MyTruckEditDetailsViewModel @Inject constructor(
                                         pageLoading = false
                                     )
                                 }
+                                appViewModel!!.getWaterTrucks()
+                                appViewModel!!.navigate(AppDestinations.WATER_VENDOR_DASHBOARD)
+
 //                                    appViewModel!!.navigate(AppDestinations.WATER_ORDER_SINGLE)
 
                             }

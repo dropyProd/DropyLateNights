@@ -26,6 +26,7 @@ import com.example.dropy.network.models.getWaterTrucks.GetTrucksRes
 import com.example.dropy.network.models.getWaterVendors.GetWaterVendorsRes
 import com.example.dropy.network.models.individualWaterOrder.IndividualWaterOrderReq
 import com.example.dropy.network.models.modifyApprovalRequestRes.ModifyApprovalRequestRes
+import com.example.dropy.network.models.modifyTruck.ModifyTruckRes
 import com.example.dropy.network.models.registerDeviceReq.RegisterDeviceReq
 import com.example.dropy.network.models.registerDeviceRes.RegisterDeviceRes
 import com.example.dropy.network.models.topUp.TopUpReq
@@ -135,14 +136,7 @@ class WaterRepositoryImpl(
         }
     }
 
-    override suspend fun modifyTruckDetails(
-        token: String,
-        truckId: String
-    ): Flow<Resource<AddWaterTruckRes?>> {
-        return flow {
-            waterService.modifyWaterTruck(token = token, truckId = truckId)
-        }
-    }
+
 
     override suspend fun saveLoginInfo(
         phone_number: String,
@@ -208,6 +202,7 @@ class WaterRepositoryImpl(
         }
     }
 //    private val BASE_URL = "https://api.dropy.ke/"
+
 
     override suspend fun addWaterpoint(
         token: String,
@@ -580,7 +575,14 @@ class WaterRepositoryImpl(
 
         }
     }
-
+    override suspend fun modifyTruckDetails(
+        token: String,
+        truckId: String
+    ): Flow<Resource<AddWaterTruckRes?>> {
+        return flow {
+            waterService.modifyWaterTruck(token = token, truckId = truckId)
+        }
+    }
     override suspend fun addWaterTruck(
         token: String,
         vendor: String,
@@ -734,7 +736,7 @@ class WaterRepositoryImpl(
         shop_cover_photo: Uri?,
         image: Uri?,
         context: Context
-    ): Flow<Resource<AddWaterTruckRes?>> {
+    ): Flow<Resource<ModifyTruckRes?>> {
         val inputStream = image?.let { context.contentResolver.openInputStream(it) }
         val imageByteArray = inputStream?.readBytes()
         val inputStreamCover = shop_cover_photo?.let { context.contentResolver.openInputStream(it) }
@@ -768,7 +770,7 @@ class WaterRepositoryImpl(
                     append("shop_place_id", "4")
                     append("shop_place_name", "009090")
                 }
-            )*//*.post("${BASE_URL}shop/")*/.post("${BASE_URL}water-trucks/{$truckId}/") {
+            )*//*.post("${BASE_URL}shop/")*/.put("${BASE_URL}water/water-trucks/$truckId/") {
 
                             headers {
                                 //  append(HttpHeaders.Accept, "text/html")
@@ -823,11 +825,11 @@ class WaterRepositoryImpl(
 
                         }
 
-                    if (response.status == HttpStatusCode./*OK*/Created) {
+                    if (response.status == HttpStatusCode.OK) {
                         val raw = response.readText()
                         val result = Gson().fromJson(
                             raw,
-                            AddWaterTruckRes::class.java
+                            ModifyTruckRes::class.java
                         )
                         Log.d("eeerre", "onStart: $raw")
                         //  Toast.makeText(context, "Shop created success", Toast.LENGTH_SHORT).show()
@@ -839,6 +841,78 @@ class WaterRepositoryImpl(
                            Log.d("TAG", "addShop: error")
                        }*/
 
+                }else{
+
+                    /*            try {*/
+                    val response: HttpResponse =
+                        client/*.submitForm(
+                url = "${BASE_URL}shops/addshop",
+                formParameters = Parameters.build {
+                    append("firebase_uid", firebase_uid)
+               //     append("shop_cover_photo", imageByteArrayCover, Headers.build {
+                        append(HttpHeaders.ContentType, "image/png")
+                        append(HttpHeaders.ContentDisposition, "filename=\"ktor_logo.png\"")
+                    })
+                    append("shop_logo", imageByteArray, Headers.build {
+                        append(HttpHeaders.ContentType, "image/png")
+                        append(HttpHeaders.ContentDisposition, "filename=\"ktor_logo.png\"")
+                    })//
+                    append("shop_category", shopCategory)
+                    append("shop_name", shopname)
+                    append("shop_lat", shopLocation.toString())
+                    append("shop_long", shopLocation.toString())
+                    append("shop_place_id", "4")
+                    append("shop_place_name", "009090")
+                }
+            )*//*.post("${BASE_URL}shop/")*/.put("${BASE_URL}water/water-trucks/$truckId/") {
+
+                            headers {
+                                //  append(HttpHeaders.Accept, "text/html")
+                                append(HttpHeaders.Authorization, "Token " + token)
+                                // append(HttpHeaders.UserAgent, "ktor client")
+                            }
+                            val totalbytes: MutableState<Long?> = mutableStateOf(null)
+                            onUpload { bytesSentTotal, contentLength ->
+                                println("Sent $bytesSentTotal bytes from $contentLength")
+//                        totalbytes.value = contentLength
+//
+//                      if (totalbytes.value!! > 550000){
+//                          Toast.makeText(context, "choose a smaller image", Toast.LENGTH_SHORT).show()
+//                      }
+                            }
+                            body = MultiPartFormDataContent(
+                                formData {
+                                    append("license_plate", license_plate.toString())
+                                    append("capacity", capacity.toString())
+                                    //   append("shop_location", shopLocation.placeName)
+                                    append("current_location", current_location)
+                                    append("is_active", is_active.toString())
+                                    append("is_available", is_available.toString())
+                                    append("name", name)
+                                    append("model", model)
+                                    append("year", year.toString())
+                                    append("registered_latitude", registered_latitude)
+                                    append("registered_longitude", registered_longitude)
+                                    append("current_latitude", current_latitude)
+                                    append("current_longitude", current_longitude)
+                                    append("vendor ", vendor)
+                                },
+                                //  boundary = "WebAppBoundary"
+                            )
+
+
+                        }
+
+                    if (response.status == HttpStatusCode.OK) {
+                        val raw = response.readText()
+                        val result = Gson().fromJson(
+                            raw,
+                            ModifyTruckRes::class.java
+                        )
+                        Log.d("eeerre", "onStart: $raw")
+                        //  Toast.makeText(context, "Shop created success", Toast.LENGTH_SHORT).show()
+                        emit(Resource.Success(result/*.toDomain()*/))
+                    }
                 }
 
             } catch (e: IOException) {

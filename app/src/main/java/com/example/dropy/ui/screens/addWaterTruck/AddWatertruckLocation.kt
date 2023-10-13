@@ -50,8 +50,8 @@ fun AddWatertruckLocation(
                        id.value?.let { fetchLocaleDetails(it) }*/
                     if (uiState.state.equals("EditTruck"))
                         myTruckEditDetailsViewModel.modifyTruck(context = context)
-                        else
-                    addWaterTruckViewmodel.onGoToShopUploads()
+                    else
+                        addWaterTruckViewmodel.onGoToShopUploads()
                 },
                 start = start,
                 onTextChange = {
@@ -76,7 +76,8 @@ fun AddWatertruckLocation(
                 suggestedLocales = suggestedLocales,
                 selectLocationViewModel = selectLocationViewModel,
                 openSearchPlaces = openSearchPlaces,
-                addWaterTruckViewmodel = addWaterTruckViewmodel
+                addWaterTruckViewmodel = addWaterTruckViewmodel,
+                myTruckEditDetailsViewModel = myTruckEditDetailsViewModel
             )
         },
         pageLoading = uiState.pageLoading,
@@ -93,5 +94,5 @@ fun AddWatertruckLocation(
         activeProfile = appUiState.value.activeProfile,
         cartsize = cartUiState.value.orderList.size,
         showLogo = false
-        )
+    )
 }
